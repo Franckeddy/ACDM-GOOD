@@ -1,0 +1,117 @@
+@import "lib/_reset";
+@import "lib/_normalize";
+
+// Grid system
+@import "../../node_modules/susy/sass/susy";
+@import "../../node_modules/susy/sass/plugins/svg-grid";
+
+$susy: (
+    "columns": susy-repeat(12),
+    "gutters": 30px/68px,
+    "spread": "narrow",
+    "container-spread": "narrow"
+);
+
+$susy-tablet: (
+    "columns": susy-repeat(6),
+    "gutters": 29px/96px
+);
+
+$susy-mobile: (
+    "columns": susy-repeat(2),
+    "gutters": 29px/158px
+);
+
+// Config
+@import "config/_variables";
+@import "config/_utils";
+@import "config/_fonts";
+
+// Global style
+html {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-box-sizing: inherit;
+            box-sizing: inherit;
+}
+
+body {
+    font-size: $baseFontSizePx;
+}
+
+#content {
+    max-width: 100vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-wrapper {
+    max-width: $gridSize;
+    margin: 0 auto;
+
+    @include desktop-large {
+        max-width: $gridSizeLarge;
+    }
+
+    @include laptop {
+        margin: 0 30px;
+    }
+
+    @include mobile {
+        margin: 0 15px;
+    }
+
+    @include tablet {
+        margin: 0 24px;
+    }
+}
+
+.susy-grid {
+    display: none;
+    background: susy-svg-grid() no-repeat scroll;
+
+    @include laptop {
+        margin: 0 30px;
+    }
+
+    @include mobile {
+        margin: 0 15px;
+        @include susy-use($susy-mobile) {
+            background: susy-svg-grid() no-repeat scroll;
+        }
+    }
+
+    @include tablet {
+        margin: 0 24px;
+        @include susy-use($susy-tablet) {
+            background: susy-svg-grid() no-repeat scroll;
+        }
+    }
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+}
+
+.mobile-only {
+    display: none;
+    @include mobile {
+        display: block;
+    }
+}
+
+// Modules
+@import "modules/_header";
+@import "modules/_footer";
+@import "modules/_cta";

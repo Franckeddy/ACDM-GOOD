@@ -1,0 +1,43 @@
+{
+  "name": "eltigre",
+  "version": "1.0.0",
+  "description": "El Tigre - Software Solutions",
+  "author": "Jullian LELEUX",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "WordPress",
+    "Theme"
+  ],
+  "homepage": "https://el-tigre.net/",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:el-tigre-dev/boilerplate-wp-eltigre.git"
+  },
+  "scripts": {
+    "start": "brunch watch --server",
+    "build": "brunch build --production"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.6",
+    "babel-brunch": "^7.0.1",
+    "browser-sync-brunch": "0.0.9",
+    "brunch": "^3.0.0",
+    "clean-css-brunch": "^3.0.0",
+    "css-brunch": "^2.10.0",
+    "dotenv": "^8.2.0",
+    "javascript-brunch": "^2.10.0",
+    "node-sass": "^4.14.0",
+    "sass-brunch": "file:assets/js/vendor/sass-brunch",
+    "uglify-js-brunch": "^2.10.0",
+    "wp-pot-cli": "^1.2.4"
+  },
+  "dependencies": {
+    "@barba/core": "^2.9.7",
+    "gsap": "^2.1.3",
+    "object-fit-images": "^3.2.4",
+    "scrollmagic": "^2.0.7",
+    "stickyfilljs": "^2.1.0",
+    "susy": "^3.0.5"
+  }
+}

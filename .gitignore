@@ -1,0 +1,29 @@
+# WordPress
+.htaccess
+
+# Configuration file
+.env
+
+# WordPress debugging files & logs
+*.log
+debug.log
+log.txt
+logs/
+
+# Composer / npm
+/vendor
+/wp
+composer.lock
+composer.phar
+package-lock.json
+.vscode*
+node_modules/
+
+# ignore everything in the "wp-content" directory, except:
+# "themes" directory
+content/*
+!content/themes/
+!content/uploads/.gitkeep
+
+# Others
+.DS_Store

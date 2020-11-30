@@ -1,0 +1,11 @@
+<div class="header__content">
+    <div class="header__logo-wrapper">
+        <a href="{{ site.url }}">
+            {{ logo }}
+        </a>
+    </div>
+
+    <nav class="header__nav">
+        {% include "partial/menu.twig" with {'items': menu.get_items} %}
+    </nav>
+</div>
