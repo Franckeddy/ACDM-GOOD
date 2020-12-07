@@ -10,6 +10,7 @@
 
 .presentation__logo {
     max-width: 625px;
+    margin: auto;
 }
 .logo__title-container {
     display: flex;
@@ -17,5 +18,9 @@
 }
 
 .logo__logo-text {
-    letter-spacing: 5px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 40px;
 }

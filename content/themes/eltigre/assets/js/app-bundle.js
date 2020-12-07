@@ -44,7 +44,8 @@
   };
 
   var expandAlias = function(name) {
-    return aliases[name] ? expandAlias(aliases[name]) : name;
+    var val = aliases[name];
+    return (val && name !== val) ? expandAlias(val) : name;
   };
 
   var _resolve = function(name, dep) {
@@ -373,5 +374,5 @@ exports["default"] = ElTigreBarba;
   
 });})();require('___globals___');
 
-
+require('dev/js/App.js');
 //# sourceMappingURL=app-bundle.js.map
