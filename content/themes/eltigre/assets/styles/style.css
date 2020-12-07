@@ -506,6 +506,14 @@ template {
   display: none;
 }
 
+@font-face {
+  font-family: "Chaparral Pro";
+  src: url("../../../assets/fonts/ChaparralPro-Regular.eot");
+  src: url("../../../assets/fonts/ChaparralPro-Regular.eot?#iefix") format("embedded-opentype"), url("../../../assets/fonts/ChaparralPro-Regular.woff2") format("woff2"), url("../../../assets/fonts/ChaparralPro-Regular.woff") format("woff"), url("../../../assets/fonts/ChaparralPro-Regular.ttf") format("truetype"), url("../../../assets/fonts/ChaparralPro-Regular.svg#ChaparralPro-Regular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -532,7 +540,7 @@ body {
 }
 
 .main-wrapper {
-  max-width: 1280px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 @media only screen and (min-width: 1600px) {
@@ -595,6 +603,9 @@ a {
   }
 }
 
+#site-header {
+  display: none;
+}
 #site-header .header-content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -619,12 +630,8 @@ a {
 
 .presentation {
   height: 100vh;
-}
-
-.presentation__logo,
-.presentation__address,
-.presentation__arrow {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .presentation__logo {
@@ -638,11 +645,53 @@ a {
 }
 
 .logo__logo-text {
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 16px;
   margin-top: 40px;
+  color: #4d4d4d;
+}
+
+.presentation__address {
+  margin-top: 22vh;
+  font-family: "Chaparral Pro";
+  font-style: italic;
+  letter-spacing: 0.6px;
+  color: #4d4d4d;
+  font-size: 20px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.presentation__arrow {
+  text-align: center;
+  transform: rotate(-90deg);
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  font-size: 3em;
+  font-family: "Chaparral Pro";
+  cursor: pointer;
+}
+
+.banner {
+  position: relative;
+}
+
+.banner__image {
+  width: 100%;
+  position: aboslute;
+  top: 100px;
+  left: 0;
+}
+
+.banner__title {
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 30px;
+  margin-top: 40px;
+  color: #4d4d4d;
 }
 
 

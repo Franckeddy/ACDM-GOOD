@@ -1,11 +1,7 @@
 .presentation {
     height: 100vh;
-}
-
-.presentation__logo,
-.presentation__address,
-.presentation__arrow {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 .presentation__logo {
@@ -18,9 +14,31 @@
 }
 
 .logo__logo-text {
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 16px;
     margin-top: 40px;
+    color: #4d4d4d;
+}
+
+.presentation__address {
+    margin-top: 22vh;
+    font-family: "Chaparral Pro";
+    font-style: italic;
+    letter-spacing: 0.6px;
+    color: #4d4d4d;
+    font-size: 20px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.presentation__arrow {
+    text-align: center;
+    transform: rotate(-90deg);
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    font-size: 3em;
+    font-family: "Chaparral Pro";
+    cursor: pointer;
 }
