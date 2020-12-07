@@ -9,17 +9,17 @@ $susy: (
     "columns": susy-repeat(12),
     "gutters": 30px/68px,
     "spread": "narrow",
-    "container-spread": "narrow"
+    "container-spread": "narrow",
 );
 
 $susy-tablet: (
     "columns": susy-repeat(6),
-    "gutters": 29px/96px
+    "gutters": 29px/96px,
 );
 
 $susy-mobile: (
     "columns": susy-repeat(2),
-    "gutters": 29px/158px
+    "gutters": 29px/158px,
 );
 
 // Config
@@ -27,10 +27,12 @@ $susy-mobile: (
 @import "config/_utils";
 @import "config/_fonts";
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
 // Global style
 html {
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 *,
@@ -39,11 +41,12 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-box-sizing: inherit;
-            box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body {
     font-size: $baseFontSizePx;
+    font-family: "Montserrat", sans-serif;
 }
 
 #content {

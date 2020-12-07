@@ -1,0 +1,21 @@
+.presentation {
+    height: 100vh;
+}
+
+.presentation__logo,
+.presentation__address,
+.presentation__arrow {
+    display: block;
+}
+
+.presentation__logo {
+    max-width: 625px;
+}
+.logo__title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo__logo-text {
+    letter-spacing: 5px;
+}
