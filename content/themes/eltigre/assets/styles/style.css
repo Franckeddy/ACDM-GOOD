@@ -531,6 +531,7 @@ html {
 body {
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
+  color: #4D4D4D;
 }
 
 #content {
@@ -539,29 +540,10 @@ body {
   overflow: hidden;
 }
 
-.main-wrapper {
+.container {
   max-width: 1100px;
   margin: 0 auto;
-}
-@media only screen and (min-width: 1600px) {
-  .main-wrapper {
-    max-width: 1600px;
-  }
-}
-@media only screen and (min-width: 1020px) and (max-width: 1300px) {
-  .main-wrapper {
-    margin: 0 30px;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .main-wrapper {
-    margin: 0 15px;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 1020px) {
-  .main-wrapper {
-    margin: 0 24px;
-  }
+  padding: 0 16px;
 }
 
 .susy-grid {
@@ -679,10 +661,7 @@ a {
 }
 
 .banner__image {
-  width: 100%;
-  position: aboslute;
-  top: 100px;
-  left: 0;
+  background-size: cover;
 }
 
 .banner__title {
@@ -690,8 +669,26 @@ a {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 30px;
-  margin-top: 40px;
+  margin: 25px 0;
   color: #4d4d4d;
+}
+
+.banner__subtitle {
+  font-family: "Chaparral Pro";
+  font-style: italic;
+  font-weight: normal;
+  font-size: 30px;
+  letter-spacing: 0.3px;
+  line-height: 42px;
+  margin: 54px 0 20px;
+}
+
+.banner__description {
+  font-family: "Chaparral Pro";
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+  line-height: 28px;
 }
 
 

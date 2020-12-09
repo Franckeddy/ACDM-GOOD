@@ -1,0 +1,32 @@
+
+<section id="{{ section.title|sanitize }}" class="texts-images-larges" style="background-color:{{ section.background }}">
+    <div class="images-larges-container layout-{{section.image_position}}" >
+        <!-- METTRE LE SWIPER  -->
+        <div class="texts-images-larges-container--image-part">
+
+            <div class="image--texts-images-larges" style="background-image: url({{ section.images.url }}); background-size:cover;">
+
+        </div>
+            <!-- <img class="image--texts-images-larges" src="{{ article.photo.url }}" alt="{{ article.photo.alt }}" title="{{ article.photo.alt }}"> -->
+        </div>
+        <div class="texts-images-larges-container" >
+            <div class="texts-images-larges-container--text-part">
+                {% if section.title is not empty %}
+                <div class="title--texts-images-larges title">
+                    {{ section.title}}
+                </div>
+                {% endif%}
+                {% if section.description is not empty %}
+                <div class="description--texts-images-larges description">
+                    {{ section.description }}              
+                </div>
+                {% endif %}
+                {% if section.more_text is not empty %}
+                <div class="more_text--texts-images-larges">
+                    {{ section.more_text }}           
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

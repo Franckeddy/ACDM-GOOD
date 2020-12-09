@@ -1,9 +1,30 @@
-<section class="banner main-wrapper">
-    <div class="banner__title">{{ section.title }}</div>
-    <img src="{{ section.banner.url }}" alt="{{ section.banner.title }}" style="" class="banner__image">
-    <div class="banner__subtitle">{{ section.subtitle }}</div>
-    <div class="banner__description">{{ section.description }}</div>
-    <div class="banner__cta-wrapper">
-        <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta">{{ section.link.title }}</a>
+<section class="banner">
+    <div class="container main-wrapper">
+        {% if section.title is not empty %}
+            <div class="banner__title">
+                {{ section.title }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="banner__image" style="background-image: url( {{section.banner.url}} );background-position: {{section.horizontal_layout}} {{section.vertical_layout}}; height: {{section.banner_height}}vh; "></div>
+    <!-- <img src="{{ section.banner.url }}" alt="{{ section.banner.title }}" style="" class="banner__image"> -->
+    <div class="container main-wrapper">
+        {% if section.subtitle is not empty %}
+            <div class="banner__subtitle">
+                {{ section.subtitle }}
+            </div>
+        {% endif %}
+        {% if section.description is not empty %}
+            <div class="banner__description">
+                {{ section.description }}
+            </div>
+        {% endif %}
+        {% if section.add_cta == true %}
+            <div class="banner__cta-wrapper">
+                <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta">
+                    {{ section.link.title }}
+                </a>
+            </div>
+        {% endif %}
     </div>
 </section>

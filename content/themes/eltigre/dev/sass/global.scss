@@ -47,6 +47,7 @@ html {
 body {
     font-size: $baseFontSizePx;
     font-family: "Montserrat", sans-serif;
+    color: $text;
 }
 
 #content {
@@ -55,25 +56,31 @@ body {
     overflow: hidden;
 }
 
-.main-wrapper {
+// .main-wrapper {
+//     max-width: $gridSize;
+//     margin: 0 auto;
+
+//     @include desktop-large {
+//         max-width: $gridSizeLarge;
+//     }
+
+//     @include laptop {
+//         margin: 0 30px;
+//     }
+
+//     @include mobile {
+//         margin: 0 15px;
+//     }
+
+//     @include tablet {
+//         margin: 0 24px;
+//     }
+// }
+
+.container{
     max-width: $gridSize;
-    margin: 0 auto;
-
-    @include desktop-large {
-        max-width: $gridSizeLarge;
-    }
-
-    @include laptop {
-        margin: 0 30px;
-    }
-
-    @include mobile {
-        margin: 0 15px;
-    }
-
-    @include tablet {
-        margin: 0 24px;
-    }
+    margin:0 auto;
+    padding: 0 16px;
 }
 
 .susy-grid {
@@ -122,3 +129,4 @@ a {
 // Flexibles
 @import "flexible/presentation";
 @import "flexible/banner";
+@import "flexible/content";
