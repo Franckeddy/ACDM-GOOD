@@ -56,30 +56,30 @@ body {
     overflow: hidden;
 }
 
-// .main-wrapper {
-//     max-width: $gridSize;
-//     margin: 0 auto;
-
-//     @include desktop-large {
-//         max-width: $gridSizeLarge;
-//     }
-
-//     @include laptop {
-//         margin: 0 30px;
-//     }
-
-//     @include mobile {
-//         margin: 0 15px;
-//     }
-
-//     @include tablet {
-//         margin: 0 24px;
-//     }
-// }
-
-.container{
+.main-wrapper {
     max-width: $gridSize;
-    margin:0 auto;
+    margin: 0 auto;
+
+    @include desktop-large {
+        max-width: $gridSizeLarge;
+    }
+
+    @include laptop {
+        margin: 0 30px;
+    }
+
+    @include mobile {
+        margin: 0 15px;
+    }
+
+    @include tablet {
+        margin: 0 24px;
+    }
+}
+
+.container {
+    max-width: $gridSize;
+    margin: 0 auto;
     padding: 0 16px;
 }
 

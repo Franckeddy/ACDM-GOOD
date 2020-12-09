@@ -540,6 +540,31 @@ body {
   overflow: hidden;
 }
 
+.main-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media only screen and (min-width: 1600px) {
+  .main-wrapper {
+    max-width: 1600px;
+  }
+}
+@media only screen and (min-width: 1020px) and (max-width: 1300px) {
+  .main-wrapper {
+    margin: 0 30px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .main-wrapper {
+    margin: 0 15px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1020px) {
+  .main-wrapper {
+    margin: 0 24px;
+  }
+}
+
 .container {
   max-width: 1100px;
   margin: 0 auto;
