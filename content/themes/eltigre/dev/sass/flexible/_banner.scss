@@ -15,10 +15,20 @@
     text-transform: uppercase;
     font-weight: 600;
     font-size: 30px;
-    margin: 25px 0 ;
+    margin: 25px auto;
     color: #4d4d4d;
-
-}
+    &:after{
+        content: '';
+        position: absolute;
+        height: 2px;
+        max-width: 32vw;
+        width: 100%;
+        background-color: $text;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}   
 .banner__subtitle{
     font-family: 'Chaparral Pro';
     font-style: italic;
@@ -27,6 +37,19 @@
     letter-spacing: 0.3px;
     line-height: 42px;
     margin: 54px 0 20px;
+    text-align: right;
+    position: relative;
+    &:before{
+        content: '';
+        position: absolute;
+        height: 2px;
+        max-width: 32vw;
+        width: 100%;
+        background-color: $text;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
 .banner__description{
     font-family: 'Chaparral Pro';

@@ -41,13 +41,17 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-box-sizing: inherit;
-    box-sizing: inherit;
+    box-sizing: border-box;
 }
 
 body {
     font-size: $baseFontSizePx;
     font-family: "Montserrat", sans-serif;
     color: $text;
+}
+
+.site-container{
+    margin-top: 220px;
 }
 
 #content {
@@ -59,9 +63,10 @@ body {
 .main-wrapper {
     max-width: $gridSize;
     margin: 0 auto;
+    position: relative;
 
     @include desktop-large {
-        max-width: $gridSizeLarge;
+        max-width: $gridSize;
     }
 
     @include laptop {
@@ -120,6 +125,14 @@ a {
         display: block;
     }
 }
+
+//TITRE
+// .title{
+//     font-size: 40px;
+//     letter-spacing: 6px;
+//     color: $gold;
+//     font-weight: 600;
+// }
 
 // Modules
 @import "modules/_header";

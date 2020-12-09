@@ -38,7 +38,7 @@ if ( class_exists( 'Timber' ) ) {
 		public function add_to_context( $context ) {
 			
 			// Menus
-			$context['menu']  = new Timber\Menu();
+			$context['menu_header']  = new Timber\Menu('menu-header');
 			
 			// Logo
 			$logo_ID 				= get_theme_mod( 'custom_logo' );
@@ -65,12 +65,12 @@ if ( class_exists( 'Timber' ) ) {
 
 			// Global site
 			$context['site']  = $this;
+			
 			return $context;
 		}
 	
 	
 		public function register_post_types() {
-			/** This is where you can register custom post types. */
 
 			// CPT : Les montres 
 			register_post_type( 'watches',
@@ -94,6 +94,10 @@ if ( class_exists( 'Timber' ) ) {
 					'has_archive'	   		=> true
 				)
 			);
+
+			
+
+
 		}
 	
 	

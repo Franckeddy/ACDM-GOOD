@@ -1,0 +1,32 @@
+.layout-left{
+    flex-flow: row wrap;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.layout-right{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-flow: row-reverse wrap;
+}
+
+
+.texts-images-larges-container--image-part{
+    max-width: 50%;
+    width: 100%;
+}
+
+.texts-images-larges-container{
+    display: flex;
+    flex-flow: row;
+    max-width: 49%;
+    width: 100%;
+    justify-content: space-around;
+}
+.texts-images-larges-container--text-part{
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 544px;
+    width: 100%;
+}

@@ -157,6 +157,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _navigation = _interopRequireDefault(require("./class/navigation"));
+
 var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
 var _gsap = _interopRequireDefault(require("gsap"));
@@ -180,7 +182,9 @@ var App = /*#__PURE__*/function () {
     this.scrollMagicController = new _scrollmagic["default"].Controller();
     this.scenes = [];
     this.revealManager();
-    this.debugManager();
+    this.debugManager(); //Navigation 
+
+    this.menu = new _navigation["default"]();
   }
 
   _createClass(App, [{
@@ -243,7 +247,6 @@ exports["default"] = App;
 ;
 document.addEventListener("DOMContentLoaded", function (ev) {
   new App();
-  new ElTigreBarba();
 });
 
 			}});
@@ -366,6 +369,343 @@ var ElTigreBarba = function ElTigreBarba() {
 };
 
 exports["default"] = ElTigreBarba;
+
+			}});
+
+
+		  ;
+			require.define({'dev/js/class/navigation.js': function(exports, require, module) {
+				"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _functions = require("../utils/functions");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Navigation = /*#__PURE__*/function () {
+  function Navigation() {
+    _classCallCheck(this, Navigation);
+
+    this.distanceBeforeSticky = window.innerHeight / 10;
+    this.body = document.querySelector('body');
+    this.header = document.getElementById('site-header');
+    this.toggleBtn = document.querySelector('.burger-menu__wrapper');
+    this.toggleBtn.addEventListener('click', this.toggleMenu.bind(this));
+    window.addEventListener('scroll', this.stickyMenu.bind(this)); // REMOVE NO SCROLL ON PAGE CHANGE
+
+    document.querySelector('body').classList.remove('no-scroll');
+    this.header.classList.remove('active');
+    this.body.classList.remove('overlay');
+    var menuItems = document.querySelectorAll('.menu-item, .site-logo, .footer_phone-number, .footer-contact');
+    menuItems.forEach(function (item) {
+      item.addEventListener('click', function (ev) {
+        var activeItems = document.querySelectorAll('.current_page_item');
+        activeItems.forEach(function (activeItem) {
+          return activeItem.classList.remove('current_page_item');
+        });
+        var link = item.querySelector('a');
+        var newActivesLinks = document.querySelectorAll("a[href=\"".concat(link.href, "\"]"));
+        link.parentElement.classList.add('current_page_item');
+        newActivesLinks.forEach(function (item) {
+          return item.parentElement.classList.add('current_page_item');
+        });
+      });
+    });
+    var hashtagLinks = document.querySelectorAll('a[href*="#"]');
+    hashtagLinks.forEach(function (link) {
+      return link.parentElement.classList.remove('current_page_item');
+    });
+  }
+
+  _createClass(Navigation, [{
+    key: "stickyMenu",
+    value: function stickyMenu() {
+      var header = this.header;
+
+      if (window.scrollY > this.distanceBeforeSticky && !this.isSticky()) {
+        header.classList.add('sticky'); // addTransition(header, 'slide-in', 300, 'sticky');
+      } else if (window.scrollY < this.distanceBeforeSticky && this.isSticky()) {
+        header.classList.remove('sticky'); // addTransition(header, 'slide-in', 300, '', 'sticky');
+      }
+    }
+  }, {
+    key: "isSticky",
+    value: function isSticky() {
+      return this.header.classList.contains('sticky');
+    }
+  }, {
+    key: "toggleMenu",
+    value: function toggleMenu(e) {
+      e.stopPropagation();
+      this.body.classList.toggle('no-scroll');
+      this.header.classList.toggle('active');
+      this.body.classList.toggle('overlay');
+      this.toggleBtn.classList.toggle('cross');
+    }
+  }]);
+
+  return Navigation;
+}();
+
+exports["default"] = Navigation;
+
+			}});
+
+
+		  ;
+			require.define({'dev/js/utils/functions.js': function(exports, require, module) {
+				"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initSwipers = initSwipers;
+exports.scrollTopOnLinksCurrentUrl = scrollTopOnLinksCurrentUrl;
+exports.post = post;
+exports.containsSection = containsSection;
+exports.addTransition = addTransition;
+exports.addEvents = addEvents;
+exports.scrollToTop = scrollToTop;
+exports.scrollToElement = scrollToElement;
+exports.getNavigator = getNavigator;
+exports.toggleScroll = toggleScroll;
+exports.getParameterByName = getParameterByName;
+exports.pageEnabled = pageEnabled;
+exports.checkMail = checkMail;
+exports.checkPhoneNumber = checkPhoneNumber;
+exports.checkDate = checkDate;
+
+function initSwipers(swipersContainer, properties) {
+  var className, hasNavigation, hasPagination, navigation, pagination, slidesCount;
+  var swipers = [];
+
+  for (var i = 0; i < swipersContainer.length; i++) {
+    slidesCount = swipersContainer[i].querySelectorAll('.swiper-slide').length;
+    if (slidesCount <= 1) continue; // Getting the first class name then adds a key to it in order to differentiate each swipers
+
+    className = swipersContainer[i].className.split(' ')[0] + '--' + i;
+    swipersContainer[i].classList.add(className); // Checks if current swiper has navigation or pagination
+
+    hasNavigation = swipersContainer[i].querySelector('.swiper-button-next');
+    hasPagination = swipersContainer[i].querySelector('.swiper-pagination');
+
+    if (hasNavigation) {
+      navigation = {
+        prevEl: swipersContainer[i].querySelector('.swiper-button-prev'),
+        nextEl: swipersContainer[i].querySelector('.swiper-button-next')
+      };
+      properties.navigation = navigation;
+    }
+
+    if (hasPagination) {
+      pagination = {
+        el: hasPagination,
+        clickable: true
+      };
+      properties.pagination = pagination;
+    }
+
+    swipers.push(new Swiper('.' + className + ' .swiper-container', properties));
+    swipersContainer[i].classList.add('swiper-initialized');
+  }
+
+  return swipers;
+} // Adds a scroll top if link destination is the same as current page
+
+
+function scrollTopOnLinksCurrentUrl() {
+  var currentUrl = window.location.href;
+
+  if (currentUrl[currentUrl.length - 1] == '/') {}
+
+  currentUrl = currentUrl.substring(0, currentUrl.length - 1);
+  if (currentUrl.indexOf('#') != -1) currentUrl = currentUrl.substring(0, currentUrl.indexOf('#'));
+  var currentPageLinks = document.querySelectorAll('a[href="' + currentUrl + '"]');
+  addEvents(currentPageLinks, 'click', scrollToTop);
+}
+
+function post(args, callback) {
+  var isFormData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var params;
+  var request = new XMLHttpRequest();
+
+  if (isFormData) {
+    params = new FormData(args.form);
+
+    for (var key in args) {
+      if (key != 'form') params.append(key, args[key]);
+    }
+  } else {
+    params = '';
+
+    for (var _key in args) {
+      params += _key + '=' + args[_key] + '&';
+    }
+
+    params = params.substring(0, params.length - 1);
+  }
+
+  request.onload = function () {
+    if (callback) {
+      if (request.status >= 200 && request.status < 400) {
+        callback(request.response);
+      } else {
+        callback({
+          success: false,
+          data: {
+            error: 'server'
+          }
+        });
+      }
+    }
+  };
+
+  request.onerror = function () {
+    callback({
+      success: false,
+      data: {
+        error: 'connection'
+      }
+    });
+  };
+
+  request.open('POST', site.ajaxurl, true);
+  if (!isFormData) request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  request.send(params);
+}
+
+function containsSection(className) {
+  return document.querySelector('.' + className) !== null;
+}
+
+function addTransition(target, className, duration) {
+  var exitClass = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+  var classToRemove = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+
+  if (target.dataset.transition != 'true') {
+    target.classList.add(className);
+    target.dataset.transition = true;
+    setTimeout(function () {
+      target.classList.remove(className);
+      target.dataset.transition = false;
+      if (exitClass) target.classList.add(exitClass);
+      if (classToRemove) target.classList.remove(classToRemove);
+    }, duration);
+  }
+}
+
+function addEvents(targets, method, callback) {
+  if (!NodeList.prototype.isPrototypeOf(targets) && !Array.isArray(targets)) {
+    targets.addEventListener(method, callback);
+  } else {
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i] === null) continue;
+
+      if (!NodeList.prototype.isPrototypeOf(targets[i]) && !Array.isArray(targets[i])) {
+        targets[i].addEventListener(method, callback);
+      } else {
+        for (var j = 0; j < targets[i].length; j++) {
+          targets[i][j].addEventListener(method, callback);
+        }
+      }
+    }
+  }
+}
+
+function scrollToTop(e) {
+  if (e) e.preventDefault();
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
+}
+
+function scrollToElement(e) {
+  try {
+    e.preventDefault();
+
+    var _element = document.querySelector(this.dataset.scrollto);
+
+    var topOffset = _element.offsetTop;
+    window.scrollTo({
+      top: topOffset,
+      left: 0,
+      behavior: 'smooth'
+    });
+  } catch (error) {
+    if (element === null) {
+      console.error('ScrollToElement: Target is missing, data-scrollto needs to be a valid css selector');
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+function getNavigator() {
+  if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
+    return 'opera';
+  } else if (navigator.userAgent.indexOf("Chrome") != -1) {
+    return 'chrome';
+  } else if (navigator.userAgent.indexOf("Safari") != -1) {
+    return 'safari';
+  } else if (navigator.userAgent.indexOf("Firefox") != -1) {
+    return 'firefox';
+  } else if (navigator.userAgent.indexOf("MSIE") != -1 || !!document.documentMode == true) {
+    return 'IE';
+  } else {
+    return 'unknown';
+  }
+}
+
+function toggleScroll() {
+  var body = document.querySelector('body');
+  if (body) body.classList.toggle('no-scroll');
+}
+
+function getParameterByName(name) {
+  var url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function pageEnabled() {
+  var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  var pageLockContainer = document.getElementById('page-lock');
+
+  if (enabled) {
+    pageLockContainer.classList.remove('locked');
+  } else {
+    pageLockContainer.classList.add('locked');
+  }
+}
+
+function checkMail(mail) {
+  var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regex.test(mail);
+}
+
+function checkPhoneNumber(number) {
+  var regex = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
+  return regex.test(number);
+}
+
+function checkDate(date) {
+  var regex = /^([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])\/([0][1-9]|[1][0-2])\/([1][9][0-9][0-9]|[2][0][0-9]{2})$/;
+  return regex.test(date);
+}
 
 			}});
 

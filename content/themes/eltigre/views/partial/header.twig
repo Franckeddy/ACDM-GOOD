@@ -1,11 +1,22 @@
 <div class="header__content">
-    <div class="header__logo-wrapper">
-        <a href="{{ site.url }}">
-            {{ logo }}
-        </a>
+    <!-- 1ere menu avec burger et contact  -->
+    
+    <div class="header"></div>
+    <div class="main-wrapper">
+        <div class="site__burger-menu">
+            <div class="burger-menu__wrapper">
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+            </div>
+        </div>
     </div>
-
-    <nav class="header__nav">
-        {% include "partial/menu.twig" with {'items': menu.get_items} %}
-    </nav>
+    <div class="menu_down">
+        <!-- <nav class="header__nav"> -->
+        <div class="main-wrapper">
+            {% include "partial/menu.twig" with {'items': menu_header.get_items} %}
+        </div>
+        <!-- </nav> -->
+    </div>
 </div>
+

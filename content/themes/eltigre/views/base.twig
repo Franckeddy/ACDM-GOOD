@@ -7,26 +7,28 @@
 {% endblock %}
 
 	<body class="{{body_class}}">
-
+		<div id="swup-animation" class="swup-animation transition-container"></div>
 		<div class='susy-grid'></div>
 		<div id="content" role="main" class="content-wrapper" data-barba="wrapper" data-template="{{template}}">
 			<div class="" data-barba="container" data-barba-namespace="{{ template }}">
+				<div id="swup" class="site-container" data-barba-namespace="{{ template }}">
 
-				<header id="site-header" >
-					{% block header %}
-						{% include 'partial/header.twig' %}
+					<header id="site-header" class="site-header">
+						{% block header %}
+							{% include 'partial/header.twig' %}
+						{% endblock %}
+					</header>
+
+					{% block content %}
+						Sorry, no content
 					{% endblock %}
-				</header>
 
-				{% block content %}
-					Sorry, no content
-				{% endblock %}
-
-				{% block footer %}
-					<footer id="site-footer">
-						{% include 'partial/footer.twig' %}
-					</footer>
-				{% endblock %}
+					{% block footer %}
+						<footer id="site-footer">
+							{% include 'partial/footer.twig' %}
+						</footer>
+					{% endblock %}
+				</div>
 			</div>
 		</div>
 		{{ function('wp_footer') }}

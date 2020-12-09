@@ -1,3 +1,4 @@
+import Navigation from './class/navigation';
 import ScrollMagic from 'scrollmagic'
 import TweenLite from 'gsap'
 
@@ -13,6 +14,9 @@ export default class App {
         
         this.revealManager();
         this.debugManager();
+
+        //Navigation 
+        this.menu = new Navigation();
     }
 
     revealManager() {
@@ -55,5 +59,5 @@ export default class App {
 
 document.addEventListener("DOMContentLoaded", function(ev) {
     new App();
-    new ElTigreBarba();
+
 });
