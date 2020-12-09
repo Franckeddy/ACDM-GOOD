@@ -47,7 +47,22 @@ if ( class_exists( 'Timber' ) ) {
 
 			// Global options
 			$context['options'] = array();
-	
+			
+			// Contact Infos
+			$context['informations'] 	= get_field( 'informations', 'options' );
+
+			// Mentions légales
+			$context['legal_note'] = get_field( 'legal_note', 'options' );
+
+			// Social networks
+			$context['social_media'] = get_field( 'social_media', 'options' );
+
+			// Copyright
+			$context['copyright'] = array(
+				'label' => get_field( 'copyright', 'options' )
+				// 'page'  => get_field( 'copyright_page', 'options' )
+			);
+
 			// Global site
 			$context['site']  = $this;
 			return $context;
@@ -56,6 +71,29 @@ if ( class_exists( 'Timber' ) ) {
 	
 		public function register_post_types() {
 			/** This is where you can register custom post types. */
+
+			// CPT : Les montres 
+			register_post_type( 'watches',
+				array(
+					'labels' => array(
+						'name'					=> __( 'Les montres', 'eltigre' ),
+						'add_new'				=> __( 'Ajouter une montre', 'eltigre' ),
+						'singular_name'		 	=> __( 'Montre', 'eltigre' ),
+						'all_items'				=> __( 'Toutes les montres', 'eltigre' ),
+						'edit_item'				=> __( 'Modifier une montre', 'eltigre' ),
+						'view_item'				=> __( 'Voir une montre', 'eltigre' ),
+						'update_item'		    => __( 'Mettre à jour une montre', 'eltigre' ),
+						'add_new_item'			=> __( 'Ajouter une nouvelle montre', 'eltigre' ),
+						'search_items'		  	=> __( 'Rechercher une montre', 'eltigre' ),
+						'popular_items'		 	=> __( 'Montre la plus populaire', 'eltigre' )
+					),
+					'rewrite'				=> array( 'slug' => 'watches' ),
+					'menu_icon'		   		=> 'dashicons-backup',
+					'supports'			 	=> array( 'title', 'editor', 'thumbnail' ),
+					'public'				=> true,
+					'has_archive'	   		=> true
+				)
+			);
 		}
 	
 	
