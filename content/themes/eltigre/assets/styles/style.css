@@ -1,3 +1,46 @@
+.watches__title {
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 33px;
+  margin: 25px auto;
+  color: #4d4d4d;
+}
+.watches__title:after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  max-width: 40.7%;
+  width: 100%;
+  background-color: #4d4d4d;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.watches__subtitle {
+  font-family: "Chaparral Pro";
+  font-style: italic;
+  font-weight: normal;
+  font-size: 28px;
+  letter-spacing: 0.3px;
+  line-height: 42px;
+  margin: 54px 0 28px;
+  text-align: right;
+  position: relative;
+}
+.watches__subtitle:before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  max-width: 40.7%;
+  width: 100%;
+  background-color: #4d4d4d;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -514,6 +557,22 @@ template {
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-medium.eot");
+  src: url("../fonts/montserrat-medium.eot?#iefix") format("embedded-opentype"), url("../fonts/montserrat-medium.woff") format("woff"), url("../fonts/montserrat-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-regular.eot");
+  src: url("../fonts/montserrat-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/montserrat-regular.woff") format("woff"), url("../fonts/montserrat-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -535,7 +594,7 @@ body {
 }
 
 .site-container {
-  margin-top: 220px;
+  margin-top: 144px;
 }
 
 #content {
@@ -628,48 +687,78 @@ a {
   top: 0;
 }
 
-.menu_down {
+.menu__container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.main-logo {
+  max-width: 278px;
+  width: 100%;
+  height: 86px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.main-logo img {
+  height: 100%;
+}
+
+.contact--link {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-wrapper {
   height: auto;
   position: relative;
   left: 0;
   max-width: 100%;
   width: 100%;
-  margin-top: 60px;
-  transform: translateY(0px);
-  transition: transform 0.5s ease-in-out;
+  transform: translateY(-69px);
+  transition: all 0.5s ease-in-out;
   background-color: lightgrey;
-  z-index: 1;
+  z-index: -1;
+  opacity: 0;
 }
 
-.OpenMenuInner {
-  margin: 0;
+.active .nav-wrapper {
+  transform: translateY(0px);
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.menu__list {
   padding: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.OpenMenuInner li {
+.menu__list li {
   list-style: none;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 20px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 25px 0;
 }
 
-.OpenMenuInner li span {
+.menu__list li span {
   display: block;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.5);
 }
 
-.OpenMenuInner li a {
+.menu__list li a {
   color: #4D4D4D;
+  font-family: "Montserrat";
+  font-size: 15px;
+  letter-spacing: 0.35px;
+  line-height: 19px;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
   text-decoration: none;
 }
@@ -700,7 +789,7 @@ a {
   height: 3px;
   transition: all 0.2s ease;
   transform: translateY(-50%);
-  background-color: #316F84;
+  background-color: #4D4D4D;
   border-radius: 50px;
   z-index: 1;
 }
@@ -731,13 +820,16 @@ a {
 }
 */
 .cta {
+  font-family: "Montserrat";
+  font-weight: 500;
   display: inline-block;
   cursor: pointer;
   font-size: 20px;
   line-height: 24px;
-  letter-spacing: 0.2px;
-  border: 1px solid #cba755;
+  letter-spacing: 0.7px;
+  border: 2px solid #cba755;
   color: #cba755;
+  padding: 17px 32px 19px;
 }
 
 .presentation {
@@ -788,6 +880,7 @@ a {
 
 .banner {
   position: relative;
+  margin-bottom: 137px;
 }
 
 .banner__image {
@@ -797,8 +890,8 @@ a {
 .banner__title {
   letter-spacing: 4px;
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 30px;
+  font-weight: 500;
+  font-size: 33px;
   margin: 25px auto;
   color: #4d4d4d;
 }
@@ -821,7 +914,7 @@ a {
   font-size: 28px;
   letter-spacing: 0.3px;
   line-height: 42px;
-  margin: 54px 0 20px;
+  margin: 54px 0 28px;
   text-align: right;
   position: relative;
 }
@@ -841,42 +934,90 @@ a {
   font-family: "Chaparral Pro";
   font-weight: normal;
   font-size: 20px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.6px;
   line-height: 28px;
+  margin-bottom: 47px;
 }
 
-.layout-left {
+.banner__cta-wrapper {
+  text-align: center;
+}
+
+.content--layout-left {
   flex-flow: row wrap;
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.layout-right {
+.content--layout-right {
   position: relative;
   display: flex;
   align-items: center;
   flex-flow: row-reverse wrap;
 }
 
-.texts-images-larges-container--image-part {
-  max-width: 50%;
+.images {
+  max-width: 48.5%;
   width: 100%;
 }
 
-.texts-images-larges-container {
-  display: flex;
-  flex-flow: row;
-  max-width: 49%;
-  width: 100%;
-  justify-content: space-around;
+.images__image {
+  height: 500px;
+  background-size: cover;
+  background-position: center center;
 }
 
-.texts-images-larges-container--text-part {
-  display: flex;
-  flex-flow: row wrap;
-  max-width: 544px;
+.content__text-part {
+  max-width: 47%;
   width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-part__title {
+  font-family: "Chaparral Pro";
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  line-height: 26px;
+  margin: 54px 0 28px;
+  text-align: center;
+  position: relative;
+  color: #cba755;
+}
+
+.text-part__container {
+  max-width: 450px;
+  text-align: justify;
+}
+
+.text-part__description {
+  font-family: "Chaparral Pro";
+  font-weight: normal;
+  font-size: 19px;
+  letter-spacing: 0.3px;
+  line-height: 22px;
+  margin: 54px 0 28px;
+  position: relative;
+  color: #4D4D4D;
+  max-width: 450px;
+  text-align: justify;
+}
+
+.text-part__more-text {
+  font-family: "Chaparral Pro";
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+  line-height: 26px;
+  margin: 54px 0 28px;
+  position: relative;
+  color: #cba755;
 }
 
 

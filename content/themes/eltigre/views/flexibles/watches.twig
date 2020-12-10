@@ -1,23 +1,45 @@
 <section class="watches">
-    {% if section.title is not empty %}
-        <h2 class="banner__title main-wrapper">{{ section.title }}</h2>
-    {% endif %}
 
-    <div class="banner__content main-wrapper">
+    {% if section.title is not empty %}
+        <h2 class="watches__title main-wrapper">{{ section.title }}</h2>
+    {% endif %}
+    
+    {% if section.layout == "slider" %}
+    <div class="watches__content main-wrapper">
         <!-- Ajouter ici le swiper -->
         
         {% if section.subtitle is not empty %}
-            <div class="banner__subtitle">
+            <div class="watches__subtitle">
                 {{ section.subtitle }}
             </div>
         {% endif %}
         {% if section.add_cta == true %}
-            <div class="banner__cta-wrapper">
+            <div class="watches__cta-wrapper">
                 <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta">
                     {{ section.link.title }}
                 </a>
             </div>
         {% endif %}
     </div>
-
+    {% endif %}
+    {% if section.layout == "listing" %}
+    <!-- si c'est en liste -->
+    <div class="watches__content main-wrapper">
+        <!-- on boucle -->
+        {% for key, watch in section.watches %}
+        {{dump( section.watches )}}
+        <div class="watch">
+            <div class="watch__image">
+                <img src="{{ watches[watches].thumbnail.url }}" alt="" target="_blank">                
+            </div>
+            <div class="watch__title">
+                {{ watches[watch].name }}
+            </div>
+            <div class="watch__price">
+                {{ watches[watch].price }}
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+    {% endif %}
 </section>

@@ -1,32 +1,70 @@
-.layout-left{
+.content--layout-left{
     flex-flow: row wrap;
     position: relative;
     display: flex;
     align-items: center;
 }
-.layout-right{
+.content--layout-right{
     position: relative;
     display: flex;
     align-items: center;
     flex-flow: row-reverse wrap;
 }
-
-
-.texts-images-larges-container--image-part{
-    max-width: 50%;
+.images{
+    max-width: 48.5%;
     width: 100%;
 }
-
-.texts-images-larges-container{
-    display: flex;
-    flex-flow: row;
-    max-width: 49%;
-    width: 100%;
-    justify-content: space-around;
+.images__image{
+    height: 500px;
+    background-size: cover;
+    background-position: center center;
 }
-.texts-images-larges-container--text-part{
-    display: flex;
-    flex-flow: row wrap;
-    max-width: 544px;
+.content__text-part{
+    max-width: 47%;
     width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.text-part__title{
+    font-family: 'Chaparral Pro';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    line-height: 26px;
+    margin: 54px 0 28px;
+    text-align: center;
+    position: relative;
+    color: $gold;
+}
+.text-part__container{
+    max-width: 450px;
+    text-align: justify;
+}
+.text-part__description{
+    font-family: "Chaparral Pro";
+    font-weight: normal;
+    font-size: 19px;
+    letter-spacing: 0.3px;
+    line-height: 22px;
+    margin: 54px 0 28px;
+    position: relative;
+    color: $text;
+    max-width: 450px;
+    text-align: justify;
+}
+.text-part__more-text{
+    font-family: 'Chaparral Pro';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    line-height: 26px;
+    margin: 54px 0 28px;
+    position: relative;
+    color: $gold;
 }

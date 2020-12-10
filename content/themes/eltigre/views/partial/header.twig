@@ -1,8 +1,5 @@
 <div class="header__content">
-    <!-- 1ere menu avec burger et contact  -->
-    
-    <div class="header"></div>
-    <div class="main-wrapper">
+    <div class="main-wrapper menu__container">
         <div class="site__burger-menu">
             <div class="burger-menu__wrapper">
                 <span class="burger-menu__line"></span>
@@ -10,13 +7,21 @@
                 <span class="burger-menu__line"></span>
             </div>
         </div>
-    </div>
-    <div class="menu_down">
-        <!-- <nav class="header__nav"> -->
-        <div class="main-wrapper">
-            {% include "partial/menu.twig" with {'items': menu_header.get_items} %}
+        <div class='main-logo'>
+            <a class='logo--link' href='{{ site.url }}'>
+                {{ logo }}
+            </a>
         </div>
-        <!-- </nav> -->
+        <div class='contact-logo'>
+            <a class='contact--link' href='{{ site.url }}'>
+                contact
+            </a>
+        </div>
+    </div>
+    <div class="nav-wrapper">
+        <nav class="header__nav">
+            {% include "partial/menu.twig" with {'items': menu_header.get_items} %}
+        </nav>
     </div>
 </div>
 

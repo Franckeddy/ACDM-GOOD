@@ -1,14 +1,12 @@
 
 <section id="{{ section.title|sanitize }}" class="content">
-   
-    <!-- <div class="layout-{{section.image_position}}"> -->
         
         <div class="content__images content--layout-{{section.image_position}}" >
             <!-- METTRE LE SWIPER  -->
             {{ dump(section.images) }}
             {% if section.images|length == 1 %}
                 <div class="images">
-                    <div class="images__image" style="background-image: url({{ section.images.0.url }}); background-size:cover;">
+                    <div class="images__image" style="background-image: url({{ section.images.0.url }});">
                 </div>
             {% endif %}
         </div>
@@ -20,18 +18,19 @@
                     {{ section.title}}
                 </div>
             {% endif %}
-
-            {% if section.description is not empty %}
-                <div class="text-part__description">
-                    {{ section.description }}              
-                </div>
-            {% endif %}
-
-            {% if section.more_text is not empty %}
-                <div class="text-part__more-text">
-                    {{ section.more_text }}           
-                </div>
-            {% endif %}
+            <div class="text-part__container">
+                {% if section.description is not empty %}
+                    <div class="text-part__description">
+                        {{ section.description }}              
+                    </div>
+                {% endif %}
+    
+                {% if section.more_text is not empty %}
+                    <div class="text-part__more-text">
+                        {{ section.more_text }}           
+                    </div>
+                {% endif %}
+            </div>
 
         </div>
         

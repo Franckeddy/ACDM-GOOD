@@ -27,7 +27,7 @@ if( !class_exists( 'Eltigre\Controllers\Watches' ) ) {
 
                 $watch = array(
                     'name'                  => get_the_title( $post_ID ),
-                    'gallery'               => $acf_fields['images'],
+                    'images'               => $acf_fields['images'],
                     'price'                 => $acf_fields['price'],
                 );
 

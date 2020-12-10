@@ -1,37 +1,24 @@
-.banner {
-    position: relative;
-    margin-bottom:137px;
-}
-
-.banner__image {
-    // width: 100%;
-    // position: aboslute;
-    // top: 100px;
-    // left: 0;
-    background-size: cover;
-}
-
-.banner__title {
+.watches__title{
     letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 33px;
     margin: 25px auto;
     color: #4d4d4d;
-
     &:after{
         content: '';
         position: absolute;
         height: 2px; 
         max-width: 40.7%;
         width: 100%;
-        background-color: $text;
+        background-color: #4d4d4d;
         right: 0;
         top: 50%;
         transform: translateY(-50%);
     }
-}   
-.banner__subtitle{
+}
+
+.watches__subtitle{
     font-family: 'Chaparral Pro';
     font-style: italic;
     font-weight: normal;
@@ -47,20 +34,9 @@
         height: 2px;       
         max-width: 40.7%;
         width: 100%;
-        background-color: $text;
+        background-color: #4d4d4d;
         left: 0;
         top: 50%;
         transform: translateY(-50%);
     }
-}
-.banner__description{
-    font-family: 'Chaparral Pro';
-    font-weight: normal;
-    font-size: 20px;
-    letter-spacing: 0.6px;
-    line-height: 28px;
-    margin-bottom: 47px;
-}
-.banner__cta-wrapper{
-    text-align: center;
 }
