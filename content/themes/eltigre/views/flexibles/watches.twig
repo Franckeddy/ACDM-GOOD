@@ -27,10 +27,12 @@
     <div class="watches__content main-wrapper">
         <!-- on boucle -->
         {% for key, watch in section.watches %}
-        {{dump( section.watches )}}
         <div class="watch">
             <div class="watch__image">
                 <img src="{{ watches[watch].thumbnail.url }}" alt="" target="_blank">                
+                <a href="{{ watches[watch].permalink }}">
+                    {{ watches[watch].thumbnail }}
+                </a>
             </div>
             <div class="watch__title">
                 {{ watches[watch].name }}

@@ -23,12 +23,14 @@ if( !class_exists( 'Eltigre\Controllers\Watches' ) ) {
             while( $query->have_posts() ) {
                 $query->the_post();
                 $post_ID = get_the_ID();
-                $acf_fields = get_fields( $post_ID );
+                $acf_fields = get_fields();
 
                 $watch = array(
-                    'name'                  => get_the_title( $post_ID ),
-                    'images'               => $acf_fields['images'],
+                    'name'                  => get_the_title(),
+                    'thumbnail'             => get_the_post_thumbnail(),
+                    'permalink'             => get_the_permalink(),
                     'price'                 => $acf_fields['price'],
+                    'images'                => $acf_fields['images'],
                 );
 
                 $watches[ $post_ID ] = $watch;
