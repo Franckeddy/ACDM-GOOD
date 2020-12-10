@@ -20,8 +20,8 @@
     &:after{
         content: '';
         position: absolute;
-        height: 2px;
-        max-width: 32vw;
+        height: 2px; 
+        max-width: 40.7%;
         width: 100%;
         background-color: $text;
         right: 0;
@@ -33,7 +33,7 @@
     font-family: 'Chaparral Pro';
     font-style: italic;
     font-weight: normal;
-    font-size: 30px;
+    font-size: 28px;
     letter-spacing: 0.3px;
     line-height: 42px;
     margin: 54px 0 20px;
@@ -42,8 +42,8 @@
     &:before{
         content: '';
         position: absolute;
-        height: 2px;
-        max-width: 32vw;
+        height: 2px;       
+        max-width: 40.7%;
         width: 100%;
         background-color: $text;
         left: 0;

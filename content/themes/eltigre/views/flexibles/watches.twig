@@ -1,3 +1,23 @@
 <section class="watches">
-    <div class="banner__title">{{ section.title }}</div>
+    {% if section.title is not empty %}
+        <h2 class="banner__title main-wrapper">{{ section.title }}</h2>
+    {% endif %}
+
+    <div class="banner__content main-wrapper">
+        <!-- Ajouter ici le swiper -->
+        
+        {% if section.subtitle is not empty %}
+            <div class="banner__subtitle">
+                {{ section.subtitle }}
+            </div>
+        {% endif %}
+        {% if section.add_cta == true %}
+            <div class="banner__cta-wrapper">
+                <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta">
+                    {{ section.link.title }}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
 </section>

@@ -677,9 +677,9 @@ a {
 .site__burger-menu {
   display: inline-block;
   width: 52px;
-  height: 64px;
+  height: 80px;
   position: relative;
-  top: 50%;
+  top: 28px;
   right: 15px;
   z-index: 2;
 }
@@ -733,6 +733,11 @@ a {
 .cta {
   display: inline-block;
   cursor: pointer;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  border: 1px solid #cba755;
+  color: #cba755;
 }
 
 .presentation {
@@ -801,7 +806,7 @@ a {
   content: "";
   position: absolute;
   height: 2px;
-  max-width: 32vw;
+  max-width: 40.7%;
   width: 100%;
   background-color: #4D4D4D;
   right: 0;
@@ -813,7 +818,7 @@ a {
   font-family: "Chaparral Pro";
   font-style: italic;
   font-weight: normal;
-  font-size: 30px;
+  font-size: 28px;
   letter-spacing: 0.3px;
   line-height: 42px;
   margin: 54px 0 20px;
@@ -824,7 +829,7 @@ a {
   content: "";
   position: absolute;
   height: 2px;
-  max-width: 32vw;
+  max-width: 40.7%;
   width: 100%;
   background-color: #4D4D4D;
   left: 0;
