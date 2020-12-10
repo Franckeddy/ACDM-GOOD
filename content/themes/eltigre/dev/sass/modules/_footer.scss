@@ -1,5 +1,23 @@
-/*
-#site-footer {
-
+#site-footer{
+    margin-top: 93px;
+    padding-bottom: 35px;
 }
-*/
+
+.footer__content{
+    text-align:center;
+}
+.information, .subfooter__copyright{
+    font-family: 'Chaparral Pro';
+    font-weight: normal;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 20px;
+    margin: 0 0 31px;
+    color: $text;
+}
+.subfooter{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}

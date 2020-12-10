@@ -1,13 +1,12 @@
-<section class="watches">
+<section id="{{ section.title|sanitize }}" class="watches">
 
     {% if section.title is not empty %}
         <h2 class="watches__title main-wrapper">{{ section.title }}</h2>
     {% endif %}
     
     {% if section.layout == "slider" %}
-    <div class="watches__content main-wrapper">
+    <div class="main-wrapper">
         <!-- Ajouter ici le swiper -->
-        
         {% if section.subtitle is not empty %}
             <div class="watches__subtitle">
                 {{ section.subtitle }}
@@ -24,24 +23,25 @@
     {% endif %}
     {% if section.layout == "listing" %}
     <!-- si c'est en liste -->
-    <div class="watches__content main-wrapper">
+    <div class="main-wrapper">
         <!-- on boucle -->
-        {% for key, watch in section.watches %}
-        <div class="watch">
-            <div class="watch__image">
-                <img src="{{ watches[watch].thumbnail.url }}" alt="" target="_blank">                
-                <a href="{{ watches[watch].permalink }}">
-                    {{ watches[watch].thumbnail }}
+        <div class="watches__content">
+            {% for key, watch in section.watches %}
+            <div class="watch">
+                <a href="{{ watches[watch].permalink }}" target="_blank">
+                    <div class="watch__image">           
+                        {{ watches[watch].thumbnail }}
+                    </div>
+                    <div class="watch__title">
+                        {{ watches[watch].name }}
+                    </div>
+                    <div class="watch__price">
+                        {{ watches[watch].price }}€
+                    </div>
                 </a>
             </div>
-            <div class="watch__title">
-                {{ watches[watch].name }}
-            </div>
-            <div class="watch__price">
-                {{ watches[watch].price }}
-            </div>
+            {%endfor%}
         </div>
-        {%endfor%}
     </div>
     {% endif %}
 </section>

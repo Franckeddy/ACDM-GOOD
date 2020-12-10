@@ -1,3 +1,41 @@
+.simple {
+  margin-top: 130px;
+}
+
+.simple__container {
+  text-align: center;
+}
+
+.simple__content {
+  font-family: "Chaparral Pro";
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+  line-height: 28px;
+  margin: 0 0 31px;
+  position: relative;
+}
+
+.simple__logo {
+  max-width: 332px;
+  width: 100%;
+  margin: 0 auto;
+}
+.simple__logo img {
+  height: auto;
+}
+
+.simple__slogan {
+  font-family: "Chaparral Pro";
+  font-weight: normal;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+  line-height: 28px;
+  margin: 16px 0;
+  position: relative;
+}
+
 .watches__title {
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -39,6 +77,41 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.watches__content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.watch {
+  max-width: 307px;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.watch__image img {
+  max-width: 305px;
+  width: 100%;
+  height: 305px;
+  object-fit: cover;
+}
+
+.watch__title {
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  margin-top: 18px;
+}
+
+.watch__price {
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-top: 18px;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -551,8 +624,8 @@ template {
 
 @font-face {
   font-family: "Chaparral Pro";
-  src: url("../../../assets/fonts/ChaparralPro-Regular.eot");
-  src: url("../../../assets/fonts/ChaparralPro-Regular.eot?#iefix") format("embedded-opentype"), url("../../../assets/fonts/ChaparralPro-Regular.woff2") format("woff2"), url("../../../assets/fonts/ChaparralPro-Regular.woff") format("woff"), url("../../../assets/fonts/ChaparralPro-Regular.ttf") format("truetype"), url("../../../assets/fonts/ChaparralPro-Regular.svg#ChaparralPro-Regular") format("svg");
+  src: url("../assets/fonts/ChaparralPro-Regular.eot");
+  src: url("../assets/fonts/ChaparralPro-Regular.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/ChaparralPro-Regular.woff2") format("woff2"), url("../assets/fonts/ChaparralPro-Regular.woff") format("woff"), url("../assets/fonts/ChaparralPro-Regular.ttf") format("truetype"), url("../assets/fonts/ChaparralPro-Regular.svg#ChaparralPro-Regular") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -674,6 +747,10 @@ a {
   }
 }
 
+.home .header__content .main-logo {
+  display: none;
+}
+
 .header__content {
   margin: 0 auto;
   width: 100%;
@@ -684,10 +761,33 @@ a {
   z-index: 2;
   top: 0;
 }
+.header__content::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 0;
+  width: 100vw;
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+
+.active .header__content::after {
+  height: 100vh;
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+.active .header-content__wrapper {
+  box-shadow: 0px 2px 10px #4D4D4D;
+}
+.active .nav-wrapper {
+  transform: translateY(0px);
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
 
 .header-content__wrapper {
   width: 100%;
-  background-color: grey;
+  background-color: white;
   height: 100%;
 }
 
@@ -723,20 +823,14 @@ a {
   max-width: 100%;
   width: 100%;
   transform: translateY(-69px);
-  transition: all 0.5s ease-in-out;
-  background-color: lightgrey;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
   z-index: -1;
   opacity: 0;
 }
 
-.active .nav-wrapper {
-  transform: translateY(0px);
-  transition: all 0.5s ease-in-out;
-  opacity: 1;
-}
-
 .menu__list {
-  padding: 0;
+  padding: 0 15px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -818,11 +912,67 @@ a {
   transform: rotate(-45deg);
 }
 
-/*
-#site-footer {
-
+.no-scroll {
+  overflow: hidden;
 }
-*/
+
+@media screen and (max-width: 768px) {
+  .home .active .header__content .main-logo {
+    display: initial;
+  }
+
+  .menu__list {
+    padding: 60px 15px;
+    flex-flow: column wrap;
+    justify-content: initial;
+    max-width: 1100px;
+    height: 100vh;
+  }
+  .menu__list li {
+    text-align: center;
+  }
+  .menu__list li a {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .main-logo {
+    max-width: 193px;
+    height: 58px;
+  }
+}
+@media screen and (max-width: 330px) {
+  .main-logo {
+    max-width: 168px;
+    height: 51px;
+  }
+}
+#site-footer {
+  margin-top: 93px;
+  padding-bottom: 35px;
+}
+
+.footer__content {
+  text-align: center;
+}
+
+.information, .subfooter__copyright {
+  font-family: "Chaparral Pro";
+  font-weight: normal;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  line-height: 20px;
+  margin: 0 0 31px;
+  color: #4D4D4D;
+}
+
+.subfooter {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
 .cta {
   font-family: "Montserrat";
   font-weight: 500;
@@ -1022,6 +1172,44 @@ a {
   margin: 54px 0 28px;
   position: relative;
   color: #cba755;
+}
+
+.simple {
+  margin-top: 130px;
+}
+
+.simple__container {
+  text-align: center;
+}
+
+.simple__content {
+  font-family: "Chaparral Pro";
+  font-weight: normal;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+  line-height: 28px;
+  margin: 0 0 31px;
+  position: relative;
+}
+
+.simple__logo {
+  max-width: 332px;
+  width: 100%;
+  margin: 0 auto;
+}
+.simple__logo img {
+  height: auto;
+}
+
+.simple__slogan {
+  font-family: "Chaparral Pro";
+  font-weight: normal;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+  line-height: 28px;
+  margin: 16px 0;
+  position: relative;
 }
 
 

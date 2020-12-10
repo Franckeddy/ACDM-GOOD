@@ -1,7 +1,21 @@
-<div class='footer__content'>
-    <div class="footer__logo-wrapper">
-        <a href="{{ site.url }}">
-           
-        </a>
+<div class='main-wrapper'>
+    <div class="footer__content">
+        <div class="information">
+            {{ informations }}
+        </div>
+        <div class="subfooter">
+            <div class="subfooter__media">
+                {% for social in social_media %}
+                    <div class="media__container">
+                        <a href="{{social.link.url}}" target="{{social.target}}">
+                            {{social.logo}}
+                        </a>
+                    </div>
+                {% endfor%}
+            </div>
+            <div class="subfooter__copyright">
+                <a href="{{legal_note.link}}" target="{{legal_note.target}}">{{legal_note.title}}</a>  - {{ copyright.label }}
+            </div>
+        </div>
     </div>
 </div>

@@ -108,12 +108,14 @@ if ( class_exists( 'Timber' ) ) {
 	
 		public function register_styles() {
 			// VENDOR STYLES
-
+			wp_enqueue_style( 'all', get_template_directory_uri() . '/assets/styles/vendor/all.min.css' );
+			wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/styles/vendor/fontawesome.min.css' );
+			wp_enqueue_style( 'fa-brands', get_template_directory_uri() . '/assets/styles/vendor/brands.min.css' );
 
 			// CUSTOM STYLES
 			wp_enqueue_style( 'style', get_template_directory_uri() . '/assets/styles/style.css' );
 		}
-	
+		
 	
 		public function register_scripts() {
 			// VENDOR SCRIPTS

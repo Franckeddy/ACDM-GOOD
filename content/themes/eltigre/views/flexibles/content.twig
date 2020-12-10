@@ -3,7 +3,6 @@
         
         <div class="content__images content--layout-{{section.image_position}}" >
             <!-- METTRE LE SWIPER  -->
-            {{ dump(section.images) }}
             {% if section.images|length == 1 %}
                 <div class="images">
                     <div class="images__image" style="background-image: url({{ section.images.0.url }});">

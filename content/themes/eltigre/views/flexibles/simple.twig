@@ -1,0 +1,19 @@
+<section id="{{ section.title|sanitize }}" class="simple">
+    <div class="main-wrapper">
+        <div class="simple__container">
+            <div class="simple__content">
+                {{section.content}}
+            </div>
+            {% if section.logo is not empty %}
+            <div class="simple__logo">
+                <img src="{{section.logo.url}}" alt="{{section.logo.alt}}">
+            </div>
+            {% endif %}
+            {% if section.slogan is not empty %}
+            <div class="simple__slogan">
+                {{section.slogan}}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
