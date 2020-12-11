@@ -4,6 +4,12 @@
 	{% for post in posts %}
 		<div class="content-wrapper">
 			<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
+				{{dump(post)}}
+				<img 
+					src="{{  Image(post.thumbnail_id).src  }}" 
+					srcset="{{ Image(image).src }}"
+					alt="{{ Image(image).alt }}"
+				/>
 				{% for image in post.images %}
 				<img 
 					src="{{ Image(image).src }}" 

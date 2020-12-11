@@ -118,7 +118,7 @@
     -webkit-transform: translate(-50%,-50%);
             transform: translate(-50%,-50%);
     height: 60px;
-    z-index: 2;
+    z-index: 0;
     .swiper-button-prev, .swiper-button-next{
         outline: none;
         &:after{
