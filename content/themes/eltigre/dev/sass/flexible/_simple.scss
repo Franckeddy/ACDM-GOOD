@@ -1,0 +1,33 @@
+.simple{
+    margin-top: 130px;
+}
+.simple__container{
+    text-align:center;
+}
+.simple__content{
+    font-family: 'Chaparral Pro';
+    font-weight: normal;
+    font-size: 20px;
+    letter-spacing: 0.3px;
+    line-height: 28px;
+    margin: 0 0 31px;
+    position: relative;
+}
+.simple__logo{
+    max-width: 332px;
+    width: 100%;
+    margin: 0 auto;
+    img{
+        height: auto;
+    }
+}
+.simple__slogan{
+    font-family: 'Chaparral Pro';
+    font-weight: normal;
+    font-style: italic;
+    font-size: 20px;
+    letter-spacing: 0.3px;
+    line-height: 28px;
+    margin: 16px 0;
+    position: relative;
+}

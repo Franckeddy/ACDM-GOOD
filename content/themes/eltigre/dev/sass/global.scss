@@ -70,7 +70,7 @@ body {
     }
 
     @include laptop {
-        margin: 0 30px;
+        padding: 0 30px;
     }
 
     @include mobile {
@@ -138,8 +138,12 @@ a {
 @import "modules/_header";
 @import "modules/_footer";
 @import "modules/_cta";
+@import "modules/_single-watches";
+
 
 // Flexibles
 @import "flexible/presentation";
 @import "flexible/banner";
 @import "flexible/content";
+@import "flexible/simple";
+@import "flexible/watches";

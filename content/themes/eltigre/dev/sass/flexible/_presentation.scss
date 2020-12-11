@@ -1,12 +1,13 @@
 .presentation {
-    height: 100vh;
+    height: 75vh;
     display: flex;
     flex-direction: column;
 }
 
 .presentation__logo {
     max-width: 625px;
-    margin: auto;
+    // margin: auto;
+    margin: 99px auto 0;
 }
 .logo__title-container {
     display: flex;
@@ -23,7 +24,7 @@
 }
 
 .presentation__address {
-    margin-top: 22vh;
+    margin-top: 19.2vh;
     font-family: "Chaparral Pro";
     font-style: italic;
     letter-spacing: 0.6px;
@@ -41,4 +42,9 @@
     font-size: 3em;
     font-family: "Chaparral Pro";
     cursor: pointer;
+    position: absolute;
+    left: 50%;
+    transform: rotate(-90deg) translateY(-50%);
+    bottom: -30px;
+    animation: 3s linear 1s infinite alternate slidein;
 }
