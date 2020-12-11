@@ -7,32 +7,30 @@ export default class Watches {
     constructor() {
       this.sections = document.querySelectorAll('.watches');
       initSwipers(this.sections, {
-        
-        // spaceBetween: 30,
         loop: true,
-        autoplay: true,
+        autoplay: false,
         breakpoints: {
             320: {
-                slidesPerView: 1,
+                slidesPerView: 2,
                 spaceBetween: 0,
                 centeredSlides: true,
                 setWrapperSize:true,
             },
-            560 :{
+            570 :{
                 slidesPerView: 3,
                 spaceBetween: 0,
-                centeredSlides: false,
+                centeredSlides: true,
                 setWrapperSize:true,
             },
             730: {
-                slidesPerView: 4,
-                spaceBetween: 0,
+                slidesPerView: 5,
+                spaceBetween: 10,
                 centeredSlides: false,
                 setWrapperSize:true,
             },
-            1200 :{
+            1000 :{
                 slidesPerView: 6,
-                spaceBetween: 0,
+                spaceBetween: 4,
                 centeredSlides: false,
                 setWrapperSize:true,
             }

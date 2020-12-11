@@ -572,7 +572,7 @@ body {
 }
 @media only screen and (min-width: 1020px) and (max-width: 1300px) {
   .main-wrapper {
-    margin: 0 30px;
+    padding: 0 30px;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -658,14 +658,15 @@ a {
 .active .header__content::after {
   height: 100vh;
   opacity: 1;
-  transition: all 0.3s ease-in;
+  transition: all 0.5s ease-in;
 }
 .active .header-content__wrapper {
   box-shadow: 0px 2px 10px #4D4D4D;
+  transition: all 0.4s ease;
 }
 .active .nav-wrapper {
   transform: translateY(0px);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   opacity: 1;
 }
 
@@ -673,6 +674,7 @@ a {
   width: 100%;
   background-color: white;
   height: 100%;
+  transition: all 0.4s ease;
 }
 
 .menu__container {
@@ -707,7 +709,7 @@ a {
   max-width: 100%;
   width: 100%;
   transform: translateY(-69px);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   background-color: white;
   z-index: -1;
   opacity: 0;
@@ -817,6 +819,11 @@ a {
   }
   .menu__list li a {
     font-size: 25px;
+  }
+
+  .nav-wrapper {
+    transform: translateY(-100vh);
+    transition: all 0.5s ease-in-out;
   }
 }
 @media screen and (max-width: 414px) {
@@ -951,6 +958,7 @@ a {
 
 .banner__image {
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .banner__title {
@@ -960,6 +968,7 @@ a {
   font-size: 33px;
   margin: 25px auto;
   color: #4d4d4d;
+  position: relative;
 }
 .banner__title:after {
   content: "";
@@ -1009,6 +1018,60 @@ a {
   text-align: center;
 }
 
+@media screen and (max-width: 1300px) {
+  .banner__title:after {
+    max-width: 25%;
+  }
+
+  .banner__subtitle:before {
+    max-width: 25%;
+  }
+}
+@media screen and (max-width: 1019px) {
+  .banner__title {
+    margin: 25px 24px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .banner__title:after {
+    max-width: 15%;
+  }
+
+  .banner__subtitle:before {
+    max-width: 15%;
+  }
+}
+@media screen and (max-width: 785px) {
+  .banner__title {
+    text-align: center;
+  }
+  .banner__title:after {
+    max-width: 15%;
+    top: initial;
+    bottom: -15px;
+    left: 50%;
+    right: initial;
+    transform: translateX(-50%);
+  }
+
+  .banner__subtitle {
+    text-align: center;
+    margin: 23px 0 28px;
+  }
+  .banner__subtitle:before {
+    max-width: 15%;
+    top: initial;
+    bottom: -15px;
+    right: 50%;
+    left: initial;
+    transform: translateX(50%);
+  }
+}
+@media screen and (max-width: 375px) {
+  .banner__title {
+    margin: 25px auto;
+  }
+}
 .content--layout-left {
   flex-flow: row wrap;
   position: relative;
@@ -1239,6 +1302,9 @@ a {
   object-fit: cover;
 }
 
+.swiper-slide {
+  width: auto;
+}
 .swiper-slide .watch__title {
   font-family: "Chaparral Pro";
   font-size: 20px;
@@ -1288,6 +1354,13 @@ a {
   height: 27px;
   width: 27px;
   right: -60px;
+}
+
+@media screen and (max-width: 1015px) {
+  .watch__image img {
+    max-width: 250px;
+    height: 250px;
+  }
 }
 
 

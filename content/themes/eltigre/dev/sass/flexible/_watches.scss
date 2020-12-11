@@ -92,7 +92,7 @@
     }
 }
 .swiper-slide{
-
+    width: auto;
     .watch__title{
         font-family: 'Chaparral Pro';
         font-size: 20px;
@@ -141,5 +141,11 @@
          height: 27px;
          width: 27px;
          right: -60px;
+    }
+}
+@media screen and (max-width: 1015px){
+    .watch__image img {
+        max-width: 250px;
+        height: 250px;
     }
 }
