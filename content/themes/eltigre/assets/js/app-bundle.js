@@ -163,6 +163,12 @@ var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
 var _gsap = _interopRequireDefault(require("gsap"));
 
+var _swup = _interopRequireDefault(require("swup"));
+
+var _Init = _interopRequireDefault(require("./flexibles/Init.js"));
+
+var _constants = require("./constants/constants.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -171,18 +177,23 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
 if (window.NodeList && !NodeList.prototype.forEach) {
   NodeList.prototype.forEach = Array.prototype.forEach;
 }
 
 var App = /*#__PURE__*/function () {
   function App() {
+    var isFirstLoad = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
     _classCallCheck(this, App);
 
-    this.scrollMagicController = new _scrollmagic["default"].Controller();
+    // this.scrollMagicController = new ScrollMagic.Controller()
     this.scenes = [];
     this.revealManager();
-    this.debugManager(); //Navigation 
+    this.debugManager(); // Sections flexibles
+
+    (0, _Init["default"])(); //Navigation 
 
     this.menu = new _navigation["default"]();
   }
@@ -247,6 +258,12 @@ exports["default"] = App;
 ;
 document.addEventListener("DOMContentLoaded", function (ev) {
   new App();
+  var swup = new _swup["default"]();
+  swup.on('contentReplaced', function () {
+    new App(false); // Lorsqu'on change de page, on reviens tout en haut. 
+
+    window.scrollTo(0, 0);
+  });
 });
 
 			}});
@@ -456,6 +473,173 @@ var Navigation = /*#__PURE__*/function () {
 }();
 
 exports["default"] = Navigation;
+
+			}});
+
+
+		  ;
+			require.define({'dev/js/constants/constants.js': function(exports, require, module) {
+				"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SCROLLMAGIC_CONTROLLER = void 0;
+
+var ScrollMagic = require("scrollmagic"); // import "scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators";
+
+
+var SCROLLMAGIC_CONTROLLER = new ScrollMagic.Controller({
+  addIndicators: true
+});
+exports.SCROLLMAGIC_CONTROLLER = SCROLLMAGIC_CONTROLLER;
+
+			}});
+
+
+		  ;
+			require.define({'dev/js/constants/sections.js': function(exports, require, module) {
+				"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _Watches = _interopRequireDefault(require("../flexibles/Watches.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = {
+  'watches': _Watches["default"]
+};
+exports["default"] = _default;
+
+			}});
+
+
+		  
+			require.define({'dev/js/flexibles/Init.js': function(exports, require, module) {
+				"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = initFlexibleSections;
+
+var _sections = _interopRequireDefault(require("../constants/sections.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function initFlexibleSections() {
+  var activeSections = [];
+
+  for (var section in _sections["default"]) {
+    if (document.querySelector(".".concat(section))) try {
+      activeSections.push(new _sections["default"][section]());
+    } catch (e) {
+      console.error(section, e);
+    }
+  }
+
+  return activeSections;
+}
+
+			}});
+
+
+		  ;
+			require.define({'dev/js/flexibles/Watches.js': function(exports, require, module) {
+				"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _gsap = require("gsap");
+
+var _constants = require("../constants/constants");
+
+var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
+
+var _functions = require("../utils/functions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Watches = /*#__PURE__*/function () {
+  function Watches() {
+    _classCallCheck(this, Watches);
+
+    this.sections = document.querySelectorAll('.watches');
+    (0, _functions.initSwipers)(this.sections, {
+      // spaceBetween: 30,
+      loop: true,
+      autoplay: true,
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          centeredSlides: true,
+          setWrapperSize: true
+        },
+        560: {
+          slidesPerView: 3,
+          spaceBetween: 0,
+          centeredSlides: false,
+          setWrapperSize: true
+        },
+        730: {
+          slidesPerView: 4,
+          spaceBetween: 0,
+          centeredSlides: false,
+          setWrapperSize: true
+        },
+        1200: {
+          slidesPerView: 6,
+          spaceBetween: 0,
+          centeredSlides: false,
+          setWrapperSize: true
+        }
+      } // watchOverflow: true,
+
+    });
+    this.animate();
+  }
+
+  _createClass(Watches, [{
+    key: "animate",
+    value: function animate() {
+      this.sections.forEach(function (section) {
+        var ornament = section.querySelectorAll('.ornament');
+
+        var ornamentAnimation = _gsap.TweenMax.staggerFromTo(ornament, 1.3, {
+          autoAlpha: 0
+        }, {
+          autoAlpha: 1
+        }, 1.6);
+
+        new _scrollmagic["default"].Scene({
+          triggerElement: section,
+          triggerHook: 0.95,
+          offset: 200,
+          reverse: true
+        }) //   .setTween([ornamentAnimation])
+        .addTo(_constants.SCROLLMAGIC_CONTROLLER);
+      });
+    }
+  }]);
+
+  return Watches;
+}();
+
+exports["default"] = Watches;
 
 			}});
 

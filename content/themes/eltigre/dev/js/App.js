@@ -1,20 +1,25 @@
 import Navigation from './class/navigation';
-import ScrollMagic from 'scrollmagic'
-import TweenLite from 'gsap'
-
+import ScrollMagic from 'scrollmagic';
+import TweenLite from 'gsap';
+import Swup from 'swup';
+// import { initSwipers } from './utils/functions.js';
+import initFlexibleSections from './flexibles/Init.js';
+import { SCROLLMAGIC_CONTROLLER } from './constants/constants.js';
+// import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
 
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
 }
 export default class App {
 
-    constructor() {
-        this.scrollMagicController = new ScrollMagic.Controller()
+    constructor(isFirstLoad = true) {
+        // this.scrollMagicController = new ScrollMagic.Controller()
         this.scenes = [];
         
         this.revealManager();
         this.debugManager();
-
+        // Sections flexibles
+        initFlexibleSections();
         //Navigation 
         this.menu = new Navigation();
     }
@@ -56,8 +61,13 @@ export default class App {
     }
 };
 
-
 document.addEventListener("DOMContentLoaded", function(ev) {
     new App();
-
+    const swup = new Swup();
+    swup.on('contentReplaced', () => {
+        new App(false);
+        // Lorsqu'on change de page, on reviens tout en haut. 
+        window.scrollTo(0, 0);
+    });
 });
+

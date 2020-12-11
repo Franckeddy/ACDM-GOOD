@@ -73,3 +73,73 @@
     letter-spacing: .3px;
     margin-top: 18px;
 }
+
+// SLIDER
+.watches{
+    .swiper-container{
+        margin-top: 23px;
+    }
+}
+.swiper-wrapper{
+    height: 250px;
+}
+.slide--watch__image{
+    max-width: 170px;
+    width: 100%;
+    img{
+        height: 170px;
+        object-fit: cover;
+    }
+}
+.swiper-slide{
+
+    .watch__title{
+        font-family: 'Chaparral Pro';
+        font-size: 20px;
+        font-style: italic;
+        letter-spacing: .3px;
+        margin-top: 15px;
+    }
+    .watch__price{
+        font-family: "Montserrat";
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: .3px;
+        margin-top: 5px;
+    }
+}
+.button--container{
+    position: absolute;
+    max-width: 1240px;
+    width: 100%;
+    top: 27%;
+    text-align: center;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+    height: 60px;
+    z-index: 2;
+    .swiper-button-prev, .swiper-button-next{
+        outline: none;
+        &:after{
+            content: none;
+            font-size: 27px;
+        }
+    }
+    .swiper-button-prev{
+        background-image: url('../../assets/images/prev.png');
+        background-size: cover;
+        background-position: center center;
+        height: 27px;
+        width: 27px;
+        left: -60px;
+    }
+    .swiper-button-next{
+         background-image: url('../../assets/images/next.png');
+         background-size: cover;
+         background-position: center center;
+         height: 27px;
+         width: 27px;
+         right: -60px;
+    }
+}

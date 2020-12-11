@@ -6,7 +6,34 @@
     
     {% if section.layout == "slider" %}
     <div class="main-wrapper">
-        <!-- Ajouter ici le swiper -->
+        <div class="swiper-container">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            {% for watch in section.watches %}
+            <div class="swiper-slide">
+                <a href="{{ watches[watch].permalink }}" target="_blank">
+                    <div class="slide--watch__image">           
+                        {{ watches[watch].thumbnail }}
+                    </div>
+                    <div class="watch__title">
+                        {{ watches[watch].name }}
+                    </div>
+                    <div class="watch__price">
+                        {{ watches[watch].price }}€
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+       
+    </div>
+    <div class="button--container">
+        <div class="swiper-button-prev">
+        </div>
+        <div class="swiper-button-next">
+        </div>
+    </div>
         {% if section.subtitle is not empty %}
             <div class="watches__subtitle">
                 {{ section.subtitle }}
@@ -21,6 +48,7 @@
         {% endif %}
     </div>
     {% endif %}
+
     {% if section.layout == "listing" %}
     <!-- si c'est en liste -->
     <div class="main-wrapper">

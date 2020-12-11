@@ -114,6 +114,74 @@
   margin-top: 18px;
 }
 
+.watches .swiper-container {
+  margin-top: 23px;
+}
+
+.swiper-wrapper {
+  height: 250px;
+}
+
+.slide--watch__image {
+  max-width: 170px;
+  width: 100%;
+}
+.slide--watch__image img {
+  height: 170px;
+  object-fit: cover;
+}
+
+.swiper-slide .watch__title {
+  font-family: "Chaparral Pro";
+  font-size: 20px;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  margin-top: 15px;
+}
+.swiper-slide .watch__price {
+  font-family: "Montserrat";
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-top: 5px;
+}
+
+.button--container {
+  position: absolute;
+  max-width: 1240px;
+  width: 100%;
+  top: 27%;
+  text-align: center;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 60px;
+  z-index: 2;
+}
+.button--container .swiper-button-prev, .button--container .swiper-button-next {
+  outline: none;
+}
+.button--container .swiper-button-prev:after, .button--container .swiper-button-next:after {
+  content: none;
+  font-size: 27px;
+}
+.button--container .swiper-button-prev {
+  background-image: url("../../assets/images/prev.png");
+  background-size: cover;
+  background-position: center center;
+  height: 27px;
+  width: 27px;
+  left: -60px;
+}
+.button--container .swiper-button-next {
+  background-image: url("../../assets/images/next.png");
+  background-size: cover;
+  background-position: center center;
+  height: 27px;
+  width: 27px;
+  right: -60px;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -973,6 +1041,29 @@ a {
   justify-content: space-between;
 }
 
+.subfooter__media {
+  max-width: 55px;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.subfooter__media .media__container {
+  font-size: 24px;
+  color: #4D4D4D;
+}
+
+@media screen and (max-width: 600px) {
+  .subfooter {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+  }
+
+  .subfooter__media {
+    margin-bottom: 30px;
+  }
+}
 .cta {
   font-family: "Montserrat";
   font-weight: 500;
@@ -987,14 +1078,14 @@ a {
 }
 
 .presentation {
-  height: 100vh;
+  height: 75vh;
   display: flex;
   flex-direction: column;
 }
 
 .presentation__logo {
   max-width: 625px;
-  margin: auto;
+  margin: 99px auto 0;
 }
 
 .logo__title-container {
@@ -1012,7 +1103,7 @@ a {
 }
 
 .presentation__address {
-  margin-top: 22vh;
+  margin-top: 19.2vh;
   font-family: "Chaparral Pro";
   font-style: italic;
   letter-spacing: 0.6px;
@@ -1030,6 +1121,11 @@ a {
   font-size: 3em;
   font-family: "Chaparral Pro";
   cursor: pointer;
+  position: absolute;
+  left: 50%;
+  transform: rotate(-90deg) translateY(-50%);
+  bottom: -30px;
+  animation: 3s linear 1s infinite alternate slidein;
 }
 
 .banner {
@@ -1109,6 +1205,26 @@ a {
   display: flex;
   align-items: center;
   flex-flow: row-reverse wrap;
+}
+
+.content {
+  padding-top: 127px;
+  padding-bottom: 127px;
+  position: relative;
+}
+.content::after {
+  position: absolute;
+  content: "";
+  height: 30px;
+  max-width: 150px;
+  width: 100%;
+  background-image: url("../../assets/images/separateur.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -14px;
 }
 
 .images {
