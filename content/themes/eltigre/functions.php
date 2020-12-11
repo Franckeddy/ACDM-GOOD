@@ -94,10 +94,6 @@ if ( class_exists( 'Timber' ) ) {
 					'has_archive'	   		=> true
 				)
 			);
-
-			
-
-
 		}
 	
 	

@@ -23,7 +23,7 @@ class Eltigre {
 
 
     private function load_admin() {
-
+        include_once 'admin/Admin.php';
     }
 
 
