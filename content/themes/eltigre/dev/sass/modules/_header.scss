@@ -100,6 +100,39 @@
 .menu__list li{
     list-style: none;
     padding: 25px 0;
+    position: relative;
+    &::after{
+        content: '';
+        transition: transform .2s ease-in-out;
+        position: absolute;
+        transform: scale(0,0);
+        height: 5px;
+        background-color: $gold;
+        opacity: 0;
+        max-width: 50%;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        
+    }
+    &:hover,
+    &.current_page_item { 
+        
+        &::after {
+            transform: scale(1,1);
+            opacity: 1;
+            transition: opacity .5s ease-in-out;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            
+            @media screen and (max-width: 980px) {
+                bottom: -18px;
+            }
+        }
+    }
+
 }
 .menu__list li span{
     display: block;

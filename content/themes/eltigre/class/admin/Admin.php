@@ -1,5 +1,5 @@
 <?php
-
+// C'est ici qui'on fera les modifications wordpress,  
 namespace Eltigre;
 
 class Admin {
@@ -12,10 +12,8 @@ class Admin {
 
     public function custom_wysiwyg_colors( $init ) {
 		$custom_colours = '
-			"333333", "Dark Grey",
-			"cc9933", "Gold",
-			"f1f1f3", "Light Grey",
-			"f9f9fa", "Lighter Grey",
+			"cba755", "Gold",
+			"4D4D4D", "Light Black",
 			"ffffff", "White",
 			"000000", "Black"
 			';

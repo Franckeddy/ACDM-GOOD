@@ -419,19 +419,26 @@ var Navigation = /*#__PURE__*/function () {
     window.addEventListener('scroll', this.stickyMenu.bind(this)); // REMOVE NO SCROLL ON PAGE CHANGE
 
     document.querySelector('body').classList.remove('no-scroll');
-    this.header.classList.remove('active'); // const menuItems = document.querySelectorAll('.menu-item, .site-logo, .footer_phone-number, .footer-contact');
-    // menuItems.forEach(item => {
-    //     item.addEventListener('click', ev => {
-    //         const activeItems = document.querySelectorAll('.current_page_item');
-    //         activeItems.forEach(activeItem => activeItem.classList.remove('current_page_item'));
-    //         const link = item.querySelector('a');
-    //         const newActivesLinks = document.querySelectorAll(`a[href="${link.href}"]`);
-    //         link.parentElement.classList.add('current_page_item');
-    //         newActivesLinks.forEach(item => item.parentElement.classList.add('current_page_item'));
-    //     })
-    // });
-    // const hashtagLinks = document.querySelectorAll('a[href*="#"]');
-    // hashtagLinks.forEach(link => link.parentElement.classList.remove('current_page_item'));
+    this.header.classList.remove('active');
+    var menuItems = document.querySelectorAll('.menu-item, .site-logo, .footer_phone-number, .footer-contact');
+    menuItems.forEach(function (item) {
+      item.addEventListener('click', function (ev) {
+        var activeItems = document.querySelectorAll('.current_page_item');
+        activeItems.forEach(function (activeItem) {
+          return activeItem.classList.remove('current_page_item');
+        });
+        var link = item.querySelector('a');
+        var newActivesLinks = document.querySelectorAll("a[href=\"".concat(link.href, "\"]"));
+        link.parentElement.classList.add('current_page_item');
+        newActivesLinks.forEach(function (item) {
+          return item.parentElement.classList.add('current_page_item');
+        });
+      });
+    });
+    var hashtagLinks = document.querySelectorAll('a[href*="#"]');
+    hashtagLinks.forEach(function (link) {
+      return link.parentElement.classList.remove('current_page_item');
+    });
   }
 
   _createClass(Navigation, [{
