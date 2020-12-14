@@ -1,0 +1,46 @@
+.single__watches--container{
+    flex-flow: row wrap;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    
+    .single__watches__text-part-wrapper{
+        display: flex;
+        width: 100%;
+        flex-flow: row-reverse wrap;
+        
+    }
+}
+.single__watches__text-part{
+    max-width: 454px;
+    width: 100%;    
+}
+.single__watches__title{
+    font-family: "Montserrat";
+    font-size: 30px;
+    letter-spacing: 0.3px;
+    line-height: 37px;
+    color: $gold;
+    text-transform: uppercase;
+}
+.single__watches__content{
+    font-family: "Chaparral Pro";
+    font-weight: normal;
+    font-size: 19px;
+    letter-spacing: 0.3px;
+    line-height: 22px;
+    margin: 54px 0 28px;
+    position: relative;
+    color: $text;
+    max-width: 450px;
+    text-align: justify;
+}
+.single__watches-images{
+    max-width: 48.5%;
+    width: 100%;
+    position: absolute;
+    img{
+        height: 600px;
+        object-fit: cover;
+    }
+}

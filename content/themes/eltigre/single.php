@@ -12,6 +12,24 @@
 $context         = Timber::context();
 $timber_post     = Timber::query_post();
 $context['post'] = $timber_post;
+$context['post']->post_date = date( 'd/m/y', strtotime( $context['post']->post_date ) );
+$context['post']->post_thumbnail = wp_get_attachment_image_url( get_post_thumbnail_id(), '', false, array( 'class' => 'single-post__image' ) );
+$pages = get_pages(
+	array(
+	   'meta_key' => '_wp_page_template',
+	   'meta_value' => 'templates/template-blog.php'
+   )
+);
+$context['interest'] = array(
+	'label' 		=> __( 'Je suis intéressé.e', 'eltigre' ),
+	// 'url' 	=> !empty( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) ) ) ? get_permalink( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) )[0]->ID ) : ''
+	'url'			=> get_permalink( $pages[0]->ID ),
+);
+$context['blog_link'] = array(
+	'label' => __( 'Retour', 'eltigre' ),
+	// 'url' 	=> !empty( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) ) ) ? get_permalink( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) )[0]->ID ) : ''
+	'url' => get_permalink( $pages[0]->ID ), // 128 est l'ID de la page recettes à metter dynamiquement.
+);
 
 if ( post_password_required( $timber_post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );

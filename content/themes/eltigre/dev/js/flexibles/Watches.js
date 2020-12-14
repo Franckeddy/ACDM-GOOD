@@ -35,7 +35,6 @@ export default class Watches {
                 setWrapperSize:true,
             }
         }
-        // watchOverflow: true,
       });
   
       this.animate();
@@ -44,16 +43,20 @@ export default class Watches {
     animate() {
       this.sections.forEach(section => {
         
-        const ornament = section.querySelectorAll('.ornament');
-        const ornamentAnimation = TweenMax.staggerFromTo(ornament, 1.3, {autoAlpha: 0}, {autoAlpha: 1}, 1.6);
-    
+        const title = section.querySelectorAll('.watches__title');
+        const titleAnimation = TweenMax.staggerFromTo(title, .6, {x: -300, autoAlpha:0}, {x:0, autoAlpha:1}, .2);
+        const subtitle = section.querySelectorAll('.watches__subtitle');
+        const subtitleAnimation = TweenMax.staggerFromTo(subtitle, .6, {x: 300, autoAlpha:0}, {x:0, autoAlpha:1}, .2);
+        const watch = section.querySelectorAll('.watch');
+        const watchAnimation = TweenMax.staggerFromTo(watch, .8, {autoAlpha: 0}, {autoAlpha: 1}, .2);
+        
         new ScrollMagic.Scene({
           triggerElement: section,
           triggerHook: 0.95,
-          offset: 200,
+          offset:0 ,
           reverse: true,
         })
-        //   .setTween([ornamentAnimation])
+          .setTween([watchAnimation, titleAnimation, subtitleAnimation])
           .addTo(SCROLLMAGIC_CONTROLLER);
       });
     }

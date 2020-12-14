@@ -3,28 +3,53 @@
 {% block content %}
 	{% for post in posts %}
 		<div class="content-wrapper">
-			<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
-				{{dump(post)}}
-				<img 
-					src="{{  Image(post.thumbnail_id).src  }}" 
-					srcset="{{ Image(image).src }}"
-					alt="{{ Image(image).alt }}"
-				/>
-				{% for image in post.images %}
-				<img 
-					src="{{ Image(image).src }}" 
-					srcset="{{ Image(image).src }}"
-					alt="{{ Image(image).alt }}"
-				/>
-				{% endfor %}
-				<div class="watch__description--part">
-					<div class="description__title">
-						{{ post.title }}
+			<article class="post-type-{{ post.post_type }} single__watches" id="post-{{ post.ID }}">
+				<div class="single__watches--container" >
+					<!-- METTRE LE SWIPER  -->
+					<div class="single__watches-images">
+					{% if post.images is not empty %}
+						<img 
+						src="{{  Image(post.thumbnail).src  }}" 
+						srcset="{{ Image(image).src }}"
+						alt="{{ Image(image).alt }}"
+						/>
+						<img 
+							src="{{ image.src }}" 
+							srcset="{{ Image(image).src }}"
+							alt="{{ Image(image).alt }}"
+						/>
+					{% else %}
+						<img 
+						src="{{  Image(post.thumbnail).src  }}" 
+						srcset="{{ Image(image).src }}"
+						alt="{{ Image(image).alt }}"
+						/>
+					{% endif %}
 					</div>
-					<div class="description__content">
-						{{ post.content }}
-					</div>	
-				</div>
+					{% for image in post.images %}
+					{% endfor %}
+					
+					<div class="single__watches__text-part-wrapper main-wrapper">
+						<div class="single__watches__text-part">
+							<div class="single__watches__title">
+								{{ post.title }}
+							</div>
+							<div class="single__watches__content">
+								{{ post.content }}
+							</div>
+							<div class="single__watches__button-container">
+								<div class="cta cta__interest">
+									<!-- <a href="{{blog_link.url}}">{{blog_link.label}}</a>  -->
+								</div>
+								<div class="cta cta__return">
+									<a href="javascript:history.go(-1)">{{blog_link.label}}</a> 
+								</div>
+
+							</div>	
+
+						</div>
+					</div>
+				</div>				
 			</article>
 		</div><!-- /content-wrapper -->
 	{% endfor %}

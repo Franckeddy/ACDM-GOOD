@@ -35,6 +35,8 @@
             height: 100vh;
             opacity: 1;
             transition: all .5s ease-in;
+            top: 144px;
+            z-index: -2;
         }
     }
     .header-content__wrapper {
@@ -209,6 +211,19 @@
 }
 .no-scroll {
     overflow: hidden;
+}
+.contact-logo{
+    position: relative;
+    top: -16px;
+    right: 15px;
+    z-index: 2;
+}
+.contact-image{
+    background-image: url('../../assets/images/letter.png');
+    background-size: cover;
+    background-position: right center;
+    width: 30px;
+    height: 24px;
 }
 @media screen and (max-width: 768px){
 

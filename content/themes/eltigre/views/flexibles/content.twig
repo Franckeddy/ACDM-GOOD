@@ -1,36 +1,34 @@
 
-<section id="{{ section.title|sanitize }}" class="content">
-        
-        <div class="content__images content--layout-{{section.image_position}}" >
-            <!-- METTRE LE SWIPER  -->
-            {% if section.images|length == 1 %}
-                <div class="images">
-                    <div class="images__image" style="background-image: url({{ section.images.0.url }});">
-                </div>
-            {% endif %}
-        </div>
-        
-        <div class="content__text-part">
-
-            {% if section.title is not empty %}
-                <div class="text-part__title">
-                    {{ section.title}}
-                </div>
-            {% endif %}
-            <div class="text-part__container">
-                {% if section.description is not empty %}
-                    <div class="text-part__description">
-                        {{ section.description }}              
-                    </div>
-                {% endif %}
-    
-                {% if section.more_text is not empty %}
-                    <div class="text-part__more-text">
-                        {{ section.more_text }}           
-                    </div>
-                {% endif %}
+<section id="{{ section.title|sanitize }}" class="content">     
+    <div class="content__images content--layout-{{section.image_position}}" >
+        <!-- METTRE LE SWIPER  -->
+        {% if section.images|length == 1 %}
+        <div class="images">
+            <div class="images__image" style="background-image: url({{ section.images.0.url }});">
             </div>
-
         </div>
+        {% endif %}
         
+        <div class="content__text-part-wrapper main-wrapper">
+            <div class="content__text-part">
+                {% if section.title is not empty %}
+                    <div class="text-part__title">
+                        {{ section.title}}
+                    </div>
+                {% endif %}
+                <div class="text-part__container">
+                    {% if section.description is not empty %}
+                        <div class="text-part__description">
+                            {{ section.description }}              
+                        </div>
+                    {% endif %}
+                    {% if section.more_text is not empty %}
+                        <div class="text-part__more-text">
+                            {{ section.more_text }}           
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

@@ -48,3 +48,24 @@
     bottom: -30px;
     animation: 3s linear 1s infinite alternate slidein;
 }
+@media screen and (max-width: 665px){
+    .logo__logo-text{
+        max-width: 180px;
+        line-height: 20px;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 400px){
+    .logo__title-container{
+        flex-flow: column wrap;
+        
+    }
+    .logo__logo-text{
+        max-width: 100%;
+        width: 100%;
+        font-size: 14px;
+    }
+    .logo-text--right{
+        margin-top: 15px;
+    }
+}

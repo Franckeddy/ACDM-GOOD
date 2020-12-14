@@ -2,10 +2,10 @@ import Navigation from './class/navigation';
 import ScrollMagic from 'scrollmagic';
 import TweenLite from 'gsap';
 import Swup from 'swup';
-// import { initSwipers } from './utils/functions.js';
+import { initSwipers } from './utils/functions.js';
 import initFlexibleSections from './flexibles/Init.js';
 import { SCROLLMAGIC_CONTROLLER } from './constants/constants.js';
-// import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
+import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
 
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
@@ -32,7 +32,7 @@ export default class App {
             
 			let scene = new ScrollMagic.Scene({triggerElement: el, triggerHook: 0.95, duration: window.clientHeight / 3})
 				.setTween(tween)
-                .addTo(this.scrollMagicController);
+                .addTo(SCROLLMAGIC_CONTROLLER);
                 
             _this.scenes.push(scene);
         })
