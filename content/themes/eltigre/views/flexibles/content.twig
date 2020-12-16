@@ -7,6 +7,19 @@
             <div class="images__image" style="background-image: url({{ section.images.0.url }});">
             </div>
         </div>
+        {% else %}
+        <div class="images">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for galerie in section.images %}
+                    <div class="swiper-slide">
+                        <div class="images__image" style="background-image: url({{ galerie.url }});">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         {% endif %}
         
         <div class="content__text-part-wrapper main-wrapper">
@@ -27,6 +40,7 @@
                             {{ section.more_text }}           
                         </div>
                     {% endif %}
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>

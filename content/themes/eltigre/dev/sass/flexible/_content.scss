@@ -88,3 +88,18 @@
     position: relative;
     color: $gold;
 }
+.swiper-pagination-bullet{
+    width: 16px;
+    height: 16px;
+    border: 2px solid $gold;
+    display: inline-block;
+    border-radius: 100%;
+    background: transparent;
+    margin-right: 10px;
+    outline: none;
+    opacity: 1;
+}
+.swiper-pagination-bullet-active{
+    background: $gold;
+    outline: none;
+}

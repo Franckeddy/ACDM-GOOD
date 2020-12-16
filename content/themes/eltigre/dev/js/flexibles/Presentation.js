@@ -5,7 +5,7 @@ import ScrollMagic from 'scrollmagic';
 export default class Presentation {
     constructor() {
       this.sections = document.querySelectorAll('.presentation');
-      
+      this.button = document.querySelectorAll('.presentation__arrow');
       this.animate();
     }
   
@@ -29,4 +29,7 @@ export default class Presentation {
           .addTo(SCROLLMAGIC_CONTROLLER);
       });
     }
+
+  
+
   }

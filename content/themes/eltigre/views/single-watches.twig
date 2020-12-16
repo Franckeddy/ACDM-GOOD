@@ -7,28 +7,35 @@
 				<div class="single__watches--container" >
 					<!-- METTRE LE SWIPER  -->
 					<div class="single__watches-images">
-					{% if post.images is not empty %}
-						<img 
-						src="{{  Image(post.thumbnail).src  }}" 
-						srcset="{{ Image(image).src }}"
-						alt="{{ Image(image).alt }}"
-						/>
-						<img 
-							src="{{ image.src }}" 
-							srcset="{{ Image(image).src }}"
-							alt="{{ Image(image).alt }}"
-						/>
-					{% else %}
-						<img 
-						src="{{  Image(post.thumbnail).src  }}" 
-						srcset="{{ Image(image).src }}"
-						alt="{{ Image(image).alt }}"
-						/>
-					{% endif %}
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								{% if post.images is not empty %}
+
+									{% for galerie in post.images %}
+										<div class="swiper-slide">
+											<img 
+												src="{{ Image(galerie).src }}" 
+												srcset="{{ Image(galerie).src }}"
+												alt="{{ Image(galerie).alt }}"
+											/>
+										</div>
+									{% endfor %}
+								{% else %}
+										<div class="swiper-slide">
+											<img 
+											src="{{  Image(post.thumbnail).src  }}" 
+											srcset="{{ Image(image).src }}"
+											alt="{{ Image(image).alt }}" class="rororo"
+											/>
+										</div>
+
+								{% endif %}
+							</div>
+						</div>
 					</div>
+
 					{% for image in post.images %}
 					{% endfor %}
-					
 					<div class="single__watches__text-part-wrapper main-wrapper">
 						<div class="single__watches__text-part">
 							<div class="single__watches__title">
@@ -39,14 +46,13 @@
 							</div>
 							<div class="single__watches__button-container">
 								<div class="cta cta__interest">
-									<!-- <a href="{{blog_link.url}}">{{blog_link.label}}</a>  -->
+									<a href="{{blog_link.url}}">{{interest.label}}</a> 
 								</div>
 								<div class="cta cta__return">
 									<a href="javascript:history.go(-1)">{{blog_link.label}}</a> 
 								</div>
-
+								<div class="swiper-pagination"></div>
 							</div>	
-
 						</div>
 					</div>
 				</div>				

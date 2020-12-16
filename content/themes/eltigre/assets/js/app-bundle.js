@@ -636,7 +636,7 @@ var Navigation = /*#__PURE__*/function () {
   function Navigation() {
     _classCallCheck(this, Navigation);
 
-    this.distanceBeforeSticky = window.innerHeight / 10;
+    this.distanceBeforeSticky = window.innerHeight / 4;
     this.body = document.querySelector('body');
     this.header = document.getElementById('site-header');
     this.toggleBtn = document.querySelector('.burger-menu__wrapper');
@@ -740,6 +740,8 @@ var _Content = _interopRequireDefault(require("../flexibles/Content.js"));
 
 var _ContactForm = _interopRequireDefault(require("../flexibles/ContactForm.js"));
 
+var _SingleWatch = _interopRequireDefault(require("../flexibles/SingleWatch.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var _default = {
@@ -747,6 +749,7 @@ var _default = {
   'banner': _Banner["default"],
   'watches': _Watches["default"],
   'content': _Content["default"],
+  'single__watches': _SingleWatch["default"],
   'contact': _ContactForm["default"]
 };
 exports["default"] = _default;
@@ -995,6 +998,17 @@ var Content = /*#__PURE__*/function () {
     _classCallCheck(this, Content);
 
     this.sections = document.querySelectorAll('.content');
+    (0, _functions.initSwipers)(this.sections, {
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      },
+      loop: true,
+      autoplay: true,
+      autoHeight: true,
+      effect: 'fade'
+    });
     this.animate();
   }
 
@@ -1022,9 +1036,9 @@ var Content = /*#__PURE__*/function () {
           autoAlpha: 1
         }, .2);
 
-        var subtitle = section.querySelectorAll('.banner__subtitle');
+        var textLeft = section.querySelectorAll('.content--layout-left .content__text-part');
 
-        var subtitleAnimation = _gsap.TweenMax.staggerFromTo(subtitle, .6, {
+        var textLeftAnimation = _gsap.TweenMax.staggerFromTo(textLeft, .6, {
           x: 300,
           autoAlpha: 0
         }, {
@@ -1032,10 +1046,10 @@ var Content = /*#__PURE__*/function () {
           autoAlpha: 1
         }, .2);
 
-        var text = section.querySelectorAll('.banner__description');
+        var textRight = section.querySelectorAll('.content--layout-right .content__text-part');
 
-        var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, {
-          x: 300,
+        var textRightAnimation = _gsap.TweenMax.staggerFromTo(textRight, .6, {
+          x: -300,
           autoAlpha: 0
         }, {
           x: 0,
@@ -1047,7 +1061,7 @@ var Content = /*#__PURE__*/function () {
           triggerHook: 0.95,
           offset: 150,
           reverse: true
-        }).setTween([imagesRightAnimation, imagesleftAnimation, subtitleAnimation, textAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        }).setTween([imagesRightAnimation, imagesleftAnimation, textLeftAnimation, textRightAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
     }
   }]);
@@ -1118,6 +1132,7 @@ var Presentation = /*#__PURE__*/function () {
     _classCallCheck(this, Presentation);
 
     this.sections = document.querySelectorAll('.presentation');
+    this.button = document.querySelectorAll('.presentation__arrow');
     this.animate();
   }
 
@@ -1167,6 +1182,113 @@ var Presentation = /*#__PURE__*/function () {
 }();
 
 exports["default"] = Presentation;
+
+			}});
+
+
+		  ;
+			require.define({'dev/js/flexibles/SingleWatch.js': function(exports, require, module) {
+				"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _gsap = require("gsap");
+
+var _constants = require("../constants/constants");
+
+var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
+
+var _functions = require("../utils/functions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var SingleWatch = /*#__PURE__*/function () {
+  function SingleWatch() {
+    _classCallCheck(this, SingleWatch);
+
+    this.sections = document.querySelectorAll('.single__watches');
+    (0, _functions.initSwipers)(this.sections, {
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      },
+      direction: 'vertical',
+      loop: true,
+      autoplay: false,
+      autoHeight: true,
+      effect: 'fade'
+    });
+    this.animate();
+  }
+
+  _createClass(SingleWatch, [{
+    key: "animate",
+    value: function animate() {
+      this.sections.forEach(function (section) {
+        var imagesRight = section.querySelectorAll('.content--layout-right .images');
+
+        var imagesRightAnimation = _gsap.TweenMax.staggerFromTo(imagesRight, .6, {
+          x: 300,
+          autoAlpha: 0
+        }, {
+          x: 0,
+          autoAlpha: 1
+        }, .2);
+
+        var imagesLeft = section.querySelectorAll('.content--layout-left .images');
+
+        var imagesleftAnimation = _gsap.TweenMax.staggerFromTo(imagesLeft, .6, {
+          x: -300,
+          autoAlpha: 0
+        }, {
+          x: 0,
+          autoAlpha: 1
+        }, .2);
+
+        var textLeft = section.querySelectorAll('.content--layout-left .content__text-part');
+
+        var textLeftAnimation = _gsap.TweenMax.staggerFromTo(textLeft, .6, {
+          x: 300,
+          autoAlpha: 0
+        }, {
+          x: 0,
+          autoAlpha: 1
+        }, .2);
+
+        var textRight = section.querySelectorAll('.content--layout-right .content__text-part');
+
+        var textRightAnimation = _gsap.TweenMax.staggerFromTo(textRight, .6, {
+          x: -300,
+          autoAlpha: 0
+        }, {
+          x: 0,
+          autoAlpha: 1
+        }, .2);
+
+        new _scrollmagic["default"].Scene({
+          triggerElement: section,
+          triggerHook: 0.95,
+          offset: 150,
+          reverse: true
+        }).setTween([imagesRightAnimation, imagesleftAnimation, textLeftAnimation, textRightAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+      });
+    }
+  }]);
+
+  return SingleWatch;
+}();
+
+exports["default"] = SingleWatch;
 
 			}});
 

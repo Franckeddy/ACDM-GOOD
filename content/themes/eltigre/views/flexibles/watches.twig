@@ -5,48 +5,48 @@
     {% endif %}
     
     {% if section.layout == "slider" %}
-    <div class="main-wrapper">
-        <div class="swiper-container">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            {% for watch in section.watches %}
-            <div class="swiper-slide">
-                <a href="{{ watches[watch].permalink }}" target="_blank">
-                    <div class="slide--watch__image">           
-                        {{ watches[watch].thumbnail }}
+        <div class="main-wrapper">
+            <div class="swiper-container">
+            <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    {% for watch in section.watches %}
+                    <div class="swiper-slide">
+                        <a href="{{ watches[watch].permalink }}" target="_blank">
+                            <div class="slide--watch__image">           
+                                {{ watches[watch].thumbnail }}
+                            </div>
+                            <div class="watch__title">
+                                {{ watches[watch].name }}
+                            </div>
+                            <div class="watch__price">
+                                {{ watches[watch].price }}€
+                            </div>
+                        </a>
                     </div>
-                    <div class="watch__title">
-                        {{ watches[watch].name }}
-                    </div>
-                    <div class="watch__price">
-                        {{ watches[watch].price }}€
-                    </div>
-                </a>
+                    {% endfor %}
+                </div>
+            
             </div>
-            {% endfor %}
-        </div>
-       
-    </div>
-    <div class="button--container">
-        <div class="swiper-button-prev">
-        </div>
-        <div class="swiper-button-next">
-        </div>
-    </div>
-        {% if section.subtitle is not empty %}
-            <div class="watches__subtitle">
-                {{ section.subtitle }}
+            <div class="button--container">
+                <div class="swiper-button-prev">
+                </div>
+                <div class="swiper-button-next">
+                </div>
             </div>
-        {% endif %}
-        {% if section.add_cta == true %}
-            <div class="watches__cta-wrapper">
-                <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta">
-                    {{ section.link.title }}
-                </a>
-            </div>
-        {% endif %}
-    </div>
+            {% if section.subtitle is not empty %}
+                <div class="watches__subtitle">
+                    {{ section.subtitle }}
+                </div>
+            {% endif %}
+            {% if section.add_button == true %}
+                <div class="watches__cta-wrapper">
+                    <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta cta--watches">
+                        {{ section.link.title }}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
     {% endif %}
 
     {% if section.layout == "listing" %}

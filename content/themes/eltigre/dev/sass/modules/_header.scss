@@ -1,7 +1,8 @@
 .home{
     .header__content{
         .main-logo{
-            display: none;
+           opacity: 0;
+           transition: all .4s ease-in-out;
         }
     }
 }
@@ -17,6 +18,7 @@
     // overflow: hidden;
     z-index: 2;
     top: 0;
+    transition: all 0.4s ease-in-out;
     &::after{
         content: "";
         position: absolute;
@@ -50,6 +52,8 @@
     }
 }
 
+
+
 .header-content__wrapper {
     width: 100%;
     background-color:white;
@@ -70,6 +74,7 @@
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    transition: all .4s ease-in-out;
     img{
         height: 100%;
     }
@@ -161,6 +166,7 @@
     top: 28px;
     right: 15px;
     z-index: 2;
+    transition: all .4s ease-in-out;
     .burger-menu__wrapper{
         position: relative;
         top: 40px;
@@ -217,6 +223,7 @@
     top: -16px;
     right: 15px;
     z-index: 2;
+    transition: all .4s ease-in-out;
 }
 .contact-image{
     background-image: url('../../assets/images/letter.png');
@@ -225,6 +232,51 @@
     width: 30px;
     height: 24px;
 }
+// Style pour la home seulement 
+.home{
+    .sticky{
+        .header__content{
+            height: 90px;
+            transition: all .4s ease-in-out;
+            .site__burger-menu{
+                top: 6px;
+                transition: all .4s ease-in-out;
+            }
+            .main-logo{
+                max-width: 213px;
+                height: 64px;
+                opacity: 1;
+                transition: all .4s ease-in-out;
+            }
+            .contact-logo {
+                top: -10px;
+                transition: all .4s ease-in-out;
+            }
+        }
+    }
+}
+.sticky{
+    .header__content{
+        height: 90px;
+        transition: all .4s ease-in-out;
+        box-shadow: 0px 2px 10px $text;
+        .site__burger-menu{
+            top: 6px;
+            transition: all .4s ease-in-out;
+        }
+        .main-logo{
+            max-width: 213px;
+            height: 64px;
+            opacity: 1;
+            transition: all .4s ease-in-out;
+        }
+        .contact-logo {
+            top: -10px;
+            transition: all .4s ease-in-out;
+        }
+    }
+}
+
 @media screen and (max-width: 768px){
 
     .home{

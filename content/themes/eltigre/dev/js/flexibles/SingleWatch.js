@@ -3,17 +3,18 @@ import { SCROLLMAGIC_CONTROLLER } from '../constants/constants';
 import ScrollMagic from 'scrollmagic';
 import { initSwipers } from "../utils/functions.js";
 
-export default class Content {
+export default class SingleWatch {
     constructor() {
-      this.sections = document.querySelectorAll('.content');
+      this.sections = document.querySelectorAll('.single__watches');
       initSwipers(this.sections, {
         pagination: {
           el: '.swiper-pagination',
           type: 'bullets',
           clickable: true, 
         },
+        direction :'vertical',
         loop: true,
-        autoplay: true,
+        autoplay: false,
         autoHeight: true,
         effect : 'fade',
       });

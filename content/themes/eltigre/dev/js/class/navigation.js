@@ -2,7 +2,7 @@ import { addTransition } from '../utils/functions';
 
 export default class Navigation {
     constructor() {
-        this.distanceBeforeSticky = window.innerHeight / 10;
+        this.distanceBeforeSticky = window.innerHeight / 4 ;
         this.body = document.querySelector('body');
         this.header = document.getElementById('site-header');
         this.toggleBtn = document.querySelector('.burger-menu__wrapper');
