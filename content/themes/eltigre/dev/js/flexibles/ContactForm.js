@@ -7,7 +7,7 @@ import { post } from "../utils/functions";
 
 export default class ContactForm {
     constructor() {
-        this.sections = document.querySelectorAll('.section_contact-form');
+        this.sections = document.querySelectorAll('.contact');
 
         this.sections.forEach(section => {
             const form = new Form(section.querySelector('form'));

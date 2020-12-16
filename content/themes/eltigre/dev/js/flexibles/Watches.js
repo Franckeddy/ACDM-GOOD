@@ -12,25 +12,25 @@ export default class Watches {
         breakpoints: {
             320: {
                 slidesPerView: 2,
-                spaceBetween: 0,
+                spaceBetween: 15,
                 centeredSlides: true,
                 setWrapperSize:true,
             },
-            570 :{
+            730 :{
                 slidesPerView: 3,
                 spaceBetween: 0,
                 centeredSlides: true,
                 setWrapperSize:true,
             },
-            730: {
-                slidesPerView: 5,
+            950: {
+                slidesPerView: 4,
                 spaceBetween: 10,
                 centeredSlides: false,
                 setWrapperSize:true,
             },
-            1000 :{
-                slidesPerView: 6,
-                spaceBetween: 4,
+            1080 :{
+                slidesPerView: 5,
+                spaceBetween: 10,
                 centeredSlides: false,
                 setWrapperSize:true,
             }

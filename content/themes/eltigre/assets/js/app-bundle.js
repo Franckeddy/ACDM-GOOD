@@ -709,9 +709,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SCROLLMAGIC_CONTROLLER = void 0;
 
-require("scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators");
+var ScrollMagic = require("scrollmagic"); // import "scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators";
 
-var ScrollMagic = require("scrollmagic");
 
 var SCROLLMAGIC_CONTROLLER = new ScrollMagic.Controller({
   addIndicators: true
@@ -908,7 +907,7 @@ var ContactForm = /*#__PURE__*/function () {
       };
     });
 
-    this.sections = document.querySelectorAll('.section_contact-form');
+    this.sections = document.querySelectorAll('.contact');
     this.sections.forEach(function (section) {
       var form = new _Form["default"](section.querySelector('form'));
       var submit = new _Loader["default"](form.el.querySelector('.contact-form__cta-submit'));
@@ -1329,25 +1328,25 @@ var Watches = /*#__PURE__*/function () {
       breakpoints: {
         320: {
           slidesPerView: 2,
-          spaceBetween: 0,
+          spaceBetween: 15,
           centeredSlides: true,
           setWrapperSize: true
         },
-        570: {
+        730: {
           slidesPerView: 3,
           spaceBetween: 0,
           centeredSlides: true,
           setWrapperSize: true
         },
-        730: {
-          slidesPerView: 5,
+        950: {
+          slidesPerView: 4,
           spaceBetween: 10,
           centeredSlides: false,
           setWrapperSize: true
         },
-        1000: {
-          slidesPerView: 6,
-          spaceBetween: 4,
+        1080: {
+          slidesPerView: 5,
+          spaceBetween: 10,
           centeredSlides: false,
           setWrapperSize: true
         }

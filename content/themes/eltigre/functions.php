@@ -57,6 +57,9 @@ if ( class_exists( 'Timber' ) ) {
 			// Social networks
 			$context['social_media'] = get_field( 'social_media', 'options' );
 
+			// Contact PAge
+			$context['contact'] 	= get_field( 'contact_page', 'options' );
+
 			// Copyright
 			$context['copyright'] = array(
 				'label' => get_field( 'copyright', 'options' )

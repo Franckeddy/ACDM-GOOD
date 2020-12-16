@@ -115,13 +115,13 @@
     }
 }
 .swiper-wrapper{
-    height: 250px;
+    height: auto;
 }
 .slide--watch__image{
-    max-width: 170px;
+    max-width: 220px;
     width: 100%;
     img{
-        height: 170px;
+        height: 220px;
         object-fit: cover;
         font-family: 'object-fit: cover;';
     }
@@ -129,8 +129,8 @@
 .swiper-slide{
     width: auto;
     .watch__title{
-        font-family: 'Chaparral Pro';
-        font-size: 20px;
+        font-family: 'Montserrat';
+        font-size: 19px;
         font-style: italic;
         letter-spacing: .3px;
         margin-top: 15px;

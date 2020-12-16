@@ -50,19 +50,18 @@
         display: flex;
         width: 100%;
     }
-    
 }
 .text-part__title{
     font-family: 'Chaparral Pro';
     font-style: italic;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 0.3px;
     line-height: 26px;
     margin: 54px 0 28px;
     text-align: center;
     position: relative;
-    color: $gold;
+    color: $text;
 }
 .text-part__container{
     max-width: 450px;
@@ -89,7 +88,7 @@
     line-height: 26px;
     margin: 54px 0 28px;
     position: relative;
-    color: $gold;
+    color: $text;
 }
 .swiper-pagination-bullet{
     width: 16px;
@@ -105,4 +104,72 @@
 .swiper-pagination-bullet-active{
     background: $gold;
     outline: none;
+}
+@media screen and (max-width: 960px){
+    
+    .content__text-part{
+        max-width: 350px;
+        width: 100%;
+    }
+
+    .text-part__container{
+
+        .swiper-pagination{
+            transform: translateX(0);
+        } 
+    }
+}
+
+@media screen and (max-width: 768px){
+    .content{
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .content__text-part-wrapper {
+        min-height: auto;
+    }
+    .content--layout-left{
+        flex-flow: column wrap;
+        .content__text-part-wrapper{
+            display: flex;
+            width: 100%;
+            flex-flow: row-reverse wrap;
+            .swiper-pagination{
+                top: 0;
+                transform: translateX(-50%);
+                left: 50%;
+            }
+        }
+    }
+    .content--layout-right{
+        flex-flow: column-reverse wrap;
+        .content__text-part-wrapper{
+            display: flex;
+            width: 100%;
+            .swiper-pagination{
+                bottom: 0;
+                transform: translateX(-50%);
+                left: 50%;
+            }
+        }
+    }
+    .images{
+        max-width: 100%;
+        width: 100%;
+        position: relative;
+    }
+    .content__text-part {
+        max-width: 100%;
+        .text-part__container{
+            max-width: 100%;
+            .text-part__description {
+                margin: 0;
+                padding: 54px 0px 28px 0;
+                position: relative;
+                color: #4D4D4D;
+                max-width: 100%;
+                text-align: justify;
+            }  
+        }
+    }
 }

@@ -18,7 +18,7 @@ class Eltigre {
 
     
     private function load_ajax() {
-        include_once 'ajax/Contact-mail.php';
+        include_once 'ajax/Contact.php';
     }
 
 

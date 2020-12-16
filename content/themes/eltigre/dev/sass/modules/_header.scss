@@ -62,21 +62,23 @@
 }
 
 .menu__container{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
     height: 100%;
+    text-align: center;
 }
 .main-logo{
-    max-width: 278px;
+    max-width: 100%;
     width: 100%;
     height: 86px;
-    position: relative;
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    transition: all .4s ease-in-out;
-    img{
-        height: 100%;
+    transition: all 0.4s ease-in-out;
+    .logo--link{
+        position: relative;
+        img{
+            height: 100%;
+            width: auto;
+        }
     }
 }
 .contact--link{
@@ -108,6 +110,55 @@
     list-style: none;
     padding: 25px 0;
     position: relative;
+    // &::after{
+    //     content: '';
+    //     transition: transform .2s ease-in-out;
+    //     position: absolute;
+    //     transform: scale(0,0);
+    //     height: 5px;
+    //     background-color: $gold;
+    //     opacity: 0;
+    //     max-width: 50%;
+    //     width: 100%;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+        
+    // }
+    &:hover,
+    &.current_page_item { 
+        a{
+
+            &::after {
+                transform: scale(1,1);
+                opacity: 1;
+                transition: opacity .5s ease-in-out;
+                max-width: 100%;
+                width: 100%;
+                margin: 0 auto;
+                
+                
+            }
+        }
+    }
+
+}
+.menu__list li span{
+    display: block;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.50);
+}
+.menu__list li a{
+    color: $text;
+    font-family: 'Montserrat';
+    font-size: 15px;
+    letter-spacing: 0.35px;
+    line-height: 19px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
     &::after{
         content: '';
         transition: transform .2s ease-in-out;
@@ -118,7 +169,7 @@
         opacity: 0;
         max-width: 50%;
         width: 100%;
-        bottom: 0;
+        bottom: -27px;
         left: 0;
         right: 0;
         
@@ -141,22 +192,6 @@
     }
 
 }
-.menu__list li span{
-    display: block;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.50);
-}
-.menu__list li a{
-    color: $text;
-    font-family: 'Montserrat';
-    font-size: 15px;
-    letter-spacing: 0.35px;
-    line-height: 19px;
-    text-transform: uppercase;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-}
 // Menu BURGER
 .site__burger-menu{
     display: inline-block;
@@ -167,6 +202,7 @@
     right: 15px;
     z-index: 2;
     transition: all .4s ease-in-out;
+    float: left;
     .burger-menu__wrapper{
         position: relative;
         top: 40px;
@@ -220,10 +256,11 @@
 }
 .contact-logo{
     position: relative;
-    top: -16px;
-    right: 15px;
+    top: 56px;
+    right: 0px;
     z-index: 2;
     transition: all .4s ease-in-out;
+    float: right;
 }
 .contact-image{
     background-image: url('../../assets/images/letter.png');
@@ -243,13 +280,12 @@
                 transition: all .4s ease-in-out;
             }
             .main-logo{
-                max-width: 213px;
                 height: 64px;
                 opacity: 1;
                 transition: all .4s ease-in-out;
             }
             .contact-logo {
-                top: -10px;
+
                 transition: all .4s ease-in-out;
             }
         }
@@ -265,29 +301,23 @@
             transition: all .4s ease-in-out;
         }
         .main-logo{
-            max-width: 213px;
             height: 64px;
             opacity: 1;
             transition: all .4s ease-in-out;
         }
         .contact-logo {
-            top: -10px;
+            top: 33px;
             transition: all .4s ease-in-out;
         }
     }
 }
-
+@media screen and (max-width: 1300px){
+    .main-logo {
+        max-width: 95%;
+    }
+}
 @media screen and (max-width: 768px){
 
-    .home{
-        .active{
-            .header__content{
-                .main-logo{
-                    display: initial;
-                }
-            }
-        }
-    }
     .menu__list {
         
         padding: 60px 15px;
@@ -300,6 +330,10 @@
             text-align: center;
             a{
                 font-size: 25px;
+                line-height: 24px;
+                &::after{
+                    bottom: -15px;
+                }
             }
         }
     }
@@ -312,14 +346,12 @@
 
 @media screen and (max-width: 414px){
     .main-logo {
-        max-width: 193px;
         height: 58px;
     }
 }
 
 @media screen and (max-width: 330px){
     .main-logo {
-        max-width: 168px;
         height: 51px;
     }
 }
