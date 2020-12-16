@@ -1,5 +1,5 @@
-<section class="presentation main-wrapper">
-
+<section class="presentation main-wrapper" id="{{ section.title|sanitize }}">
+    {{dump(section.anchor)}}
     <div class="presentation__logo">
         <img src="{{ section.logo.url }}" alt="{{ section.logo.title }}" class="presentation-logo">
         <div class="logo__title-container">
@@ -9,6 +9,11 @@
     </div>
 
     <div class="presentation__address">{{ section.address }}</div>
-    <div id="presentation__arrow" class="presentation__arrow"><</div>
+
+    <div id="presentation__arrow" class="presentation__arrow">
+        <a href="{{section.anchor.url}}" class="presentation__anchor">
+            <
+        </a>
+    </div>
 
 </section>

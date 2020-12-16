@@ -7,6 +7,7 @@ export default class Presentation {
       this.sections = document.querySelectorAll('.presentation');
       this.button = document.querySelectorAll('.presentation__arrow');
       this.animate();
+
     }
   
     animate() {
@@ -29,6 +30,8 @@ export default class Presentation {
           .addTo(SCROLLMAGIC_CONTROLLER);
       });
     }
+
+    
 
   
 
