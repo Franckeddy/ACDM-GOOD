@@ -3,12 +3,13 @@
     position: relative;
     display: flex;
     align-items: flex-start;
+    padding-top: 49px;
     
     .single__watches__text-part-wrapper{
         display: flex;
         width: 100%;
         flex-flow: row-reverse wrap;
-        height: 600px;
+        min-height: 600px;
     }
 }
 .single__watches__text-part{
@@ -42,12 +43,98 @@
     img{
         height: 600px;
         object-fit: cover;
+        object-position: center;
+        font-family: 'object-fit: cover; object-position: center;';
     }
 }
+.single__watches__button-container{
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+    justify-content: space-between;
+}
+
 // SLIDER 
 .single__watches-images{
 
     .swiper-slide{
         height: 600px !important;
+    }
+}
+.swiper-pagination{
+    margin-top: 55px;
+    z-index: 1;
+}
+@media screen and (max-width: 960px){
+    .single__watches__text-part{
+        max-width: 345px;
+    }
+    .single__watches__button-container{
+        align-items: center;
+        flex-flow: column wrap;
+
+        .cta{
+            margin-bottom: 10px;
+            max-width: 243px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .swiper-pagination{
+        margin-top: 12px;
+        transform: translateX(65%);
+    }
+}
+@media screen and (max-width: 712px){
+    .single__watches--container{
+        flex-flow: column-reverse wrap;
+        .single__watches__text-part-wrapper{
+            min-height: 0;
+        }
+    }
+    .single__watches-images {
+        max-width: 100%;
+        position: relative;
+    }
+    .single__watches__text-part{
+        max-width: 100%;
+    }
+    .single__watches__content{
+        margin: 0;
+        max-width: 450px;
+        text-align: justify;
+        padding: 55px 30px 28px 0;
+        max-width: 100%;
+    }
+    .single__watches__button-container{
+        justify-content: flex-start;
+        flex-flow: row wrap;
+        padding-right:30px ;
+        padding-bottom: 30px;
+
+        .cta{
+            margin-bottom: 10px;
+            margin-right: 10px;
+            max-width: 243px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .swiper-pagination{
+        margin-top: 12px;
+        transform: translateX(0%);
+    }
+}
+@media screen and (max-width: 535px){
+    .single__watches-images{
+
+        .swiper-slide{
+            height: 400px !important;
+        }
+    }
+    .single__watches-images{
+        img{
+            height: 400px;
+        }
     }
 }

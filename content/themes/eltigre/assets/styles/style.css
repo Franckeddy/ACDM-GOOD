@@ -708,7 +708,7 @@ a {
   height: 100vh;
   opacity: 1;
   transition: all 0.5s ease-in;
-  top: 144px;
+  top: 159px;
   z-index: -2;
 }
 .active .header-content__wrapper {
@@ -1034,6 +1034,56 @@ a {
   border: 2px solid #cba755;
   color: #cba755;
   padding: 17px 32px 19px;
+  position: relative;
+  transition: color 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+  overflow: hidden;
+}
+.cta::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #cba755;
+  left: -1px;
+  right: 0;
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+}
+.cta:hover {
+  color: white;
+}
+.cta:hover::before {
+  transform: translateX(0);
+  transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cta--watches {
+  padding: 16px 45px 18px;
+}
+
+.fa-facebook-f, .fa-instagram {
+  transition: color 0.3s ease-in-out;
+}
+.fa-facebook-f:hover, .fa-instagram:hover {
+  color: #cba755;
+  transition: color 0.3s ease-in-out;
+}
+
+.subfooter__copyright a {
+  transition: color 0.3s ease-in-out;
+}
+.subfooter__copyright a:hover {
+  color: #cba755;
+  transition: color 0.3s ease-in-out;
+}
+
+.cta__interest {
+  padding: 17px 21px 19px;
+}
+
+.cta__return {
+  padding: 17px 61px 19px;
 }
 
 .single__watches--container {
@@ -1041,12 +1091,13 @@ a {
   position: relative;
   display: flex;
   align-items: flex-start;
+  padding-top: 49px;
 }
 .single__watches--container .single__watches__text-part-wrapper {
   display: flex;
   width: 100%;
   flex-flow: row-reverse wrap;
-  height: 600px;
+  min-height: 600px;
 }
 
 .single__watches__text-part {
@@ -1084,12 +1135,100 @@ a {
 .single__watches-images img {
   height: 600px;
   object-fit: cover;
+  object-position: center;
+  font-family: "object-fit: cover; object-position: center;";
+}
+
+.single__watches__button-container {
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .single__watches-images .swiper-slide {
   height: 600px !important;
 }
 
+.swiper-pagination {
+  margin-top: 55px;
+  z-index: 1;
+}
+
+@media screen and (max-width: 960px) {
+  .single__watches__text-part {
+    max-width: 345px;
+  }
+
+  .single__watches__button-container {
+    align-items: center;
+    flex-flow: column wrap;
+  }
+  .single__watches__button-container .cta {
+    margin-bottom: 10px;
+    max-width: 243px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .swiper-pagination {
+    margin-top: 12px;
+    transform: translateX(65%);
+  }
+}
+@media screen and (max-width: 712px) {
+  .single__watches--container {
+    flex-flow: column-reverse wrap;
+  }
+  .single__watches--container .single__watches__text-part-wrapper {
+    min-height: 0;
+  }
+
+  .single__watches-images {
+    max-width: 100%;
+    position: relative;
+  }
+
+  .single__watches__text-part {
+    max-width: 100%;
+  }
+
+  .single__watches__content {
+    margin: 0;
+    max-width: 450px;
+    text-align: justify;
+    padding: 55px 30px 28px 0;
+    max-width: 100%;
+  }
+
+  .single__watches__button-container {
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    padding-right: 30px;
+    padding-bottom: 30px;
+  }
+  .single__watches__button-container .cta {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    max-width: 243px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .swiper-pagination {
+    margin-top: 12px;
+    transform: translateX(0%);
+  }
+}
+@media screen and (max-width: 535px) {
+  .single__watches-images .swiper-slide {
+    height: 400px !important;
+  }
+
+  .single__watches-images img {
+    height: 400px;
+  }
+}
 .presentation {
   height: 75vh;
   display: flex;
@@ -1113,6 +1252,7 @@ a {
   font-size: 16px;
   margin-top: 40px;
   color: #4d4d4d;
+  cursor: default;
 }
 
 .presentation__address {
@@ -1165,7 +1305,6 @@ a {
 }
 .banner {
   position: relative;
-  margin-bottom: 137px;
 }
 
 .banner__image {
@@ -1316,6 +1455,10 @@ a {
   background-position: center center;
 }
 
+.content__text-part-wrapper {
+  min-height: 500px;
+}
+
 .content--layout-left {
   flex-flow: row wrap;
   position: relative;
@@ -1413,7 +1556,7 @@ a {
   font-size: 20px;
   letter-spacing: 0.3px;
   line-height: 28px;
-  margin: 0 0 31px;
+  margin: 0 0 75px;
   position: relative;
 }
 
@@ -1487,16 +1630,48 @@ a {
 }
 
 .watch {
-  max-width: 307px;
+  max-width: 305px;
   width: 100%;
   margin-top: 40px;
 }
+.watch:hover .watch__image {
+  max-width: 305px;
+  width: 100%;
+  height: 305px;
+  overflow: hidden;
+}
+.watch:hover .watch__image img {
+  max-width: 305px;
+  width: 100%;
+  height: 305px;
+  object-fit: cover;
+  font-family: "object-fit: cover;";
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+.watch:hover .watch__title {
+  color: #cba755;
+  transition: color 0.3s ease-in-out;
+}
+.watch:hover .watch__price {
+  color: #cba755;
+  transition: color 0.3s ease-in-out;
+}
 
+.watch__image {
+  max-width: 305px;
+  width: 100%;
+  height: 305px;
+  overflow: hidden;
+}
 .watch__image img {
   max-width: 305px;
   width: 100%;
   height: 305px;
   object-fit: cover;
+  font-family: "object-fit: cover;";
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
 }
 
 .watch__title {
@@ -1505,6 +1680,7 @@ a {
   font-style: italic;
   letter-spacing: 0.3px;
   margin-top: 18px;
+  transition: color 0.3s ease-in-out;
 }
 
 .watch__price {
@@ -1513,6 +1689,7 @@ a {
   font-weight: normal;
   letter-spacing: 0.3px;
   margin-top: 18px;
+  transition: color 0.3s ease-in-out;
 }
 
 .watches .swiper-container {
@@ -1530,6 +1707,7 @@ a {
 .slide--watch__image img {
   height: 170px;
   object-fit: cover;
+  font-family: "object-fit: cover;";
 }
 
 .swiper-slide {
@@ -1600,12 +1778,27 @@ a {
     max-width: 24.7%;
   }
 }
-@media screen and (max-width: 1019px) {
+@media screen and (max-width: 1020px) {
+  .watch {
+    width: 270px;
+  }
+  .watch:hover .watch__image {
+    max-width: 250px;
+    height: 250px;
+  }
+  .watch:hover .watch__image img {
+    max-width: 250px;
+    height: 250px;
+  }
+
   .watches__title {
     margin: 25px 24px;
   }
-}
-@media screen and (max-width: 1020px) {
+
+  .watch__image {
+    max-width: 250px;
+    height: 250px;
+  }
   .watch__image img {
     max-width: 250px;
     height: 250px;
@@ -1618,6 +1811,28 @@ a {
 
   .watches__subtitle:before {
     max-width: 15%;
+  }
+}
+@media screen and (max-width: 875px) {
+  .watch {
+    width: 210px;
+  }
+  .watch:hover .watch__image {
+    max-width: 205px;
+    height: 205px;
+  }
+  .watch:hover .watch__image img {
+    max-width: 205px;
+    height: 205px;
+  }
+
+  .watch__image {
+    max-width: 205px;
+    height: 205px;
+  }
+  .watch__image img {
+    max-width: 205px;
+    height: 205px;
   }
 }
 @media screen and (max-width: 780px) {
@@ -1643,6 +1858,118 @@ a {
     right: 50%;
     left: initial;
     transform: translateX(50%);
+  }
+}
+@media screen and (max-width: 676px) {
+  .watch {
+    width: 180px;
+  }
+  .watch:hover .watch__image {
+    max-width: 180px;
+    height: 180px;
+  }
+  .watch:hover .watch__image img {
+    max-width: 180px;
+    height: 180px;
+  }
+
+  .watch__image {
+    max-width: 180px;
+    height: 180px;
+  }
+  .watch__image img {
+    max-width: 180px;
+    height: 180px;
+  }
+}
+@media screen and (max-width: 597px) {
+  .watch {
+    width: 250px;
+  }
+  .watch:hover .watch__image {
+    max-width: 250px;
+    height: 250px;
+  }
+  .watch:hover .watch__image img {
+    max-width: 250px;
+    height: 250px;
+  }
+
+  .watch__image {
+    max-width: 250px;
+    height: 250px;
+  }
+  .watch__image img {
+    max-width: 250px;
+    height: 250px;
+  }
+}
+@media screen and (max-width: 557px) {
+  .watch {
+    width: 220px;
+  }
+  .watch:hover .watch__image {
+    max-width: 220px;
+    height: 220px;
+  }
+  .watch:hover .watch__image img {
+    max-width: 220px;
+    height: 220px;
+  }
+
+  .watch__image {
+    max-width: 220px;
+    height: 220px;
+  }
+  .watch__image img {
+    max-width: 220px;
+    height: 220px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .watch {
+    width: 180px;
+  }
+
+  .watch__image img {
+    max-width: 180px;
+    height: 180px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .watch {
+    width: 49%;
+  }
+
+  .watch__image img {
+    max-width: 180px;
+    height: 180px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .watches__content {
+    justify-content: center;
+  }
+
+  .watch {
+    width: 100%;
+  }
+  .watch:hover .watch__image {
+    max-width: 100%;
+    height: auto;
+  }
+  .watch:hover .watch__image img {
+    max-width: 100%;
+    height: 100%;
+  }
+
+  .watch__image {
+    max-width: 100%;
+    height: auto;
+  }
+  .watch__image img {
+    max-width: 100%;
+    height: 100%;
   }
 }
 .contact-container {

@@ -9,4 +9,50 @@
     border: 2px solid #cba755;
     color: #cba755;
     padding: 17px 32px 19px;
+    position: relative;
+    transition: color .45s cubic-bezier(.19,1,.22,1);
+    overflow: hidden;
+
+    &::before{
+        content: " ";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background-color: $gold;
+        left: -1px;
+        right: 0;
+        transform: translateX(-100%);
+        transition: transform .45s cubic-bezier(.19,1,.22,1);
+        z-index: -1;
+    }
+    &:hover{
+        color: white;
+        &::before{
+            transform: translateX(0);
+            transition: transform .45s cubic-bezier(.19,1,.22,1);
+        }
+    }
+}
+.cta--watches{
+    padding: 16px 45px 18px;
+}
+.fa-facebook-f, .fa-instagram{
+    transition: color .3s ease-in-out;
+    &:hover{
+        color: $gold;
+        transition: color .3s ease-in-out;
+    }
+}
+.subfooter__copyright a {
+    transition: color .3s ease-in-out;
+    &:hover{
+        color: $gold;
+        transition: color .3s ease-in-out;
+    }
+}
+.cta__interest{
+    padding: 17px 21px 19px;
+}
+.cta__return{
+    padding: 17px 61px 19px;
 }
