@@ -21,21 +21,19 @@ export default class ContactForm {
 
     animate() {
         this.sections.forEach(section => {
-            const titleSection = section.querySelectorAll('.section-contact-form--title');
-            const titleSectionAnimation = TweenMax.staggerFromTo(titleSection, .25, { x: -100, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, .15);
-            const image = section.querySelectorAll('.block__contact-img');
-            const form = section.querySelectorAll('.block__form');
+            const image = section.querySelectorAll('.contact__image-block');
+            const form = section.querySelectorAll('.contact-form');
 
-            const imageAnimation = TweenMax.staggerFromTo(image, .5, { x: -150, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, .15)
-            const formAnimation = TweenMax.staggerFromTo(form, .5, { x: 150, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, .15)
+            const imageAnimation = TweenMax.staggerFromTo(image, .5, { x: -300, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, .15)
+            const formAnimation = TweenMax.staggerFromTo(form, .5, { x: 300, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, .15)
 
             new ScrollMagic.Scene({
                 triggerElement: section,
                 triggerHook: 0.95,
-                offset: 200,
+                offset: 100,
                 reverse: true,
             })
-                .setTween([titleSectionAnimation, imageAnimation, formAnimation])
+                .setTween([imageAnimation, formAnimation])
                 .addTo(SCROLLMAGIC_CONTROLLER);
         });
     }

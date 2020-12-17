@@ -457,20 +457,23 @@ var Form = /*#__PURE__*/function () {
           field.classList.add('error');
         }
 
-        if (field.type === 'mail' && !(0, _functions.checkMail)(field.value)) {
+        if (field.name === 'subject' && field.value === "") {
+          errors.push('Veuillez saisir un sujet');
+          field.classList.add('error');
+        }
+
+        if (field.name === 'message' && field.value === "") {
+          errors.push('Veuillez saisir votre message');
+          field.classList.add('error');
+        }
+
+        if (field.type === 'email' && !(0, _functions.checkMail)(field.value)) {
           errors.push('Veuillez entrer une adresse E-Mail valide');
           field.classList.add('error');
         }
-
-        if (field.type === 'tel' && !(0, _functions.checkPhoneNumber)(field.value)) {
-          errors.push('Veuillez entrer un numéro de téléphone valide');
-          field.classList.add('error');
-        }
-      });
-
-      if (emptyFields > 0) {
-        errors.push("".concat(emptyFields, " ").concat(emptyFields > 1 ? 'champs' : 'champ', " requis vide"));
-      }
+      }); // if (emptyFields > 0) {                      
+      //   errors.push(`${emptyFields} ${emptyFields > 1 ? 'champs' : 'champ'} requis vide`)
+      // }
 
       this.displayErrors(errors);
       return errors.length == 0;
@@ -535,6 +538,7 @@ var Loader = /*#__PURE__*/function () {
     this.el = el; // Store default element values
 
     this.textWrapper = this.el;
+    console.log(this.textWrapper);
     this.text = this.textWrapper.innerText;
     this.fontSize = this.el.style.fontSize;
     this.color = this.el.style.color;
@@ -925,21 +929,11 @@ var ContactForm = /*#__PURE__*/function () {
     key: "animate",
     value: function animate() {
       this.sections.forEach(function (section) {
-        var titleSection = section.querySelectorAll('.section-contact-form--title');
-
-        var titleSectionAnimation = _gsap.TweenMax.staggerFromTo(titleSection, .25, {
-          x: -100,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .15);
-
-        var image = section.querySelectorAll('.block__contact-img');
-        var form = section.querySelectorAll('.block__form');
+        var image = section.querySelectorAll('.contact__image-block');
+        var form = section.querySelectorAll('.contact-form');
 
         var imageAnimation = _gsap.TweenMax.staggerFromTo(image, .5, {
-          x: -150,
+          x: -300,
           autoAlpha: 0
         }, {
           x: 0,
@@ -947,7 +941,7 @@ var ContactForm = /*#__PURE__*/function () {
         }, .15);
 
         var formAnimation = _gsap.TweenMax.staggerFromTo(form, .5, {
-          x: 150,
+          x: 300,
           autoAlpha: 0
         }, {
           x: 0,
@@ -957,9 +951,9 @@ var ContactForm = /*#__PURE__*/function () {
         new _scrollmagic["default"].Scene({
           triggerElement: section,
           triggerHook: 0.95,
-          offset: 200,
+          offset: 100,
           reverse: true
-        }).setTween([titleSectionAnimation, imageAnimation, formAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        }).setTween([imageAnimation, formAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
     }
   }]);

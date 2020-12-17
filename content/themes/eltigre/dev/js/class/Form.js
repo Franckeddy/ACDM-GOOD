@@ -51,20 +51,26 @@ export default class Form {
         errors.push('Veuillez entrer votre nom');
         field.classList.add('error');
       }
-      if (field.type === 'mail' && !checkMail(field.value)) {
+      if (
+        field.name === 'subject' && field.value === "") {
+        errors.push('Veuillez saisir un sujet');
+        field.classList.add('error');
+      }
+      if (
+        field.name === 'message' && field.value === "") {
+        errors.push('Veuillez saisir votre message');
+        field.classList.add('error');
+      }
+      if (field.type === 'email' && !checkMail(field.value)) {
         errors.push('Veuillez entrer une adresse E-Mail valide');
         field.classList.add('error');
       }
 
-      if (field.type === 'tel' && !checkPhoneNumber(field.value)) {
-        errors.push('Veuillez entrer un numéro de téléphone valide');
-        field.classList.add('error');
-      }
     });
     
-    if (emptyFields > 0) {                      
-      errors.push(`${emptyFields} ${emptyFields > 1 ? 'champs' : 'champ'} requis vide`)
-    }
+    // if (emptyFields > 0) {                      
+    //   errors.push(`${emptyFields} ${emptyFields > 1 ? 'champs' : 'champ'} requis vide`)
+    // }
 
     this.displayErrors(errors);
 

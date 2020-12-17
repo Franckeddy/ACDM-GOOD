@@ -905,10 +905,10 @@ a {
 }
 
 .contact-image {
-  background-image: url("../../assets/images/letter.png");
+  background-image: url("../../assets/images/icon-mail.png");
   background-size: cover;
-  background-position: right center;
-  width: 30px;
+  background-position: center center;
+  width: 32px;
   height: 24px;
 }
 
@@ -1051,6 +1051,7 @@ a {
   transition: color 0.45s cubic-bezier(0.19, 1, 0.22, 1);
   overflow: hidden;
   background-color: transparent;
+  outline: none;
 }
 .cta::before {
   content: " ";
@@ -1443,6 +1444,11 @@ a {
 @media screen and (max-width: 375px) {
   .banner__title {
     margin: 25px auto;
+  }
+}
+@media screen and (max-width: 335px) {
+  .banner__title {
+    font-size: 31px;
   }
 }
 .content {
@@ -2181,6 +2187,13 @@ img.images__image {
 }
 .acdm-form .error {
   border-color: red !important;
+}
+
+.form__errors {
+  padding-top: 30px;
+}
+.form__errors p {
+  margin: 5px 0;
 }
 
 @media screen and (max-width: 1060px) {

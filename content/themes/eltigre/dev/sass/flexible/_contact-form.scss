@@ -118,6 +118,14 @@
         border-color: red !important;
     }
 }
+.form__errors{
+    padding-top: 30px;
+
+    p{
+        margin:5px 0;
+    }
+}
+
 @media screen and (max-width: 1060px) {
     .contact__image-block{
         max-width: 475px;
