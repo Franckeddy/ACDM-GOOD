@@ -171,8 +171,6 @@ var _Init = _interopRequireDefault(require("./flexibles/Init.js"));
 
 var _constants = require("./constants/constants.js");
 
-require("scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -181,6 +179,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
 if (window.NodeList && !NodeList.prototype.forEach) {
   NodeList.prototype.forEach = Array.prototype.forEach;
 }
@@ -264,6 +263,9 @@ document.addEventListener("DOMContentLoaded", function (ev) {
     new App(false); // Lorsqu'on change de page, on reviens tout en haut. 
 
     window.scrollTo(0, 0);
+  });
+  swup.on('samePageWithHash', function (a, b) {
+    console.log('here', a, b);
   });
 });
 
@@ -1117,6 +1119,8 @@ var _constants = require("../constants/constants");
 
 var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
+var _functions = require("../utils/functions");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1130,7 +1134,10 @@ var Presentation = /*#__PURE__*/function () {
     _classCallCheck(this, Presentation);
 
     this.sections = document.querySelectorAll('.presentation');
-    this.button = document.querySelectorAll('.presentation__arrow');
+    this.sections.forEach(function (section) {
+      var button = section.querySelector('.presentation__arrow');
+      button.addEventListener('click', _functions.scrollToElement);
+    });
     this.animate();
   }
 
@@ -1579,7 +1586,10 @@ function scrollToElement(e) {
 
     var _element = document.querySelector(this.dataset.scrollto);
 
-    var topOffset = _element.offsetTop;
+    var header = document.querySelector('.header__content');
+    var headerOffset = header ? header.clientHeight : 0;
+    var topOffset = _element.offsetTop - headerOffset;
+    console.log(headerOffset);
     window.scrollTo({
       top: topOffset,
       left: 0,

@@ -140,8 +140,11 @@ export function scrollToTop(e) {
 export function scrollToElement(e) {
     try {
         e.preventDefault();
-        let element = document.querySelector(this.dataset.scrollto);
-        let topOffset = element.offsetTop;
+        const element = document.querySelector(this.dataset.scrollto);
+        const header = document.querySelector('.header__content');
+        const headerOffset = header ? header.clientHeight : 0;
+        const topOffset = element.offsetTop - headerOffset;
+        console.log(headerOffset);
 
         window.scrollTo({
             top: topOffset,

@@ -5,7 +5,7 @@ import Swup from 'swup';
 import { initSwipers } from './utils/functions.js';
 import initFlexibleSections from './flexibles/Init.js';
 import { SCROLLMAGIC_CONTROLLER } from './constants/constants.js';
-import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
+// import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
 
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
@@ -15,7 +15,7 @@ export default class App {
     constructor(isFirstLoad = true) {
         // this.scrollMagicController = new ScrollMagic.Controller()
         this.scenes = [];
-        
+
         this.revealManager();
         this.debugManager();
         // Sections flexibles
@@ -28,17 +28,17 @@ export default class App {
         let _this = this;
 
         document.querySelectorAll('[gsap-reveal]').forEach(el => {
-            let tween = TweenLite.fromTo(el, 1, {y:40, autoAlpha:0}, {y:0, autoAlpha:1, ease:Quad.easeOut});
-            
-			let scene = new ScrollMagic.Scene({triggerElement: el, triggerHook: 0.95, duration: window.clientHeight / 3})
-				.setTween(tween)
+            let tween = TweenLite.fromTo(el, 1, { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: Quad.easeOut });
+
+            let scene = new ScrollMagic.Scene({ triggerElement: el, triggerHook: 0.95, duration: window.clientHeight / 3 })
+                .setTween(tween)
                 .addTo(SCROLLMAGIC_CONTROLLER);
-                
+
             _this.scenes.push(scene);
         })
     }
 
-    debugManager () {
+    debugManager() {
         const debugGrid = document.querySelector('.susy-grid');
         const gridBck = window.getComputedStyle(debugGrid).backgroundImage;
         window.addEventListener('keypress', function (ev) {
@@ -54,20 +54,24 @@ export default class App {
         });
     }
 
-    static destroy () {
+    static destroy() {
         this.scrollMagicController.destroy(true);
-		this.scrollMagicController = null;
-		this.scenes = [];
+        this.scrollMagicController = null;
+        this.scenes = [];
     }
 };
 
-document.addEventListener("DOMContentLoaded", function(ev) {
+document.addEventListener("DOMContentLoaded", function (ev) {
     new App();
     const swup = new Swup();
     swup.on('contentReplaced', () => {
         new App(false);
         // Lorsqu'on change de page, on reviens tout en haut. 
         window.scrollTo(0, 0);
+    });
+
+    swup.on('samePageWithHash', (a, b) => {
+        console.log('here', a, b);
     });
 });
 
