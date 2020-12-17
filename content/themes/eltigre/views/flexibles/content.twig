@@ -3,9 +3,14 @@
     <div class="content__images content--layout-{{section.image_position}}" >
         <!-- METTRE LE SWIPER  -->
         {% if section.images|length == 1 %}
-        <div class="images">
-            <div class="images__image" style="background-image: url({{ section.images.0.url }});">
-            </div>
+        <div class="images"> 
+            {% if section.type_image == 'background' %}
+                <div class="images__image" style="background-image: url({{ section.images.0.url }});">
+                </div>
+            {% else %}
+                <img class="images__image" src="{{ section.images.0.url }};">
+                </img>
+            {% endif %}
         </div>
         {% else %}
         <div class="images">
@@ -13,8 +18,13 @@
                 <div class="swiper-wrapper">
                     {% for galerie in section.images %}
                     <div class="swiper-slide">
-                        <div class="images__image" style="background-image: url({{ galerie.url }});">
-                        </div>
+                        {% if section.type_image == 'background' %}
+                            <div class="images__image" style="background-image: url({{ galerie.url }});">
+                            </div>
+                        {% else %}
+                            <img class="images__image" src="{{ galerie.url }};">
+                            </img>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>

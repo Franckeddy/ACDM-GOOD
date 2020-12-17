@@ -8,6 +8,7 @@ export default class Navigation {
         this.toggleBtn = document.querySelector('.burger-menu__wrapper');
 
         this.toggleBtn.addEventListener('click', this.toggleMenu.bind(this));
+       
         window.addEventListener('scroll', this.stickyMenu.bind(this));
 
         // REMOVE NO SCROLL ON PAGE CHANGE

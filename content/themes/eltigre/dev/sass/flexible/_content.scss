@@ -21,11 +21,20 @@
     max-width: 48.5%;
     width: 100%;
     position: absolute;
+    text-align: center;
 }
 .images__image{
     height: 500px;
     background-size: cover;
     background-position: center center;
+}
+img.images__image{
+    height: 500px;
+    background-size: cover;
+    background-position: center center;
+    max-width: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 .content__text-part-wrapper {
     min-height: 500px;

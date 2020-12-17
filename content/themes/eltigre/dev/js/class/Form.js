@@ -46,8 +46,12 @@ export default class Form {
         emptyFields++;
         field.classList.add('error');
       }
-
-      if (field.type === 'email' && !checkMail(field.value)) {
+      if (
+        field.name === 'lastname' && field.value === "") {
+        errors.push('Veuillez entrer votre nom');
+        field.classList.add('error');
+      }
+      if (field.type === 'mail' && !checkMail(field.value)) {
         errors.push('Veuillez entrer une adresse E-Mail valide');
         field.classList.add('error');
       }
