@@ -7,15 +7,28 @@
 .presentation__logo {
     max-width: 625px;
     // margin: auto;
-    margin: 99px auto 0;
+    margin: auto;
     text-align: center;
-    img{
-        max-width: 94%;
+    img {
+        // max-width: 94%;
     }
 }
 .logo__title-container {
     display: flex;
     justify-content: space-between;
+}
+
+.logo__logo-title {
+    font-size: 38px;
+    letter-spacing: 5px;
+    color: #cba755;
+    font-weight: 500;
+    background-color: white;
+    position: absolute;
+    top: 150px;
+    text-align: center;
+    margin: auto;
+    width: 100%;
 }
 
 .logo__logo-text {
@@ -41,17 +54,22 @@
 
 .presentation__arrow {
     text-align: center;
-    transform: rotate(-90deg);
-    margin-top: 4vh;
-    margin-bottom: 4vh;
     font-size: 3em;
     font-family: "Chaparral Pro";
     cursor: pointer;
     position: absolute;
     left: 50%;
-    transform: rotate(-90deg) translateY(-50%);
-    bottom: 0px;
+    transform: rotate(-90deg) translateY(-50%) translateX(10vh);
+    -webkit-animation: infiniteLoop 1s infinite alternate;
     animation: infiniteLoop 1s infinite alternate;
+}
+@-webkit-keyframes infiniteLoop {
+    from {
+        bottom: 0px;
+    }
+    to {
+        bottom: -20px;
+    }
 }
 @keyframes infiniteLoop {
     from {
@@ -61,24 +79,38 @@
         bottom: -20px;
     }
 }
-@media screen and (max-width: 665px){
-    .logo__logo-text{
+@media screen and (max-width: 665px) {
+    .logo__logo-text {
         max-width: 180px;
         line-height: 20px;
         text-align: center;
     }
 }
-@media screen and (max-width: 400px){
-    .logo__title-container{
+@media screen and (max-width: 400px) {
+    .logo__title-container {
         flex-flow: column wrap;
-        
     }
-    .logo__logo-text{
+    .logo__logo-text {
         max-width: 100%;
         width: 100%;
         font-size: 14px;
     }
-    .logo-text--right{
+    .logo-text--right {
         margin-top: 15px;
     }
+}
+
+.logo__first-title-container {
+    position: relative;
+}
+
+.logo__logo-first-title {
+    font-size: 38px;
+    letter-spacing: 5px;
+    color: #cba755;
+    font-weight: 500;
+    position: absolute;
+    top: 124px;
+    width: 100%;
+    background-color: white;
 }

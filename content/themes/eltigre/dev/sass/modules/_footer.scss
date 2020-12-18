@@ -1,13 +1,14 @@
-#site-footer{
+#site-footer {
     margin-top: 93px;
-    padding-bottom: 35px;
+    padding-bottom: 0;
 }
 
-.footer__content{
-    text-align:center;
+.footer__content {
+    text-align: center;
 }
-.information, .subfooter__copyright{
-    font-family: 'Chaparral Pro';
+.information,
+.subfooter__copyright {
+    font-family: "Chaparral Pro";
     font-weight: normal;
     font-style: italic;
     font-size: 15px;
@@ -16,31 +17,35 @@
     margin: 10px 0 17px;
     color: $text;
 }
-.subfooter{
+.subfooter {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
 }
 
-.subfooter__media{
+.subfooter__media {
     max-width: 55px;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    .media__container{
-        font-size:24px;
+    .media__container {
+        font-size: 24px;
         color: $text;
     }
 }
 
-@media screen and (max-width: 600px){
-    .subfooter{
+.subfooter__copyright {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .subfooter {
         display: flex;
         flex-flow: column wrap;
         align-items: center;
     }
-    .subfooter__media{
+    .subfooter__media {
         margin-bottom: 30px;
     }
 }

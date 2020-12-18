@@ -23,13 +23,14 @@ $pages = get_pages(
 $context['interest'] = array(
 	'label' 		=> __( 'Je suis intéressé', 'eltigre' ),
 	// 'url' 	=> !empty( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) ) ) ? get_permalink( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) )[0]->ID ) : ''
-	'url'			=> get_permalink(165) . '?watch_id=' . get_the_id(),
+	'url'			=> get_permalink( 165 ) . '?watch_id=' . get_the_id(),
 );
-$context['blog_link'] = array(
+
+$context['watches'] = array(
 	'label' => __( 'Retour', 'eltigre' ),
-	// 'url' 	=> !empty( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) ) ) ? get_permalink( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) )[0]->ID ) : ''
-	'url' => get_permalink(165), // 128 est l'ID de la page recettes à metter dynamiquement.
+	'url' => get_permalink( 141 ),
 );
+
 
 if ( post_password_required( $timber_post->ID ) ) {
 	Timber::render( 'single-password.twig', $context );
