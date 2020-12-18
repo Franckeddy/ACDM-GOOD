@@ -5,7 +5,6 @@ export default class Loader {
     
         // Store default element values
         this.textWrapper    = this.el;
-        console.log(this.textWrapper);
         this.text           = this.textWrapper.innerText;
         this.fontSize       = this.el.style.fontSize;
         this.color          = this.el.style.color;

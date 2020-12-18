@@ -3,7 +3,7 @@
     text-transform: uppercase;
     font-weight: 500;
     font-size: 33px;
-    margin: 25px auto;
+    margin: 25px auto 63px;
     color: #4d4d4d;
   
     &:after{
@@ -186,6 +186,7 @@
     .watches__title{
         &:after{
             max-width: 24.7%;
+            right: 30px;
         }
     }
     .watches__subtitle{
@@ -209,7 +210,15 @@
         }
     }
     .watches__title {
-        margin: 25px 24px;
+        margin: 25px 24px 63px;
+        &:after{
+            right: 0;
+        }
+    }
+    .watches__subtitle{
+        &:before{
+            left: 30px; 
+        }
     }
     .watch__image{
         max-width: 250px;
@@ -258,7 +267,18 @@
     }
     
 }
-
+@media screen and (max-width: 810px){
+    .watches__title{
+        &:after{
+            max-width: 10%;
+        }
+    }
+    .watches__subtitle{
+        &:before{
+            max-width: 10%;  
+        }
+    }
+}
 @media screen and (max-width: 780px){
     .watches__title{
         text-align: center;

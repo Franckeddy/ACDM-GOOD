@@ -19,7 +19,7 @@
                     </div>
         
                     <div class="form-input__wrapper">
-                        <input type="subject" id="contact-subject" name="subject" class="form-input required">
+                        <input type="subject" id="contact-subject" name="subject" class="form-input required" value="{{ contact_form.value.subject }}">
                         <label for="contact-subject" class="form-input__label">Sujet</label>
                     </div>
         
@@ -30,7 +30,7 @@
                 </div>
                 <div class="contact-form__cta-wrapper cta-wrapper">
                     <button class="contact-form__cta-submit cta cta__form submit-button" >
-                        Envoyer
+                        {{ contact_form.btn_send }}
                     </button>
                 </div>
             </form>

@@ -171,6 +171,8 @@ var _Init = _interopRequireDefault(require("./flexibles/Init.js"));
 
 var _constants = require("./constants/constants.js");
 
+require("scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -179,7 +181,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-// import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
 if (window.NodeList && !NodeList.prototype.forEach) {
   NodeList.prototype.forEach = Array.prototype.forEach;
 }
@@ -432,7 +433,19 @@ var Form = /*#__PURE__*/function () {
   }, {
     key: "addFocusListeners",
     value: function addFocusListeners() {
+      console.log("Entrez dans la fonction");
       this.fields.forEach(function (field) {
+        // document.addEventListener('DOMContentLoaded', function (e) {
+        //   console.log("fonction de merde")
+        //   if (this.value != ''){
+        //     console.log("Entrez")
+        //     this.classList.add('not-empty');
+        //   }
+        //   else{
+        //     console.log("Sortez")
+        //     this.classList.remove('not-empty');
+        //   }
+        // })
         // Removes error class on focus
         field.addEventListener('focus', function (e) {
           this.classList.remove('error');
@@ -540,7 +553,6 @@ var Loader = /*#__PURE__*/function () {
     this.el = el; // Store default element values
 
     this.textWrapper = this.el;
-    console.log(this.textWrapper);
     this.text = this.textWrapper.innerText;
     this.fontSize = this.el.style.fontSize;
     this.color = this.el.style.color;
@@ -1005,7 +1017,9 @@ var Content = /*#__PURE__*/function () {
         clickable: true
       },
       loop: true,
-      autoplay: true,
+      autoplay: {
+        delay: 6000
+      },
       autoHeight: true,
       effect: 'fade'
     });

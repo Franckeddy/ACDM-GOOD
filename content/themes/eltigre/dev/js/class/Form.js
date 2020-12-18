@@ -19,7 +19,21 @@ export default class Form {
 
 
   addFocusListeners() {
+    console.log("Entrez dans la fonction")
     this.fields.forEach((field) => {
+  
+      // document.addEventListener('DOMContentLoaded', function (e) {
+      //   console.log("fonction de merde")
+      //   if (this.value != ''){
+      //     console.log("Entrez")
+      //     this.classList.add('not-empty');
+      //   }
+      //   else{
+      //     console.log("Sortez")
+      //     this.classList.remove('not-empty');
+      //   }
+      // })
+
       // Removes error class on focus
       field.addEventListener('focus', function (e) {
         this.classList.remove('error');

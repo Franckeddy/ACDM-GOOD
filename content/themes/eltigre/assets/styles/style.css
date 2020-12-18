@@ -533,7 +533,6 @@ template {
 html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  scroll-behavior: smooth;
 }
 
 *,
@@ -1003,7 +1002,7 @@ a {
   font-size: 15px;
   letter-spacing: 0.3px;
   line-height: 20px;
-  margin: 0 0 31px;
+  margin: 10px 0 17px;
   color: #4D4D4D;
 }
 
@@ -1253,6 +1252,10 @@ a {
 .presentation__logo {
   max-width: 625px;
   margin: 99px auto 0;
+  text-align: center;
+}
+.presentation__logo img {
+  max-width: 94%;
 }
 
 .logo__title-container {
@@ -1340,7 +1343,7 @@ a {
   text-transform: uppercase;
   font-weight: 500;
   font-size: 33px;
-  margin: 25px auto;
+  margin: 25px auto 65px;
   color: #4d4d4d;
   position: relative;
 }
@@ -1386,6 +1389,7 @@ a {
   letter-spacing: 0.6px;
   line-height: 28px;
   margin-bottom: 47px;
+  text-align: justify;
 }
 
 .banner__cta-wrapper {
@@ -1395,6 +1399,7 @@ a {
 @media screen and (max-width: 1300px) {
   .banner__title:after {
     max-width: 25%;
+    right: 30px;
   }
 
   .banner__subtitle:before {
@@ -1404,6 +1409,9 @@ a {
 @media screen and (max-width: 1019px) {
   .banner__title {
     margin: 25px 24px;
+  }
+  .banner__title:after {
+    right: 0;
   }
 }
 @media screen and (max-width: 900px) {
@@ -1523,8 +1531,8 @@ img.images__image {
 .text-part__title {
   font-family: "Chaparral Pro";
   font-style: italic;
-  font-weight: 600;
-  font-size: 20px;
+  font-weight: normal;
+  font-size: 28px;
   letter-spacing: 0.3px;
   line-height: 26px;
   margin: 54px 0 28px;
@@ -1554,7 +1562,7 @@ img.images__image {
 .text-part__more-text {
   font-family: "Chaparral Pro";
   font-style: italic;
-  font-weight: 600;
+  font-weight: normal;
   font-size: 18px;
   letter-spacing: 0.3px;
   line-height: 26px;
@@ -1691,7 +1699,7 @@ img.images__image {
   text-transform: uppercase;
   font-weight: 500;
   font-size: 33px;
-  margin: 25px auto;
+  margin: 25px auto 63px;
   color: #4d4d4d;
 }
 .watches__title:after {
@@ -1878,6 +1886,7 @@ img.images__image {
 @media screen and (max-width: 1300px) {
   .watches__title:after {
     max-width: 24.7%;
+    right: 30px;
   }
 
   .watches__subtitle:before {
@@ -1898,7 +1907,14 @@ img.images__image {
   }
 
   .watches__title {
-    margin: 25px 24px;
+    margin: 25px 24px 63px;
+  }
+  .watches__title:after {
+    right: 0;
+  }
+
+  .watches__subtitle:before {
+    left: 30px;
   }
 
   .watch__image {
@@ -1939,6 +1955,15 @@ img.images__image {
   .watch__image img {
     max-width: 205px;
     height: 205px;
+  }
+}
+@media screen and (max-width: 810px) {
+  .watches__title:after {
+    max-width: 10%;
+  }
+
+  .watches__subtitle:before {
+    max-width: 10%;
   }
 }
 @media screen and (max-width: 780px) {

@@ -30,6 +30,7 @@ class Eltigre {
 
     private function load_public() {
         include_once 'public/controllers/Watches.php';
+        include_once 'public/controllers/ContactForm.php';
     }
 }
 

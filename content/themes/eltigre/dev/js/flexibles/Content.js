@@ -13,7 +13,9 @@ export default class Content {
           clickable: true, 
         },
         loop: true,
-        autoplay: true,
+        autoplay :{
+          delay: 6000,
+        },
         autoHeight: true,
         effect : 'fade',
       });

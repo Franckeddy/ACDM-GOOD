@@ -61,16 +61,16 @@ img.images__image{
     }
 }
 .text-part__title{
-    font-family: 'Chaparral Pro';
+    font-family: "Chaparral Pro";
     font-style: italic;
-    font-weight: 600;
-    font-size: 20px;
+    font-weight: normal;
+    font-size: 28px;
     letter-spacing: 0.3px;
     line-height: 26px;
     margin: 54px 0 28px;
     text-align: center;
     position: relative;
-    color: $text;
+    color: #4D4D4D;
 }
 .text-part__container{
     max-width: 450px;
@@ -91,7 +91,7 @@ img.images__image{
 .text-part__more-text{
     font-family: 'Chaparral Pro';
     font-style: italic;
-    font-weight: 600;
+    font-weight: normal;
     font-size: 18px;
     letter-spacing: 0.3px;
     line-height: 26px;

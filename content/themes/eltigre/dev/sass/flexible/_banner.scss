@@ -17,7 +17,7 @@
     text-transform: uppercase;
     font-weight: 500;
     font-size: 33px;
-    margin: 25px auto;
+    margin: 25px auto 65px;
     color: #4d4d4d;
     position: relative;
 
@@ -62,6 +62,7 @@
     letter-spacing: 0.6px;
     line-height: 28px;
     margin-bottom: 47px;
+    text-align: justify;
 }
 .banner__cta-wrapper{
     text-align: center;
@@ -71,6 +72,7 @@
        
         &:after{
             max-width: 25%;
+            right: 30px;
         }
     }
     .banner__subtitle{
@@ -83,6 +85,9 @@
 @media screen and  (max-width: 1019px){
     .banner__title {
         margin: 25px 24px;
+        &:after{
+            right: 0;
+        }
     }
 }
 @media screen and  (max-width: 900px){

@@ -37,6 +37,9 @@ if ( post_password_required( $timber_post->ID ) ) {
             case 'watches' :
                 $context = array_merge( $context, Eltigre\Controllers\Watches::get_context() );
                 break;
+            case 'contact_form' :
+                $context = array_merge( $context, Eltigre\Controllers\ContactForm::get_context() );
+                break;
             default: 
                 break;
             

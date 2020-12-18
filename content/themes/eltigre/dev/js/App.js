@@ -5,7 +5,7 @@ import Swup from 'swup';
 import { initSwipers } from './utils/functions.js';
 import initFlexibleSections from './flexibles/Init.js';
 import { SCROLLMAGIC_CONTROLLER } from './constants/constants.js';
-// import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
+import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
 
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
