@@ -59,25 +59,16 @@
     cursor: pointer;
     position: absolute;
     left: 50%;
-<<<<<<< HEAD
     transform: rotate(-90deg) translateY(-50%);
     bottom: 0px;
-    // animation: infiniteLoop 1s infinite alternate;
 }
-// @keyframes infiniteLoop {
-//     from {
-//         bottom: 0px;
-//     }
-//     to {
-//         bottom: -20px;
-//     }
-// }
+
 @media screen and (max-width: 665px){
     .logo__logo-text{
-=======
     transform: rotate(-90deg) translateY(-50%) translateX(10vh);
     -webkit-animation: infiniteLoop 1s infinite alternate;
     animation: infiniteLoop 1s infinite alternate;
+    }
 }
 @-webkit-keyframes infiniteLoop {
     from {
@@ -97,7 +88,6 @@
 }
 @media screen and (max-width: 665px) {
     .logo__logo-text {
->>>>>>> 738309b72b801e1072f07dab2ca1dd35af3238b3
         max-width: 180px;
         line-height: 20px;
         text-align: center;

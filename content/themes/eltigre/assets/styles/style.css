@@ -1306,17 +1306,17 @@ a {
   cursor: pointer;
   position: absolute;
   left: 50%;
-<<<<<<< HEAD
   transform: rotate(-90deg) translateY(-50%);
   bottom: 0px;
 }
 
-=======
-  transform: rotate(-90deg) translateY(-50%) translateX(10vh);
-  -webkit-animation: infiniteLoop 1s infinite alternate;
-  animation: infiniteLoop 1s infinite alternate;
+@media screen and (max-width: 665px) {
+  .logo__logo-text {
+    transform: rotate(-90deg) translateY(-50%) translateX(10vh);
+    -webkit-animation: infiniteLoop 1s infinite alternate;
+    animation: infiniteLoop 1s infinite alternate;
+  }
 }
-
 @-webkit-keyframes infiniteLoop {
   from {
     bottom: 0px;
@@ -1333,7 +1333,6 @@ a {
     bottom: -20px;
   }
 }
->>>>>>> 738309b72b801e1072f07dab2ca1dd35af3238b3
 @media screen and (max-width: 665px) {
   .logo__logo-text {
     max-width: 180px;

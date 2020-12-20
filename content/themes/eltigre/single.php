@@ -28,12 +28,9 @@ $context['interest'] = array(
 
 $context['watches'] = array(
 	'label' => __( 'Retour', 'eltigre' ),
-<<<<<<< HEAD
 	// 'url' 	=> !empty( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) ) ) ? get_permalink( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) )[0]->ID ) : ''
 	'url' => get_permalink(165), // 165 est l'ID de la page montre de collection à mettre dynamiquement.
-=======
-	'url' => get_permalink( 141 ),
->>>>>>> 738309b72b801e1072f07dab2ca1dd35af3238b3
+	// 'url' => get_permalink( 141 ),
 );
 
 
