@@ -28,7 +28,7 @@ $context['interest'] = array(
 $context['blog_link'] = array(
 	'label' => __( 'Retour', 'eltigre' ),
 	// 'url' 	=> !empty( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) ) ) ? get_permalink( get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => 'controllers/controller-blog.php' ) )[0]->ID ) : ''
-	'url' => get_permalink(165), // 128 est l'ID de la page recettes à metter dynamiquement.
+	'url' => get_permalink(165), // 165 est l'ID de la page montre de collection à mettre dynamiquement.
 );
 
 if ( post_password_required( $timber_post->ID ) ) {

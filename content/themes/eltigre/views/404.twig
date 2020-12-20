@@ -1,5 +1,24 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	Sorry, we couldn't find what you're looking for.
+	<section class="404 not-found">
+		<div class="main-wrapper not-found--container">
+			<div class="not-found--image">
+				<img src="{{not_found.image.url}}" alt="">
+			</div>
+			<div class="not-found__text-wrapper">
+				<div class="content-404">
+					<div class="not_found--content">
+						<h2 class="not-found-title">{{ not_found.title }}</h2>
+						<p class="not-found-description">{{ not_found.description }}</p>
+						<div class='cta--container'>
+							<a href="{{ site.url }}" class="cta cta--not-found"> 
+								Restez avec nous
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock %}

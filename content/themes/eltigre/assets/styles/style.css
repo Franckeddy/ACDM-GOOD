@@ -1296,17 +1296,8 @@ a {
   left: 50%;
   transform: rotate(-90deg) translateY(-50%);
   bottom: 0px;
-  animation: infiniteLoop 1s infinite alternate;
 }
 
-@keyframes infiniteLoop {
-  from {
-    bottom: 0px;
-  }
-  to {
-    bottom: -20px;
-  }
-}
 @media screen and (max-width: 665px) {
   .logo__logo-text {
     max-width: 180px;

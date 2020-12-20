@@ -60,6 +60,14 @@ if ( class_exists( 'Timber' ) ) {
 			// Contact PAge
 			$context['contact'] 	= get_field( 'contact_page', 'options' );
 
+			//Page 404
+			// Contact PAge
+			$context['not_found'] 	= array(
+				'image' 		=> get_field( 'not_found_image', 'options' ),
+				'title' 		=> get_field( 'not_found_title', 'options' ),
+				'description' 	=> get_field( 'not_found_description', 'options' ),
+			);
+
 			// Copyright
 			$context['copyright'] = array(
 				'label' => get_field( 'copyright', 'options' )
