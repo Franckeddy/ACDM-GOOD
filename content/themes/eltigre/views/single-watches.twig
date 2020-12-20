@@ -45,12 +45,8 @@
 								{{ post.content }}
 							</div>
 							<div class="single__watches__button-container">
-								<div class="cta cta__interest">
-									<a href="{{interest.url}}" target="_blank">{{interest.label}}</a> 
-								</div>
-								<div class="cta cta__return">
-									<a href="{{blog_link.url}}">{{blog_link.label}}</a> 
-								</div>
+								<a class="cta cta__interest" href="{{ interest.url }}">{{ interest.label }}</a> 
+								<a class="cta cta__return" href="{{ watches.url }}">{{ watches.label }}</a> 
 							</div>	
 							<div class="swiper-pagination"></div>
 						</div>

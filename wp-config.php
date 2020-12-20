@@ -27,13 +27,11 @@ define('LOGGED_IN_SALT',   'put your unique phrase here');
 define('NONCE_SALT',       'put your unique phrase here');
 
 /** Debug mode **/
-define( 'WP_DEBUG', false );
-// define( 'WP_DEBUG_DISPLAY', false );
 define( 'WP_DEBUG', getenv('WP_DEBUG') );
 if ( WP_DEBUG ) {
 	define( 'WP_DEBUG_LOG', true );
 	define( 'WP_DEBUG_DISPLAY', getenv('WP_DEBUG') );
-	@ini_set( 'display_errors',0 );
+	@ini_set( 'display_errors', 1 );
 }
 
 /** Site paths **/

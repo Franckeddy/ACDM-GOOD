@@ -7,14 +7,18 @@
             <div class="subfooter__media">
                 {% for social in social_media %}
                     <div class="media__container">
-                        <a href="{{social.link.url}}" target="{{social.target}}">
-                            {{social.logo}}
+                        <a href="{{ social.link.url }}" target="{{social.target}}">
+                            {{ social.logo }}
                         </a>
                     </div>
-                {% endfor%}
+                {% endfor %}
             </div>
             <div class="subfooter__copyright">
+<<<<<<< HEAD
                 <a href="{{legal_note.url}}" target="{{legal_note.target}}">{{legal_note.title}}</a>  - {{ copyright.label }}
+=======
+                <a href="{{ legal_note.link }}" target="{{ legal_note.target }}">{{ legal_note.title }}</a>  - {{ copyright.label }}
+>>>>>>> 738309b72b801e1072f07dab2ca1dd35af3238b3
             </div>
         </div>
     </div>

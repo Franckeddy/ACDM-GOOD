@@ -1,15 +1,15 @@
-.watches__title{
+.watches__title {
     letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 33px;
     margin: 25px auto 63px;
     color: #4d4d4d;
-  
-    &:after{
-        content: '';
+
+    &:after {
+        content: "";
         position: absolute;
-        height: 2px; 
+        height: 2px;
         max-width: 40.7%;
         width: 100%;
         background-color: #4d4d4d;
@@ -19,8 +19,8 @@
     }
 }
 
-.watches__subtitle{
-    font-family: 'Chaparral Pro';
+.watches__subtitle {
+    font-family: "Chaparral Pro";
     font-style: italic;
     font-weight: normal;
     font-size: 28px;
@@ -29,10 +29,10 @@
     margin: 54px 0 28px;
     text-align: right;
     position: relative;
-    &:before{
-        content: '';
+    &:before {
+        content: "";
         position: absolute;
-        height: 2px;       
+        height: 2px;
         max-width: 40.7%;
         width: 100%;
         background-color: #4d4d4d;
@@ -41,165 +41,163 @@
         transform: translateY(-50%);
     }
 }
-.watches__content{
+.watches__content {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
 }
-.watch{
+.watch {
     max-width: 305px;
     width: 100%;
-    margin-top: 40px ;
-    &:hover{
-        .watch__image{
+    margin-top: 40px;
+    &:hover {
+        .watch__image {
             max-width: 305px;
             width: 100%;
             height: 305px;
             overflow: hidden;
-            img{
+            img {
                 max-width: 305px;
                 width: 100%;
                 height: 305px;
+                -o-object-fit: cover;
                 object-fit: cover;
-                font-family: 'object-fit: cover;';
+                font-family: "object-fit: cover;";
                 transform: scale(1.1);
-                transition: transform .3s ease-in-out
+                transition: transform 0.3s ease-in-out;
             }
         }
-        .watch__title{
+        .watch__title {
             color: $gold;
-            transition: color .3s ease-in-out;
+            transition: color 0.3s ease-in-out;
         }
-        .watch__price{
+        .watch__price {
             color: $gold;
-            transition: color .3s ease-in-out
+            transition: color 0.3s ease-in-out;
         }
     }
 }
-.watch__image{
+.watch__image {
     max-width: 305px;
     width: 100%;
     height: 305px;
     overflow: hidden;
-    img{
+    img {
         max-width: 305px;
         width: 100%;
         height: 305px;
+        -o-object-fit: cover;
         object-fit: cover;
-        font-family: 'object-fit: cover;';
+        font-family: "object-fit: cover;";
         transform: scale(1);
-        transition: transform .3s ease-in-out
+        transition: transform 0.3s ease-in-out;
     }
 }
-.watch__title{
+.watch__title {
     font-family: "Montserrat";
     font-size: 20px;
     font-style: italic;
-    letter-spacing: .3px;
+    letter-spacing: 0.3px;
     margin-top: 18px;
-    transition: color .3s ease-in-out
+    transition: color 0.3s ease-in-out;
 }
-.watch__price{
+.watch__price {
     font-family: "Montserrat";
     font-size: 20px;
     font-weight: normal;
-    letter-spacing: .3px;
+    letter-spacing: 0.3px;
     margin-top: 18px;
-    transition: color .3s ease-in-out
+    transition: color 0.3s ease-in-out;
 }
 
 // SLIDER
-.watches{
-    .swiper-container{
+.watches {
+    .swiper-container {
         margin-top: 23px;
     }
 }
-.swiper-wrapper{
+.swiper-wrapper {
     height: auto;
 }
-.slide--watch__image{
+.slide--watch__image {
     max-width: 220px;
     width: 100%;
-    img{
+    img {
         height: 220px;
+        -o-object-fit: cover;
         object-fit: cover;
-        font-family: 'object-fit: cover;';
+        font-family: "object-fit: cover;";
     }
 }
-.swiper-slide{
+.swiper-slide {
     width: auto;
-    .watch__title{
-        font-family: 'Montserrat';
+    .watch__title {
+        font-family: "Montserrat";
         font-size: 19px;
         font-style: italic;
-        letter-spacing: .3px;
+        letter-spacing: 0.3px;
         margin-top: 15px;
     }
-    .watch__price{
+    .watch__price {
         font-family: "Montserrat";
         font-size: 15px;
         font-weight: 500;
-        letter-spacing: .3px;
+        letter-spacing: 0.3px;
         margin-top: 5px;
     }
 }
-.button--container{
+.button--container {
     position: absolute;
     max-width: 1240px;
     width: 100%;
     top: 27%;
     text-align: center;
     left: 50%;
-    -webkit-transform: translate(-50%,-50%);
-            transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     height: 60px;
     z-index: 0;
-    .swiper-button-prev, .swiper-button-next{
+    .swiper-button-prev,
+    .swiper-button-next {
         outline: none;
-        &:after{
+        &:after {
             content: none;
             font-size: 27px;
         }
     }
-    .swiper-button-prev{
-        background-image: url('../../assets/images/prev.png');
-        background-size: cover;
-        background-position: center center;
-        height: 27px;
-        width: 27px;
+    .swiper-button-prev img,
+    .swiper-button-next img {
+        width: 20px;
         left: -60px;
+        position: relative;
     }
-    .swiper-button-next{
-         background-image: url('../../assets/images/next.png');
-         background-size: cover;
-         background-position: center center;
-         height: 27px;
-         width: 27px;
-         right: -60px;
+    .swiper-button-next img {
+        right: -60px;
+        left: inherit;
+        transform: rotate(-180deg);
     }
 }
-.watches__cta-wrapper{
+.watches__cta-wrapper {
     text-align: center;
     margin-top: 50px;
 }
-@media screen and (max-width: 1300px){
-    .watches__title{
-        &:after{
+@media screen and (max-width: 1300px) {
+    .watches__title {
+        &:after {
             max-width: 24.7%;
             right: 30px;
         }
     }
-    .watches__subtitle{
-        &:before{
-            max-width: 24.7%;  
+    .watches__subtitle {
+        &:before {
+            max-width: 24.7%;
         }
     }
 }
-@media screen and (max-width: 1020px){
-    .watch{
+@media screen and (max-width: 1020px) {
+    .watch {
         width: 270px;
-        &:hover{
-            .watch__image{
+        &:hover {
+            .watch__image {
                 max-width: 250px;
                 height: 250px;
                 img {
@@ -211,43 +209,42 @@
     }
     .watches__title {
         margin: 25px 24px 63px;
-        &:after{
+        &:after {
             right: 0;
         }
     }
-    .watches__subtitle{
-        &:before{
-            left: 30px; 
+    .watches__subtitle {
+        &:before {
+            left: 30px;
         }
     }
-    .watch__image{
+    .watch__image {
         max-width: 250px;
         height: 250px;
         img {
             max-width: 250px;
             height: 250px;
         }
-
-    } 
+    }
 }
-@media screen and (max-width: 871px){
-    .watches__title{
-        &:after{
+@media screen and (max-width: 871px) {
+    .watches__title {
+        &:after {
             max-width: 15%;
         }
     }
-    .watches__subtitle{
-        &:before{
-            max-width: 15%;  
+    .watches__subtitle {
+        &:before {
+            max-width: 15%;
         }
     }
 }
 
-@media screen and (max-width: 875px){
-    .watch{
+@media screen and (max-width: 875px) {
+    .watch {
         width: 210px;
-        &:hover{
-            .watch__image{
+        &:hover {
+            .watch__image {
                 max-width: 205px;
                 height: 205px;
                 img {
@@ -257,7 +254,7 @@
             }
         }
     }
-    .watch__image{
+    .watch__image {
         max-width: 205px;
         height: 205px;
         img {
@@ -265,24 +262,23 @@
             height: 205px;
         }
     }
-    
 }
-@media screen and (max-width: 810px){
-    .watches__title{
-        &:after{
+@media screen and (max-width: 810px) {
+    .watches__title {
+        &:after {
             max-width: 10%;
         }
     }
-    .watches__subtitle{
-        &:before{
-            max-width: 10%;  
+    .watches__subtitle {
+        &:before {
+            max-width: 10%;
         }
     }
 }
-@media screen and (max-width: 780px){
-    .watches__title{
+@media screen and (max-width: 780px) {
+    .watches__title {
         text-align: center;
-        &:after{
+        &:after {
             max-width: 15%;
             top: initial;
             bottom: -15px;
@@ -291,9 +287,9 @@
             transform: translateX(-50%);
         }
     }
-    .watches__subtitle{
+    .watches__subtitle {
         text-align: center;
-        &:before{
+        &:before {
             max-width: 15%;
             top: initial;
             bottom: -15px;
@@ -303,11 +299,11 @@
         }
     }
 }
-@media screen and (max-width: 676px){
-    .watch{
+@media screen and (max-width: 676px) {
+    .watch {
         width: 180px;
-        &:hover{
-            .watch__image{
+        &:hover {
+            .watch__image {
                 max-width: 180px;
                 height: 180px;
                 img {
@@ -317,7 +313,7 @@
             }
         }
     }
-    .watch__image{
+    .watch__image {
         max-width: 180px;
         height: 180px;
         img {
@@ -326,11 +322,11 @@
         }
     }
 }
-@media screen and (max-width: 597px){
-    .watch{
+@media screen and (max-width: 597px) {
+    .watch {
         width: 250px;
-        &:hover{
-            .watch__image{
+        &:hover {
+            .watch__image {
                 max-width: 250px;
                 height: 250px;
                 img {
@@ -340,7 +336,7 @@
             }
         }
     }
-    .watch__image{
+    .watch__image {
         max-width: 250px;
         height: 250px;
         img {
@@ -349,11 +345,11 @@
         }
     }
 }
-@media screen and (max-width: 557px){
-    .watch{
+@media screen and (max-width: 557px) {
+    .watch {
         width: 220px;
-        &:hover{
-            .watch__image{
+        &:hover {
+            .watch__image {
                 max-width: 220px;
                 height: 220px;
                 img {
@@ -363,7 +359,7 @@
             }
         }
     }
-    .watch__image{
+    .watch__image {
         max-width: 220px;
         height: 220px;
         img {
@@ -372,8 +368,8 @@
         }
     }
 }
-@media screen and (max-width: 480px){
-    .watch{
+@media screen and (max-width: 480px) {
+    .watch {
         width: 180px;
     }
     .watch__image img {
@@ -381,23 +377,23 @@
         height: 180px;
     }
 }
-@media screen and (max-width: 400px){
-    .watch{
+@media screen and (max-width: 400px) {
+    .watch {
         width: 49%;
-    }                   
+    }
     .watch__image img {
         max-width: 180px;
         height: 180px;
     }
 }
-@media screen and (max-width: 375px){
-    .watches__content{
+@media screen and (max-width: 375px) {
+    .watches__content {
         justify-content: center;
     }
-    .watch{
+    .watch {
         width: 100%;
-        &:hover{
-            .watch__image{
+        &:hover {
+            .watch__image {
                 max-width: 100%;
                 height: auto;
                 img {
@@ -407,7 +403,7 @@
             }
         }
     }
-    .watch__image{
+    .watch__image {
         max-width: 100%;
         height: auto;
         img {

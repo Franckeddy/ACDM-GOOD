@@ -14906,7 +14906,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   } else if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object') {
     // CommonJS
     // Loads whole gsap package onto global scope.
-    var gsap = require("gsap"); // TweenMax/TimelineMax will be global in v2. In v3, they will be on the gsap object
+    var gsap = require("gsap/dist/gsap") || require("gsap"); // TweenMax/TimelineMax will be global in v2. In v3, they will be on the gsap object
 
 
     factory(require('scrollmagic'), gsap, TweenMax || gsap, TimelineMax || gsap);
