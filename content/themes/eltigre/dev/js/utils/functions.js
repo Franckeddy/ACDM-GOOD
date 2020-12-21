@@ -137,17 +137,12 @@ export function scrollToTop(e) {
     });
 }
 
-export function scrollToElement(e) {
-    console.log(this)
+export function scrollToElement(e, offset = 90) {
     try {
         e.preventDefault();
         const element = document.querySelector(this.dataset.scrollto);
-        
-        const header = document.querySelector('.header__content');
-        const headerOffset = header ? header.clientHeight : 0;
-        const topOffset = element.offsetTop - headerOffset;
-        console.log(headerOffset);
-        console.log(topOffset);
+        const elementPosition = element.getBoundingClientRect().top;
+        const topOffset = window.pageYOffset + elementPosition - offset;
         window.scrollTo({
             top: topOffset,
             left: 0,

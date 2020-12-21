@@ -31,7 +31,6 @@ $susy-mobile: (
 
 // Global style
 html {
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     // scroll-behavior: smooth;
 }
@@ -41,7 +40,6 @@ html {
 *:after {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-box-sizing: inherit;
     box-sizing: border-box;
 }
 
@@ -58,7 +56,7 @@ body {
 #content {
     max-width: 100vw;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .main-wrapper {
@@ -114,7 +112,16 @@ body {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
-        animation: infiniteLoop 1s alternate infinite;
+        -webkit-animation: infiniteLoop 1s alternate infinite;
+                animation: infiniteLoop 1s alternate infinite;
+    }
+}
+@-webkit-keyframes infiniteLoop {
+    from {
+      height: 15%;
+    }
+    to {
+      height: 20%;
     }
 }
 @keyframes infiniteLoop {

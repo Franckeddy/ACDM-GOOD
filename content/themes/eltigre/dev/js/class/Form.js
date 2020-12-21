@@ -1,5 +1,5 @@
 import { checkMail, checkPhoneNumber } from "../utils/functions";
-import {TimelineLite} from 'gsap';
+import { TimelineLite } from 'gsap';
 
 export default class Form {
   constructor(form) {
@@ -66,7 +66,7 @@ export default class Form {
       }
 
     });
-    
+
     // if (emptyFields > 0) {                      
     //   errors.push(`${emptyFields} ${emptyFields > 1 ? 'champs' : 'champ'} requis vide`)
     // }
@@ -88,7 +88,7 @@ export default class Form {
       errorsContainer.appendChild(error);
     }
 
-    this.tlForm.fromTo(errorsContainer, 1, {left:-100, opacity:0}, {left:0, opacity:1})
+    this.tlForm.fromTo(errorsContainer, 1, { left: -100, opacity: 0 }, { left: 0, opacity: 1 })
   }
 
 

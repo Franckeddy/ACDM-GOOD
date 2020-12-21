@@ -1,11 +1,11 @@
 import Navigation from './class/navigation';
 import ScrollMagic from 'scrollmagic';
-import TweenLite from 'gsap';
+import gsap, { TweenLite } from 'gsap';
 import Swup from 'swup';
-import { initSwipers } from './utils/functions.js';
 import initFlexibleSections from './flexibles/Init.js';
 import { SCROLLMAGIC_CONTROLLER } from './constants/constants.js';
-import "scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap";
+import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";
+ScrollMagicPluginGsap(ScrollMagic, gsap);
 
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
@@ -13,7 +13,6 @@ if (window.NodeList && !NodeList.prototype.forEach) {
 export default class App {
 
     constructor(isFirstLoad = true) {
-        // this.scrollMagicController = new ScrollMagic.Controller()
         this.scenes = [];
 
         this.revealManager();
@@ -70,8 +69,5 @@ document.addEventListener("DOMContentLoaded", function (ev) {
         window.scrollTo(0, 0);
     });
 
-    swup.on('samePageWithHash', (a, b) => {
-        console.log('here', a, b);
-    });
 });
 

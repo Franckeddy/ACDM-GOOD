@@ -531,7 +531,6 @@ template {
   font-display: swap;
 }
 html {
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -540,7 +539,6 @@ html {
 *:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-box-sizing: inherit;
   box-sizing: border-box;
 }
 
@@ -557,7 +555,6 @@ body {
 #content {
   max-width: 100vw;
   position: relative;
-  overflow: hidden;
 }
 
 .main-wrapper {
@@ -617,9 +614,18 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  -webkit-animation: infiniteLoop 1s alternate infinite;
   animation: infiniteLoop 1s alternate infinite;
 }
 
+@-webkit-keyframes infiniteLoop {
+  from {
+    height: 15%;
+  }
+  to {
+    height: 20%;
+  }
+}
 @keyframes infiniteLoop {
   from {
     height: 15%;
@@ -1106,6 +1112,10 @@ a {
   padding: 17px 61px 19px;
 }
 
+.single-watches .content-wrapper-desktop {
+  display: flex;
+}
+
 .content-wrapper-mobile {
   display: none;
 }
@@ -1115,7 +1125,6 @@ a {
   position: relative;
   display: flex;
   align-items: flex-start;
-  padding-top: 49px;
 }
 .single__watches--container .single__watches__text-part-wrapper {
   display: flex;
@@ -1154,11 +1163,12 @@ a {
 .single__watches-images {
   max-width: 48.5%;
   width: 100%;
-  position: absolute;
 }
 .single__watches-images img {
   height: 600px;
+  -o-object-fit: cover;
   object-fit: cover;
+  -o-object-position: center;
   object-position: center;
   font-family: "object-fit: cover; object-position: center;";
 }
@@ -1179,58 +1189,60 @@ a {
   z-index: 1;
 }
 
-.desktop {
+.single-watches .desktop {
   display: flex;
+  align-items: flex-start;
   flex-flow: row wrap;
   position: relative;
+  padding-top: 49px;
 }
-.desktop .single__watches--container {
+.single-watches .desktop .single__watches--container {
   max-width: 48%;
   width: 100%;
   position: relative;
 }
-.desktop .single__watches--container .single__watches-images {
+.single-watches .desktop .single__watches--container .single__watches-images {
   position: relative;
   max-width: 100%;
 }
-.desktop .single__watches--container .single__watches-images img {
+.single-watches .desktop .single__watches--container .single__watches-images img {
   height: 600px;
+  -o-object-fit: cover;
   object-fit: cover;
+  -o-object-position: center;
   object-position: center;
   font-family: "object-fit: cover; object-position: center;";
   margin-bottom: 39px;
 }
-.desktop .single__watches__text-part-wrapper {
-  margin-top: 44px;
+.single-watches .desktop .single__watches__text-part-wrapper {
   max-width: 50%;
   width: 100%;
   padding-left: 81px;
-  position: relative;
-  height: 100%;
-}
-.desktop .single__watches__text-part-wrapper.sticky {
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   top: 144px;
   right: 22px;
+  height: auto;
 }
-.desktop .single__watches__text-part-wrapper .single__watches__text-part {
+.single-watches .desktop .single__watches__text-part-wrapper .single__watches__text-part {
   max-width: 500px;
   width: 100%;
-  position: relative;
-  top: 0;
 }
-.desktop .pagination {
+.single-watches .desktop .pagination {
   display: flex;
   flex-flow: row wrap;
   margin-top: 56px;
 }
-.desktop .pagination .pagination-bullet {
+.single-watches .desktop .pagination .pagination-bullet {
   border: 2px solid #cba755;
   width: 16px;
   height: 16px;
   border-radius: 50%;
   margin-right: 6px;
   cursor: pointer;
+}
+.single-watches .desktop .pagination .pagination-bullet.active {
+  background-color: #cba755;
 }
 
 @media screen and (max-width: 1130px) {

@@ -152,6 +152,8 @@ var __makeRelativeRequire = function(require, mappings, pref) {
 			require.define({'dev/js/App.js': function(exports, require, module) {
 				"use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -161,17 +163,19 @@ var _navigation = _interopRequireDefault(require("./class/navigation"));
 
 var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
-var _gsap = _interopRequireDefault(require("gsap"));
+var _gsap = _interopRequireWildcard(require("gsap"));
 
 var _swup = _interopRequireDefault(require("swup"));
-
-var _functions = require("./utils/functions.js");
 
 var _Init = _interopRequireDefault(require("./flexibles/Init.js"));
 
 var _constants = require("./constants/constants.js");
 
-require("scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap");
+var _scrollmagicPluginGsap = require("scrollmagic-plugin-gsap");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -180,6 +184,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+(0, _scrollmagicPluginGsap.ScrollMagicPluginGsap)(_scrollmagic["default"], _gsap["default"]);
 
 if (window.NodeList && !NodeList.prototype.forEach) {
   NodeList.prototype.forEach = Array.prototype.forEach;
@@ -191,7 +197,6 @@ var App = /*#__PURE__*/function () {
 
     _classCallCheck(this, App);
 
-    // this.scrollMagicController = new ScrollMagic.Controller()
     this.scenes = [];
     this.revealManager();
     this.debugManager(); // Sections flexibles
@@ -207,7 +212,7 @@ var App = /*#__PURE__*/function () {
       var _this = this;
 
       document.querySelectorAll('[gsap-reveal]').forEach(function (el) {
-        var tween = _gsap["default"].fromTo(el, 1, {
+        var tween = _gsap.TweenLite.fromTo(el, 1, {
           y: 40,
           autoAlpha: 0
         }, {
@@ -265,9 +270,6 @@ document.addEventListener("DOMContentLoaded", function (ev) {
 
     window.scrollTo(0, 0);
   });
-  swup.on('samePageWithHash', function (a, b) {
-    console.log('here', a, b);
-  });
 });
 
 			}});
@@ -315,86 +317,6 @@ exports["default"] = Device;
 
 
 		  
-			require.define({'dev/js/class/Barba.js': function(exports, require, module) {
-				"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _core = _interopRequireDefault(require("@barba/core"));
-
-var _gsap = _interopRequireDefault(require("gsap"));
-
-var _App = _interopRequireDefault(require("../App.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ElTigreBarba = function ElTigreBarba() {
-  _classCallCheck(this, ElTigreBarba);
-
-  _core["default"].init({
-    sync: true,
-    transitions: [{
-      leave: function leave(_ref) {
-        var current = _ref.current,
-            next = _ref.next,
-            trigger = _ref.trigger;
-
-        try {
-          return new Promise(function (resolve) {
-            _gsap["default"].to(current.container, 0.75, {
-              autoAlpha: 0,
-              x: 150,
-              onComplete: function onComplete() {
-                current.container.style.display = 'none';
-                resolve();
-              }
-            });
-          });
-        } catch (e) {
-          console.log('Barba: ' + e);
-        }
-      },
-      enter: function enter(_ref2) {
-        var current = _ref2.current,
-            next = _ref2.next,
-            trigger = _ref2.trigger;
-        console.log(next);
-
-        try {
-          return new Promise(function (resolve) {
-            var anchorTarget = next.url.href.split('#').pop();
-            var scrollPosition = document.getElementById(anchorTarget) ? document.getElementById(anchorTarget).offsetTop - 150 : 0;
-            window.scrollTo(0, scrollPosition);
-            new _App["default"]();
-
-            _gsap["default"].from(next.container, 0.75, {
-              autoAlpha: 0,
-              x: -150,
-              onComplete: function onComplete() {
-                next.container.style.transform = 'none';
-                resolve();
-              }
-            });
-          });
-        } catch (e) {
-          console.log('Barba: ' + e);
-        }
-      }
-    }]
-  });
-};
-
-exports["default"] = ElTigreBarba;
-
-			}});
-
-
-		  ;
 			require.define({'dev/js/class/Form.js': function(exports, require, module) {
 				"use strict";
 
@@ -720,12 +642,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SCROLLMAGIC_CONTROLLER = void 0;
 
-var ScrollMagic = require("scrollmagic"); // import "scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators";
+require("scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js");
 
+var ScrollMagic = require("scrollmagic");
 
-var SCROLLMAGIC_CONTROLLER = new ScrollMagic.Controller({
-  addIndicators: true
-});
+var SCROLLMAGIC_CONTROLLER = new ScrollMagic.Controller();
 exports.SCROLLMAGIC_CONTROLLER = SCROLLMAGIC_CONTROLLER;
 
 			}});
@@ -804,42 +725,55 @@ var Banner = /*#__PURE__*/function () {
     key: "animate",
     value: function animate() {
       this.sections.forEach(function (section) {
+        var timeline = new _gsap.TimelineLite();
         var title = section.querySelectorAll('.banner__title');
 
-        var titleAnimation = _gsap.TweenMax.staggerFromTo(title, .6, {
-          x: -300,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
+        if (title.length > 0) {
+          var titleAnimation = _gsap.TweenMax.staggerFromTo(title, .6, {
+            x: -300,
+            autoAlpha: 0
+          }, {
+            x: 0,
+            autoAlpha: 1
+          }, .2);
+
+          timeline.add(titleAnimation);
+        }
 
         var subtitle = section.querySelectorAll('.banner__subtitle');
 
-        var subtitleAnimation = _gsap.TweenMax.staggerFromTo(subtitle, .6, {
-          x: 300,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
+        if (subtitle.length > 0) {
+          var subtitleAnimation = _gsap.TweenMax.staggerFromTo(subtitle, .6, {
+            x: 300,
+            autoAlpha: 0
+          }, {
+            x: 0,
+            autoAlpha: 1
+          }, .2);
+
+          timeline.add(subtitleAnimation);
+        }
 
         var text = section.querySelectorAll('.banner__description');
 
-        var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, {
-          x: 300,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
+        if (text.length > 0) {
+          var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, {
+            x: 300,
+            autoAlpha: 0
+          }, {
+            x: 0,
+            autoAlpha: 1
+          }, .2);
+
+          timeline.add(textAnimation);
+        }
 
         new _scrollmagic["default"].Scene({
           triggerElement: section,
           triggerHook: 0.95,
           offset: 150,
           reverse: true
-        }).setTween([titleAnimation, subtitleAnimation, textAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        }).setTween(timeline).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
     }
   }]);
@@ -909,7 +843,6 @@ var ContactForm = /*#__PURE__*/function () {
         var result = JSON.parse(Array.of(response));
 
         if (result.success) {
-          console.log(result.data);
           loader.success(result.data);
         } else {
           form.displayErrors([result.data]);
@@ -950,12 +883,14 @@ var ContactForm = /*#__PURE__*/function () {
           autoAlpha: 1
         }, .15);
 
+        var timeline = new _gsap.TimelineLite();
+        timeline.add(imageAnimation).add(formAnimation);
         new _scrollmagic["default"].Scene({
           triggerElement: section,
           triggerHook: 0.95,
           offset: 100,
           reverse: true
-        }).setTween([imageAnimation, formAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        }).setTween(timeline).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
     }
   }]);
@@ -1018,52 +953,45 @@ var Content = /*#__PURE__*/function () {
     key: "animate",
     value: function animate() {
       this.sections.forEach(function (section) {
-        var imagesRight = section.querySelectorAll('.content--layout-right .images');
-
-        var imagesRightAnimation = _gsap.TweenMax.staggerFromTo(imagesRight, .6, {
+        var layoutRight = section.querySelector('.content--layout-right');
+        var images = section.querySelectorAll('.content__images .images');
+        var imagesFromVars = layoutRight ? {
           x: 300,
           autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
-
-        var imagesLeft = section.querySelectorAll('.content--layout-left .images');
-
-        var imagesleftAnimation = _gsap.TweenMax.staggerFromTo(imagesLeft, .6, {
+        } : {
           x: -300,
           autoAlpha: 0
-        }, {
+        };
+        var imagesToVars = {
           x: 0,
           autoAlpha: 1
-        }, .2);
+        };
 
-        var textLeft = section.querySelectorAll('.content--layout-left .content__text-part');
+        var imagesAnimation = _gsap.TweenMax.staggerFromTo(images, .6, imagesFromVars, imagesToVars, .2);
 
-        var textLeftAnimation = _gsap.TweenMax.staggerFromTo(textLeft, .6, {
+        var text = section.querySelectorAll('.content__text-part');
+        var textFromVars = layoutRight ? {
+          x: -300,
+          autoAlpha: 0
+        } : {
           x: 300,
           autoAlpha: 0
-        }, {
+        };
+        var textToVars = {
           x: 0,
           autoAlpha: 1
-        }, .2);
+        };
 
-        var textRight = section.querySelectorAll('.content--layout-right .content__text-part');
+        var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, textFromVars, textToVars, .2);
 
-        var textRightAnimation = _gsap.TweenMax.staggerFromTo(textRight, .6, {
-          x: -300,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
-
+        var timeline = new _gsap.TimelineLite();
+        timeline.add(imagesAnimation).add(textAnimation);
         new _scrollmagic["default"].Scene({
           triggerElement: section,
           triggerHook: 0.95,
           offset: 150,
           reverse: true
-        }).setTween([imagesRightAnimation, imagesleftAnimation, textLeftAnimation, textRightAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        }).setTween(timeline).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
     }
   }]);
@@ -1175,12 +1103,14 @@ var Presentation = /*#__PURE__*/function () {
           autoAlpha: 1
         }, .2);
 
+        var timeline = new _gsap.TimelineLite();
+        timeline.add(logoAnimation).add(textLeftAnimation).add(textRightAnimation);
         new _scrollmagic["default"].Scene({
           triggerElement: section,
           triggerHook: 0.95,
           offset: 0,
           reverse: true
-        }).setTween([logoAnimation, textLeftAnimation, textRightAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        }).setTween(timeline).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
     }
   }]);
@@ -1224,10 +1154,8 @@ var SingleWatch = /*#__PURE__*/function () {
   function SingleWatch() {
     _classCallCheck(this, SingleWatch);
 
-    this.sections = document.querySelectorAll('.single__watches');
-    this.distanceBeforeSticky = window.innerHeight / 21;
+    this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
-    window.addEventListener('scroll', this.stickyMenu.bind(this));
     (0, _functions.initSwipers)(this.sections, {
       pagination: {
         el: '.swiper-pagination',
@@ -1248,52 +1176,46 @@ var SingleWatch = /*#__PURE__*/function () {
     key: "animate",
     value: function animate() {
       this.sections.forEach(function (section) {
-        var imagesRight = section.querySelectorAll('.content--layout-right .images');
-
-        var imagesRightAnimation = _gsap.TweenMax.staggerFromTo(imagesRight, .6, {
+        var layoutRight = section.querySelector('.content--layout-right');
+        var images = section.querySelectorAll('.single__watches-images img');
+        var imagesFromVars = layoutRight ? {
           x: 300,
           autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
-
-        var imagesLeft = section.querySelectorAll('.content--layout-left .images');
-
-        var imagesleftAnimation = _gsap.TweenMax.staggerFromTo(imagesLeft, .6, {
+        } : {
           x: -300,
           autoAlpha: 0
-        }, {
+        };
+        var imagesToVars = {
           x: 0,
           autoAlpha: 1
-        }, .2);
+        };
 
-        var textLeft = section.querySelectorAll('.content--layout-left .content__text-part');
+        var imagesAnimation = _gsap.TweenMax.staggerFromTo(images, .6, imagesFromVars, imagesToVars, .2);
 
-        var textLeftAnimation = _gsap.TweenMax.staggerFromTo(textLeft, .6, {
+        var text = section.querySelectorAll('.single__watches__text-part');
+        var textFromVars = layoutRight ? {
+          x: -300,
+          autoAlpha: 0
+        } : {
           x: 300,
           autoAlpha: 0
-        }, {
+        };
+        var textToVars = {
           x: 0,
           autoAlpha: 1
-        }, .2);
+        };
 
-        var textRight = section.querySelectorAll('.content--layout-right .content__text-part');
+        var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, textFromVars, textToVars, .2);
 
-        var textRightAnimation = _gsap.TweenMax.staggerFromTo(textRight, .6, {
-          x: -300,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
-
-        new _scrollmagic["default"].Scene({
-          triggerElement: section,
-          triggerHook: 0.95,
-          offset: 150,
-          reverse: true
-        }).setTween([imagesRightAnimation, imagesleftAnimation, textLeftAnimation, textRightAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        var timeline = new _gsap.TimelineLite();
+        timeline.add(imagesAnimation); // new ScrollMagic.Scene({
+        //   triggerElement: section,
+        //   triggerHook: 0.95,
+        //   offset: 150,
+        //   reverse: true,
+        // })
+        //   .setTween(timeline)
+        //   .addTo(SCROLLMAGIC_CONTROLLER);
       });
     }
   }, {
@@ -1301,43 +1223,31 @@ var SingleWatch = /*#__PURE__*/function () {
     value: function scrollToImage() {
       this.sections.forEach(function (section) {
         var bullets = section.querySelectorAll('.pagination-bullet');
-        bullets.forEach(function (bullet) {
+        var images = section.querySelectorAll('img');
+        images.forEach(function (image, index) {
+          new _scrollmagic["default"].Scene({
+            triggerElement: image,
+            duration: image.clientHeight
+          }).addIndicators(true).on('progress', function (e) {
+            setActiveBullet(bullets[index]);
+          }).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        });
+        bullets.forEach(function (bullet, index) {
           bullet.addEventListener('click', function (event) {
-            console.log(" hauteur " + window.innerHeight);
+            var headerOffset = index === 0 ? 144 : 90;
 
             var scrollFn = _functions2.scrollToElement.bind(this);
 
-            scrollFn(event);
-            var bulletActive = section.querySelector('.pagination-bullet.active');
-
-            if (bulletActive == this) {
-              return;
-            }
-
-            if (bulletActive) {
-              bulletActive.classList.remove('active');
-            }
-
-            bullet.classList.add('active');
+            scrollFn(event, headerOffset);
           });
         });
-      });
-    }
-  }, {
-    key: "stickyMenu",
-    value: function stickyMenu() {
-      var aside = this.aside;
 
-      if (window.scrollY > this.distanceBeforeSticky && !this.isSticky()) {
-        aside.classList.add('sticky'); // addTransition(header, 'slide-in', 300, 'sticky');
-      } else if (window.scrollY < this.distanceBeforeSticky && this.isSticky()) {
-        aside.classList.remove('sticky'); // addTransition(header, 'slide-in', 300, '', 'sticky');
-      }
-    }
-  }, {
-    key: "isSticky",
-    value: function isSticky() {
-      return this.aside.classList.contains('sticky');
+        var setActiveBullet = function setActiveBullet(bullet) {
+          var bulletActive = section.querySelector('.pagination-bullet.active');
+          if (bulletActive) bulletActive.classList.remove('active');
+          bullet.classList.add('active');
+        };
+      });
     }
   }]);
 
@@ -1416,40 +1326,53 @@ var Watches = /*#__PURE__*/function () {
     key: "animate",
     value: function animate() {
       this.sections.forEach(function (section) {
+        var timeline = new _gsap.TimelineLite();
         var title = section.querySelectorAll('.watches__title');
 
-        var titleAnimation = _gsap.TweenMax.staggerFromTo(title, .6, {
-          x: -300,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
+        if (title.length > 0) {
+          var titleAnimation = _gsap.TweenMax.staggerFromTo(title, .6, {
+            x: -300,
+            autoAlpha: 0
+          }, {
+            x: 0,
+            autoAlpha: 1
+          }, .2);
+
+          timeline.add(titleAnimation);
+        }
 
         var subtitle = section.querySelectorAll('.watches__subtitle');
 
-        var subtitleAnimation = _gsap.TweenMax.staggerFromTo(subtitle, .6, {
-          x: 300,
-          autoAlpha: 0
-        }, {
-          x: 0,
-          autoAlpha: 1
-        }, .2);
+        if (subtitle.length > 0) {
+          var subtitleAnimation = _gsap.TweenMax.staggerFromTo(subtitle, .6, {
+            x: 300,
+            autoAlpha: 0
+          }, {
+            x: 0,
+            autoAlpha: 1
+          }, .2);
+
+          timeline.add(subtitleAnimation);
+        }
 
         var watch = section.querySelectorAll('.watch');
 
-        var watchAnimation = _gsap.TweenMax.staggerFromTo(watch, .8, {
-          autoAlpha: 0
-        }, {
-          autoAlpha: 1
-        }, .2);
+        if (watch.length > 0) {
+          var watchAnimation = _gsap.TweenMax.staggerFromTo(watch, .8, {
+            autoAlpha: 0
+          }, {
+            autoAlpha: 1
+          }, .2);
+
+          timeline.add(watchAnimation);
+        }
 
         new _scrollmagic["default"].Scene({
           triggerElement: section,
           triggerHook: 0.95,
           offset: 0,
           reverse: true
-        }).setTween([watchAnimation, titleAnimation, subtitleAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
+        }).setTween(timeline).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
     }
   }]);
@@ -1632,16 +1555,13 @@ function scrollToTop(e) {
 }
 
 function scrollToElement(e) {
-  console.log(this);
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 90;
 
   try {
     e.preventDefault();
     var element = document.querySelector(this.dataset.scrollto);
-    var header = document.querySelector('.header__content');
-    var headerOffset = header ? header.clientHeight : 0;
-    var topOffset = element.offsetTop - headerOffset;
-    console.log(headerOffset);
-    console.log(topOffset);
+    var elementPosition = element.getBoundingClientRect().top;
+    var topOffset = window.pageYOffset + elementPosition - offset;
     window.scrollTo({
       top: topOffset,
       left: 0,

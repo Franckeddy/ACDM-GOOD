@@ -1,3 +1,9 @@
+.single-watches {
+    .content-wrapper-desktop {
+        display: flex;
+    }
+}
+
 .content-wrapper-mobile{
     display: none;
 }
@@ -8,7 +14,6 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    padding-top: 49px;
     
     .single__watches__text-part-wrapper{
         display: flex;
@@ -44,11 +49,13 @@
 .single__watches-images{
     max-width: 48.5%;
     width: 100%;
-    position: absolute;
+    // position: absolute;
     img{
         height: 600px;
-        object-fit: cover;
-        object-position: center;
+        -o-object-fit: cover;
+           object-fit: cover;
+        -o-object-position: center;
+           object-position: center;
         font-family: 'object-fit: cover; object-position: center;';
     }
 }
@@ -70,10 +77,12 @@
     margin-top: 55px;
     z-index: 1;
 }
-.desktop{
+.single-watches .desktop {
     display: flex;
+    align-items: flex-start;
     flex-flow: row wrap;
     position: relative;
+    padding-top: 49px;
 
     .single__watches--container{
         max-width: 48%;
@@ -84,32 +93,37 @@
             max-width: 100%;
             img {
                 height: 600px;
-                object-fit: cover;
-                object-position: center;
+                -o-object-fit: cover;
+                   object-fit: cover;
+                -o-object-position: center;
+                   object-position: center;
                 font-family: "object-fit: cover; object-position: center;";
                 margin-bottom:39px;
             }
         }
     }
     .single__watches__text-part-wrapper{
-        margin-top: 44px;
         max-width: 50%;
         width: 100%;
         padding-left: 81px;
-        position: relative;
-        height: 100%;
-        &.sticky{
-            position: fixed;
-            top: 144px;
-            right: 22px;
-        //     transition: top .2s ease-in;
-        }
+        position: -webkit-sticky;
+        position: sticky;
+        top: 144px;
+        right: 22px;
+        height: auto;
+
+        // &.sticky{
+        //     position: fixed;
+        //     top: 144px;
+        //     right: 22px;
+        // //     transition: top .2s ease-in;
+        // }
         .single__watches__text-part {
             max-width: 500px;
             width: 100%;
-            position: relative;
+            // position: relative;
             // transition: top .3s ease-in;
-            top: 0;
+            // top: 0;
         }
     }
     .pagination{
@@ -123,6 +137,10 @@
             border-radius: 50%;
             margin-right: 6px;
             cursor: pointer;
+
+            &.active {
+                background-color: $gold;
+            }
         }
     }
 }

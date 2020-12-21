@@ -1,4 +1,4 @@
-import { TweenMax } from "gsap";
+import { TimelineLite, TweenMax } from "gsap";
 import { SCROLLMAGIC_CONTROLLER } from "../constants/constants";
 import ScrollMagic from 'scrollmagic';
 import Form from '../class/Form.js';
@@ -27,13 +27,17 @@ export default class ContactForm {
             const imageAnimation = TweenMax.staggerFromTo(image, .5, { x: -300, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, .15)
             const formAnimation = TweenMax.staggerFromTo(form, .5, { x: 300, autoAlpha: 0 }, { x: 0, autoAlpha: 1 }, .15)
 
+
+            const timeline = new TimelineLite();
+            timeline.add(imageAnimation).add(formAnimation);
+
             new ScrollMagic.Scene({
                 triggerElement: section,
                 triggerHook: 0.95,
                 offset: 100,
                 reverse: true,
             })
-                .setTween([imageAnimation, formAnimation])
+                .setTween(timeline)
                 .addTo(SCROLLMAGIC_CONTROLLER);
         });
     }
@@ -60,7 +64,6 @@ export default class ContactForm {
             var result = JSON.parse(Array.of(response));
 
             if (result.success) {
-                console.log(result.data);
                 loader.success(result.data);
             } else {
                 form.displayErrors([result.data]);
