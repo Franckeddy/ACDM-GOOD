@@ -4,16 +4,13 @@
     background-position: center center;
 }
 .not-found--container{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top:9vh;
+    position: relative;
+    top:1vh;
 }
 .not-found__text-wrapper{
     max-width: 1030px;
     width: 100%;
     margin: 0 auto;
-    background-color: rgba( #fff, .7);
     padding: 18px 8px;
 
 }
