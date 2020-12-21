@@ -433,14 +433,8 @@ var Form = /*#__PURE__*/function () {
   }, {
     key: "addFocusListeners",
     value: function addFocusListeners() {
-      var _this = this;
-
       this.fields.forEach(function (field) {
-        if (_this.value != '') {
-          _this.classList.add('not-empty');
-        } // Removes error class on focus
-
-
+        // Removes error class on focus
         field.addEventListener('focus', function (e) {
           this.classList.remove('error');
         }); // Checks if the field is empty on blur
@@ -1232,7 +1226,7 @@ var SingleWatch = /*#__PURE__*/function () {
 
     this.sections = document.querySelectorAll('.single__watches');
     this.distanceBeforeSticky = window.innerHeight / 21;
-    this.aside = document.querySelector('.single__watches__text-part');
+    this.aside = document.querySelector('.single__watches__text-part-wrapper');
     window.addEventListener('scroll', this.stickyMenu.bind(this));
     (0, _functions.initSwipers)(this.sections, {
       pagination: {
@@ -1306,12 +1300,26 @@ var SingleWatch = /*#__PURE__*/function () {
     key: "scrollToImage",
     value: function scrollToImage() {
       this.sections.forEach(function (section) {
-        console.log(section);
         var bullets = section.querySelectorAll('.pagination-bullet');
-        console.log(bullets);
         bullets.forEach(function (bullet) {
-          console.log(bullet);
-          bullet.addEventListener('click', _functions2.scrollToElement);
+          bullet.addEventListener('click', function (event) {
+            console.log(" hauteur " + window.innerHeight);
+
+            var scrollFn = _functions2.scrollToElement.bind(this);
+
+            scrollFn(event);
+            var bulletActive = section.querySelector('.pagination-bullet.active');
+
+            if (bulletActive == this) {
+              return;
+            }
+
+            if (bulletActive) {
+              bulletActive.classList.remove('active');
+            }
+
+            bullet.classList.add('active');
+          });
         });
       });
     }
@@ -1624,27 +1632,23 @@ function scrollToTop(e) {
 }
 
 function scrollToElement(e) {
+  console.log(this);
+
   try {
     e.preventDefault();
-
-    var _element = document.querySelector(this.dataset.scrollto);
-
-    console.log(_element);
+    var element = document.querySelector(this.dataset.scrollto);
     var header = document.querySelector('.header__content');
     var headerOffset = header ? header.clientHeight : 0;
-    var topOffset = _element.offsetTop - headerOffset;
+    var topOffset = element.offsetTop - headerOffset;
     console.log(headerOffset);
+    console.log(topOffset);
     window.scrollTo({
       top: topOffset,
       left: 0,
       behavior: 'smooth'
     });
   } catch (error) {
-    if (element === null) {
-      console.error('ScrollToElement: Target is missing, data-scrollto needs to be a valid css selector');
-    } else {
-      console.error(error);
-    }
+    console.error(error);
   }
 }
 

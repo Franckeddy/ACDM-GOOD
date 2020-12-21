@@ -127,7 +127,7 @@ if ( class_exists( 'Timber' ) ) {
 	
 		public function register_scripts() {
 			// POOLYFILL FOR IE
-			wp_enqueue_script( 'barbaPolyfill', 'https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.remove%2CNumber.isNaN%2CDocument%2CString.prototype.repeat%2CPromise', array(), false, false );
+			wp_enqueue_script( 'barbaPolyfill', 'https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.remove%2CNumber.isNaN%2CDocument%2CString.prototype.repeat%2CPromise%2CObject.assign', array(), false, false );
 
 			// VENDOR SCRIPTS
 			wp_enqueue_script( 'vendor', get_template_directory_uri() . '/assets/js/vendor.js' );

@@ -20,9 +20,6 @@ export default class Form {
 
   addFocusListeners() {
     this.fields.forEach((field) => {
-      if (this.value != ''){
-        this.classList.add('not-empty');
-      }
       // Removes error class on focus
       field.addEventListener('focus', function (e) {
         this.classList.remove('error');

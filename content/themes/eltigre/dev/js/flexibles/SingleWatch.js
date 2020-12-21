@@ -8,7 +8,7 @@ export default class SingleWatch {
     constructor() {
       this.sections = document.querySelectorAll('.single__watches');
       this.distanceBeforeSticky = window.innerHeight/21;  
-      this.aside = document.querySelector('.single__watches__text-part');
+      this.aside = document.querySelector('.single__watches__text-part-wrapper');
 
       window.addEventListener('scroll', this.stickyMenu.bind(this));
 
@@ -55,12 +55,21 @@ export default class SingleWatch {
 
     scrollToImage() {
       this.sections.forEach(section => {
-        console.log(section)
         const bullets = section.querySelectorAll('.pagination-bullet');
-        console.log(bullets)
         bullets.forEach(bullet => {
-          console.log(bullet)
-          bullet.addEventListener('click', scrollToElement);
+          bullet.addEventListener('click', function(event){
+            console.log(" hauteur " + window.innerHeight)
+            const scrollFn = scrollToElement.bind(this);
+            scrollFn(event);
+            const bulletActive = section.querySelector('.pagination-bullet.active')
+            if(bulletActive == this){
+              return
+            }
+            if(bulletActive){
+              bulletActive.classList.remove('active');
+            }
+            bullet.classList.add('active');
+          });
         })
       })
     }
@@ -78,7 +87,6 @@ export default class SingleWatch {
     };
     
     isSticky() {
-
       return this.aside.classList.contains('sticky');
     };
 

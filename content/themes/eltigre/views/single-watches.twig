@@ -3,7 +3,7 @@
 {% block content %}
 	{% for post in posts %}
 		<!-- desktop version  -->
-		<div class="content-wrapper">
+		<div class="content-wrapper content-wrapper-desktop">
 			<article class="post-type-{{ post.post_type }} single__watches desktop" id="post-{{ post.ID }}">
 				<div class="single__watches--container" >
 					<div class="single__watches-images">
@@ -19,7 +19,7 @@
 							{% endfor %}
 						{% else %}
 							<img 
-							src="{{  Image(post.thumbnail).src  }}" 
+							src="{{ Image(post.thumbnail).src }}" 
 							srcset="{{ Image(image).src }}"
 							alt="{{ Image(image).alt }}"
 							/>
@@ -48,6 +48,59 @@
 			</article>
 		</div><!-- /content-wrapper -->
 
+		
+		<!-- Mobile Version  -->
+		<div class="content-wrapper content-wrapper-mobile">
+			<article class="post-type-{{ post.post_type }} single__watches mobile" id="post-{{ post.ID }}">
+				<div class="single__watches--container" >
+					<div class="single__watches-images">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								{% if post.images is not empty %}
+
+									{% for galerie in post.images %}
+										<div class="swiper-slide">
+											<img 
+												src="{{ Image(galerie).src }}" 
+												srcset="{{ Image(galerie).src }}"
+												alt="{{ Image(galerie).alt }}"
+											/>
+										</div>
+									{% endfor %}
+								{% else %}
+										<div class="swiper-slide">
+											<img 
+											src="{{  Image(post.thumbnail).src  }}" 
+											srcset="{{ Image(image).src }}"
+											alt="{{ Image(image).alt }}" class="rororo"
+											/>
+										</div>
+
+								{% endif %}
+							</div>
+						</div>
+					</div>
+
+					{% for image in post.images %}
+					{% endfor %}
+					<div class="single__watches__text-part-wrapper main-wrapper">
+						<div class="single__watches__text-part">
+							<div class="single__watches__title">
+								{{ post.title }}
+							</div>
+							<div class="single__watches__content">
+								{{ post.content }}
+							</div>
+							<div class="single__watches__button-container">
+								<a class="cta cta__interest" href="{{ interest.url }}">{{ interest.label }}</a> 
+								<a class="cta cta__return" href="{{ watches.url }}">{{ watches.label }}</a> 
+							</div>	
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</div>				
+			</article>
+		</div>
 
 	{% endfor %}
 {% endblock %}

@@ -1,3 +1,8 @@
+.content-wrapper-mobile{
+    display: none;
+}
+
+
 .single__watches--container{
     flex-flow: row wrap;
     position: relative;
@@ -93,17 +98,18 @@
         padding-left: 81px;
         position: relative;
         height: 100%;
+        &.sticky{
+            position: fixed;
+            top: 144px;
+            right: 22px;
+        //     transition: top .2s ease-in;
+        }
         .single__watches__text-part {
             max-width: 500px;
             width: 100%;
             position: relative;
             // transition: top .3s ease-in;
             top: 0;
-            &.sticky{
-                position: fixed;
-                top: 144px;
-            //     transition: top .2s ease-in;
-            }
         }
     }
     .pagination{
@@ -120,9 +126,51 @@
         }
     }
 }
+@media screen and (max-width: 1130px){
+    .desktop{
+        .single__watches__text-part-wrapper{
+            .single__watches__text-part {
+                &.sticky{
+                    max-width: 460px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1020px){
+    .desktop{
+    
+        .single__watches__text-part-wrapper{
 
+            padding-left: 15px;
+            &.sticky{
+                right: 20px;
+            }
+            .single__watches__text-part {
+                max-width: 500px;
+                width: 100%;
+                position: relative;
+                // transition: top .3s ease-in;
+                top: 0;
+            }
+        }
+        .pagination{
+            margin-top: 20px;
+            justify-content: center;
+        }
+    }
+}
 
 @media screen and (max-width: 960px){
+    .desktop{
+        .single__watches__text-part-wrapper{
+            &.sticky{
+                top: 19px;
+            }
+
+        }
+    }
+
     .single__watches__text-part{
         max-width: 345px;
     }
@@ -143,6 +191,9 @@
     }
 }
 @media screen and (max-width: 712px){
+
+
+
     .single__watches--container{
         flex-flow: column-reverse wrap;
         .single__watches__text-part-wrapper{

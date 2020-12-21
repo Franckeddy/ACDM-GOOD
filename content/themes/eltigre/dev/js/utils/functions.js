@@ -138,26 +138,23 @@ export function scrollToTop(e) {
 }
 
 export function scrollToElement(e) {
+    console.log(this)
     try {
         e.preventDefault();
         const element = document.querySelector(this.dataset.scrollto);
-        console.log(element)
+        
         const header = document.querySelector('.header__content');
         const headerOffset = header ? header.clientHeight : 0;
         const topOffset = element.offsetTop - headerOffset;
         console.log(headerOffset);
-
+        console.log(topOffset);
         window.scrollTo({
             top: topOffset,
             left: 0,
             behavior: 'smooth'
         });
     } catch (error) {
-        if (element === null) {
-            console.error('ScrollToElement: Target is missing, data-scrollto needs to be a valid css selector');
-        } else {
-            console.error(error);
-        }
+        console.error(error);
     }
 }
 
