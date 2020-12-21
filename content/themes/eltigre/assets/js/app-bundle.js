@@ -604,9 +604,9 @@ var Navigation = /*#__PURE__*/function () {
     value: function stickyMenu() {
       var header = this.header;
 
-      if (window.scrollY > this.distanceBeforeSticky && !this.isSticky()) {
+      if (window.pageYOffset > this.distanceBeforeSticky && !this.isSticky()) {
         header.classList.add('sticky'); // addTransition(header, 'slide-in', 300, 'sticky');
-      } else if (window.scrollY < this.distanceBeforeSticky && this.isSticky()) {
+      } else if (window.pageYOffset < this.distanceBeforeSticky && this.isSticky()) {
         header.classList.remove('sticky'); // addTransition(header, 'slide-in', 300, '', 'sticky');
       }
     }
@@ -642,9 +642,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SCROLLMAGIC_CONTROLLER = void 0;
 
-require("scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js");
+var ScrollMagic = require("scrollmagic"); // import 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js';
 
-var ScrollMagic = require("scrollmagic");
 
 var SCROLLMAGIC_CONTROLLER = new ScrollMagic.Controller();
 exports.SCROLLMAGIC_CONTROLLER = SCROLLMAGIC_CONTROLLER;
@@ -1156,7 +1155,8 @@ var SingleWatch = /*#__PURE__*/function () {
 
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
-    (0, _functions.initSwipers)(this.sections, {
+    this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
+    (0, _functions.initSwipers)(this.sectionsMobile, {
       pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
@@ -1275,6 +1275,8 @@ var _constants = require("../constants/constants");
 var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
 var _functions = require("../utils/functions.js");
+
+var _objectFitImages = _interopRequireDefault(require("object-fit-images"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

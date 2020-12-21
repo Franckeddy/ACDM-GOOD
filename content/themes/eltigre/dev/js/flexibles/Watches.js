@@ -2,6 +2,7 @@ import { TweenLite, TweenMax, TimelineLite } from "gsap";
 import { SCROLLMAGIC_CONTROLLER } from '../constants/constants';
 import ScrollMagic from 'scrollmagic';
 import { initSwipers } from "../utils/functions.js";
+import objectFitImages from 'object-fit-images';
 
 export default class Watches {
   constructor() {

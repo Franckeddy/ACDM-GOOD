@@ -3,14 +3,15 @@ import { SCROLLMAGIC_CONTROLLER } from '../constants/constants';
 import ScrollMagic from 'scrollmagic';
 import { initSwipers } from "../utils/functions.js";
 import { scrollToElement } from "../utils/functions";
+import { getNavigator } from "../utils/functions";
 
 export default class SingleWatch {
   constructor() {
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
+    this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
 
-
-    initSwipers(this.sections, {
+    initSwipers(this.sectionsMobile, {
       pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
@@ -22,7 +23,6 @@ export default class SingleWatch {
       autoHeight: true,
       effect: 'fade',
     });
-
 
     this.animate();
     this.scrollToImage();
@@ -88,6 +88,5 @@ export default class SingleWatch {
       }
     })
   };
-
-
+ 
 }

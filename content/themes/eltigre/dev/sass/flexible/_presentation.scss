@@ -1,12 +1,18 @@
 .presentation {
     height: 75vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 .presentation__logo {
     max-width: 625px;
     // margin: auto;
+    width: 100%;
     margin: auto;
     text-align: center;
     img {
@@ -14,8 +20,12 @@
     }
 }
 .logo__title-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 .logo__logo-title {
@@ -60,13 +70,30 @@
     cursor: pointer;
     position: absolute;
     left: 50%;
-    transform: rotate(-90deg) translateY(-50%);
+    -webkit-transform: rotate(-90deg) translateY(-50%);
+            transform: rotate(-90deg) translateY(-50%);
     bottom: 0px;
+}
+
+.logo__first-title-container {
+    position: relative;
+}
+
+.logo__logo-first-title {
+    font-size: 40px;
+    letter-spacing: 5px;
+    color: #cba755;
+    font-weight: 500;
+    position: absolute;
+    top: 132px;
+    width: 100%;
+    background-color: white;
 }
 
 @media screen and (max-width: 665px){
     .logo__logo-text{
-    transform: rotate(-90deg) translateY(-50%) translateX(10vh);
+    -webkit-transform: rotate(-90deg) translateY(-50%) translateX(10vh);
+            transform: rotate(-90deg) translateY(-50%) translateX(10vh);
     -webkit-animation: infiniteLoop 1s infinite alternate;
     animation: infiniteLoop 1s infinite alternate;
     }
@@ -94,9 +121,31 @@
         text-align: center;
     }
 }
+@media screen and (max-width: 635px) {
+    .logo__logo-first-title {
+        top: 115px;
+    }
+}
+@media screen and (max-width: 635px) {
+    .logo__logo-first-title {
+        top: 95px;
+    }
+}
+@media screen and (max-width: 505px) {
+    .logo__logo-first-title {
+        top: 75px;
+    }
+}
+@media screen and (max-width: 465px) {
+    .logo__logo-first-title {
+        top: 75px;
+        font-size:30px ;
+    }
+}
 @media screen and (max-width: 400px) {
     .logo__title-container {
-        flex-flow: column wrap;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap;
     }
     .logo__logo-text {
         max-width: 100%;
@@ -107,18 +156,10 @@
         margin-top: 15px;
     }
 }
-
-.logo__first-title-container {
-    position: relative;
+@media screen and (max-width: 392px) {
+    .logo__logo-first-title {
+        top: 55px;
+        font-size:25px;
+    }
 }
 
-.logo__logo-first-title {
-    font-size: 40px;
-    letter-spacing: 5px;
-    color: #cba755;
-    font-weight: 500;
-    position: absolute;
-    top: 132px;
-    width: 100%;
-    background-color: white;
-}

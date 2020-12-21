@@ -106,6 +106,7 @@
         max-width: 50%;
         width: 100%;
         padding-left: 81px;
+        position: fixed;
         position: -webkit-sticky;
         position: sticky;
         top: 144px;
@@ -144,19 +145,8 @@
         }
     }
 }
-@media screen and (max-width: 1130px){
-    .desktop{
-        .single__watches__text-part-wrapper{
-            .single__watches__text-part {
-                &.sticky{
-                    max-width: 460px;
-                }
-            }
-        }
-    }
-}
-@media screen and (max-width: 1020px){
-    .desktop{
+@media screen and (max-width: 1015px){
+    .single-watches .desktop{
     
         .single__watches__text-part-wrapper{
 
@@ -179,76 +169,72 @@
     }
 }
 
-@media screen and (max-width: 960px){
+@media screen and (max-width: 890px){
+    .single-watches{
+        .content-wrapper-desktop{
+            display: none;
+        }
+        .content-wrapper-mobile{
+            display: flex;
+        }
+    }
     .desktop{
-        .single__watches__text-part-wrapper{
-            &.sticky{
-                top: 19px;
+        
+        .single__watches__text-part{
+            max-width: 345px;
+        }
+        .single__watches__button-container{
+            align-items: center;
+            flex-flow: column wrap;
+    
+            .cta{
+                margin-bottom: 10px;
+                max-width: 243px;
+                width: 100%;
+                text-align: center;
             }
-
         }
     }
 
-    .single__watches__text-part{
-        max-width: 345px;
-    }
-    .single__watches__button-container{
-        align-items: center;
-        flex-flow: column wrap;
-
-        .cta{
-            margin-bottom: 10px;
-            max-width: 243px;
-            width: 100%;
-            text-align: center;
+    .mobile{
+        .single__watches--container{
+            flex-flow: column-reverse wrap;
+            .single__watches__text-part-wrapper{
+                min-height: 0;
+            }
         }
-    }
-    .swiper-pagination{
-        margin-top: 12px;
-        transform: translateX(65%);
-    }
-}
-@media screen and (max-width: 712px){
-
-
-
-    .single__watches--container{
-        flex-flow: column-reverse wrap;
-        .single__watches__text-part-wrapper{
-            min-height: 0;
+        .single__watches-images {
+            max-width: 100%;
+            position: relative;
         }
-    }
-    .single__watches-images {
-        max-width: 100%;
-        position: relative;
-    }
-    .single__watches__text-part{
-        max-width: 100%;
-    }
-    .single__watches__content{
-        margin: 0;
-        max-width: 450px;
-        text-align: justify;
-        padding: 55px 0px 28px 0;
-        max-width: 100%;
-    }
-    .single__watches__button-container{
-        justify-content: flex-start;
-        flex-flow: row wrap;
-        padding-right:30px ;
-        padding-bottom: 30px;
-
-        .cta{
-            margin-bottom: 10px;
-            margin-right: 10px;
-            max-width: 243px;
-            width: 100%;
-            text-align: center;
+        .single__watches__text-part{
+            max-width: 100%;
         }
-    }
-    .swiper-pagination{
-        margin-top: 12px;
-        transform: translateX(0%);
+        .single__watches__content{
+            margin: 0;
+            max-width: 450px;
+            text-align: justify;
+            padding: 55px 0px 28px 0;
+            max-width: 100%;
+        }
+        .single__watches__button-container{
+            justify-content: flex-start;
+            flex-flow: row wrap;
+            padding-right:30px ;
+            padding-bottom: 30px;
+    
+            .cta{
+                margin-bottom: 10px;
+                margin-right: 10px;
+                max-width: 243px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        .swiper-pagination{
+            margin-top: 12px;
+            transform: translateX(0%);
+        }
     }
 }
 @media screen and (max-width: 535px){
@@ -261,6 +247,18 @@
     .single__watches-images{
         img{
             height: 400px;
+        }
+    }
+}
+@media screen and (max-height: 730px){
+    .single-watches{
+        .desktop{
+            .single__watches__content{
+                margin: 18px 0 18px;
+            }
+            .pagination{
+                margin-top: 20px;
+            }
         }
     }
 }

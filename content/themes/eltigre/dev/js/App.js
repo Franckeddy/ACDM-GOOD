@@ -7,6 +7,7 @@ import { SCROLLMAGIC_CONTROLLER } from './constants/constants.js';
 import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";
 ScrollMagicPluginGsap(ScrollMagic, gsap);
 
+
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
 }

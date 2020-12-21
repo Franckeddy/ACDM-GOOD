@@ -36,11 +36,11 @@ export default class Navigation {
 
     stickyMenu() {
         let header = this.header;
-        if (window.scrollY > this.distanceBeforeSticky && !this.isSticky()) {
+        if (window.pageYOffset > this.distanceBeforeSticky && !this.isSticky()) {
             header.classList.add('sticky');
             // addTransition(header, 'slide-in', 300, 'sticky');
         }
-        else if (window.scrollY < this.distanceBeforeSticky && this.isSticky()) {
+        else if (window.pageYOffset < this.distanceBeforeSticky && this.isSticky()) {
             header.classList.remove('sticky');
             // addTransition(header, 'slide-in', 300, '', 'sticky');
         }

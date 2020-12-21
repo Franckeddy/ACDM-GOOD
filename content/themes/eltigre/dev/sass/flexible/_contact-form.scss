@@ -2,9 +2,14 @@
     padding-top: 71px;
 }
 .contact-container{
+    display:-webkit-box;
+    display:-ms-flexbox;
     display:flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 .contact__image-block{
     max-width:541px;
@@ -24,8 +29,10 @@
 .acdm-form {
     color: $text;
     display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: column wrap;
+    -ms-flex-flow: column wrap;
+        flex-flow: column wrap;
     letter-spacing: .4px;
 
     .form-input__wrapper {
@@ -151,7 +158,8 @@
 }
 @media screen and (max-width: 798px) {
     .contact-container{
-        flex-flow: column-reverse wrap;
+        -ms-flex-flow: column-reverse wrap;
+            flex-flow: column-reverse wrap;
     }
     .contact-form {
         max-width: 100%;

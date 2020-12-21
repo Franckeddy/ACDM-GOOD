@@ -15,7 +15,8 @@
         background-color: #4d4d4d;
         right: 0;
         top: 50%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
     }
 }
 
@@ -38,13 +39,19 @@
         background-color: #4d4d4d;
         left: 0;
         top: 50%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
     }
 }
 .watches__content {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 .watch {
     max-width: 305px;
@@ -62,17 +69,23 @@
                 height: 305px;
                 -o-object-fit: cover;
                 object-fit: cover;
-                font-family: "object-fit: cover;";
-                transform: scale(1.1);
+                font-family: 'object-fit: cover;';
+                -webkit-transform: scale(1.1);
+                        transform: scale(1.1);
+                -webkit-transition: -webkit-transform 0.3s ease-in-out;
+                transition: -webkit-transform 0.3s ease-in-out;
                 transition: transform 0.3s ease-in-out;
+                transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
             }
         }
         .watch__title {
             color: $gold;
+            -webkit-transition: color 0.3s ease-in-out;
             transition: color 0.3s ease-in-out;
         }
         .watch__price {
             color: $gold;
+            -webkit-transition: color 0.3s ease-in-out;
             transition: color 0.3s ease-in-out;
         }
     }
@@ -89,8 +102,12 @@
         -o-object-fit: cover;
         object-fit: cover;
         font-family: "object-fit: cover;";
-        transform: scale(1);
+        -webkit-transform: scale(1);
+                transform: scale(1);
+        -webkit-transition: -webkit-transform 0.3s ease-in-out;
+        transition: -webkit-transform 0.3s ease-in-out;
         transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
     }
 }
 .watch__title {
@@ -99,6 +116,7 @@
     font-style: italic;
     letter-spacing: 0.3px;
     margin-top: 18px;
+    -webkit-transition: color 0.3s ease-in-out;
     transition: color 0.3s ease-in-out;
 }
 .watch__price {
@@ -107,6 +125,7 @@
     font-weight: normal;
     letter-spacing: 0.3px;
     margin-top: 18px;
+    -webkit-transition: color 0.3s ease-in-out;
     transition: color 0.3s ease-in-out;
 }
 
@@ -153,7 +172,8 @@
     top: 27%;
     text-align: center;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     height: 60px;
     z-index: 0;
     .swiper-button-prev,
@@ -173,7 +193,8 @@
     .swiper-button-next img {
         right: -60px;
         left: inherit;
-        transform: rotate(-180deg);
+        -webkit-transform: rotate(-180deg);
+                transform: rotate(-180deg);
     }
 }
 .watches__cta-wrapper {
@@ -284,7 +305,8 @@
             bottom: -15px;
             left: 50%;
             right: initial;
-            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+                    transform: translateX(-50%);
         }
     }
     .watches__subtitle {
@@ -295,7 +317,8 @@
             bottom: -15px;
             right: 50%;
             left: initial;
-            transform: translateX(50%);
+            -webkit-transform: translateX(50%);
+                    transform: translateX(50%);
         }
     }
 }
@@ -388,7 +411,9 @@
 }
 @media screen and (max-width: 375px) {
     .watches__content {
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
     }
     .watch {
         width: 100%;

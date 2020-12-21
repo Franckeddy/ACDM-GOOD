@@ -29,7 +29,8 @@
         background-color: $text;
         right: 0;
         top: 50%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
     }
 }
 .banner__subtitle {
@@ -51,7 +52,8 @@
         background-color: $text;
         left: 0;
         top: 50%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
     }
 }
 .banner__description {
@@ -111,7 +113,8 @@
             bottom: -15px;
             left: 50%;
             right: initial;
-            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+                    transform: translateX(-50%);
         }
     }
     .banner__subtitle {
@@ -123,8 +126,14 @@
             bottom: -15px;
             right: 50%;
             left: initial;
-            transform: translateX(50%);
+            -webkit-transform: translateX(50%);
+                    transform: translateX(50%);
         }
+    }
+}
+@media screen and (max-width: 500px) {
+    .banner {
+       margin-bottom: 60px !important;
     }
 }
 @media screen and (max-width: 375px) {
