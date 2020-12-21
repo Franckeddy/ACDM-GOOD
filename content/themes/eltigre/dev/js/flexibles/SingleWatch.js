@@ -67,7 +67,6 @@ export default class SingleWatch {
           triggerElement: image,
           duration: image.clientHeight
         })
-          .addIndicators(true)
           .on('progress', function (e) {
             setActiveBullet(bullets[index]);
           })

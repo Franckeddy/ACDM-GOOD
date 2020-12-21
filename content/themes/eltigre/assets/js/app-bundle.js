@@ -1228,7 +1228,7 @@ var SingleWatch = /*#__PURE__*/function () {
           new _scrollmagic["default"].Scene({
             triggerElement: image,
             duration: image.clientHeight
-          }).addIndicators(true).on('progress', function (e) {
+          }).on('progress', function (e) {
             setActiveBullet(bullets[index]);
           }).addTo(_constants.SCROLLMAGIC_CONTROLLER);
         });
