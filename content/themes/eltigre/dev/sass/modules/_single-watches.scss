@@ -65,6 +65,63 @@
     margin-top: 55px;
     z-index: 1;
 }
+.desktop{
+    display: flex;
+    flex-flow: row wrap;
+    position: relative;
+
+    .single__watches--container{
+        max-width: 48%;
+        width: 100%;
+        position: relative;
+        .single__watches-images{
+            position: relative;
+            max-width: 100%;
+            img {
+                height: 600px;
+                object-fit: cover;
+                object-position: center;
+                font-family: "object-fit: cover; object-position: center;";
+                margin-bottom:39px;
+            }
+        }
+    }
+    .single__watches__text-part-wrapper{
+        margin-top: 44px;
+        max-width: 50%;
+        width: 100%;
+        padding-left: 81px;
+        position: relative;
+        height: 100%;
+        .single__watches__text-part {
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            // transition: top .3s ease-in;
+            top: 0;
+            &.sticky{
+                position: fixed;
+                top: 144px;
+            //     transition: top .2s ease-in;
+            }
+        }
+    }
+    .pagination{
+        display: flex;
+        flex-flow: row wrap;
+        margin-top: 56px;
+        .pagination-bullet{
+            border: 2px solid $gold;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 6px;
+            cursor: pointer;
+        }
+    }
+}
+
+
 @media screen and (max-width: 960px){
     .single__watches__text-part{
         max-width: 345px;

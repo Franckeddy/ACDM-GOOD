@@ -1175,6 +1175,59 @@ a {
   z-index: 1;
 }
 
+.desktop {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+}
+.desktop .single__watches--container {
+  max-width: 48%;
+  width: 100%;
+  position: relative;
+}
+.desktop .single__watches--container .single__watches-images {
+  position: relative;
+  max-width: 100%;
+}
+.desktop .single__watches--container .single__watches-images img {
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+  font-family: "object-fit: cover; object-position: center;";
+  margin-bottom: 39px;
+}
+.desktop .single__watches__text-part-wrapper {
+  margin-top: 44px;
+  max-width: 50%;
+  width: 100%;
+  padding-left: 81px;
+  position: relative;
+  height: 100%;
+}
+.desktop .single__watches__text-part-wrapper .single__watches__text-part {
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  top: 0;
+}
+.desktop .single__watches__text-part-wrapper .single__watches__text-part.sticky {
+  position: fixed;
+  top: 144px;
+}
+.desktop .pagination {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 56px;
+}
+.desktop .pagination .pagination-bullet {
+  border: 2px solid #cba755;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 960px) {
   .single__watches__text-part {
     max-width: 345px;
@@ -1290,6 +1343,7 @@ a {
 
 .presentation__address {
   margin-top: 19.2vh;
+  margin-bottom: 7.2vh;
   font-family: "Chaparral Pro";
   font-style: italic;
   letter-spacing: 0.6px;

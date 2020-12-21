@@ -19,7 +19,7 @@
                     </div>
         
                     <div class="form-input__wrapper">
-                        <input type="subject" id="contact-subject" name="subject" class="form-input required" value="{{ contact_form.value.subject }}">
+                        <input type="subject" id="contact-subject" name="subject" class="form-input required {{ contact_form.value.subject != '' ? 'not-empty' : '' }}" value="{{ contact_form.value.subject }}">
                         <label for="contact-subject" class="form-input__label">Sujet</label>
                     </div>
         

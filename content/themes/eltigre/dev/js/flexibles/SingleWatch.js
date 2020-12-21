@@ -2,10 +2,16 @@ import { TweenLite, TweenMax } from "gsap";
 import { SCROLLMAGIC_CONTROLLER } from '../constants/constants';
 import ScrollMagic from 'scrollmagic';
 import { initSwipers } from "../utils/functions.js";
+import { scrollToElement } from "../utils/functions";
 
 export default class SingleWatch {
     constructor() {
       this.sections = document.querySelectorAll('.single__watches');
+      this.distanceBeforeSticky = window.innerHeight/21;  
+      this.aside = document.querySelector('.single__watches__text-part');
+
+      window.addEventListener('scroll', this.stickyMenu.bind(this));
+
       initSwipers(this.sections, {
         pagination: {
           el: '.swiper-pagination',
@@ -19,7 +25,9 @@ export default class SingleWatch {
         effect : 'fade',
       });
 
+      
       this.animate();
+      this.scrollToImage();
     }
   
     animate() {
@@ -44,4 +52,34 @@ export default class SingleWatch {
           .addTo(SCROLLMAGIC_CONTROLLER);
       });
     }
+
+    scrollToImage() {
+      this.sections.forEach(section => {
+        console.log(section)
+        const bullets = section.querySelectorAll('.pagination-bullet');
+        console.log(bullets)
+        bullets.forEach(bullet => {
+          console.log(bullet)
+          bullet.addEventListener('click', scrollToElement);
+        })
+      })
+    }
+
+    stickyMenu() {
+      let aside = this.aside;
+      if (window.scrollY > this.distanceBeforeSticky && !this.isSticky()) {
+        aside.classList.add('sticky');
+          // addTransition(header, 'slide-in', 300, 'sticky');
+      }
+      else if (window.scrollY < this.distanceBeforeSticky && this.isSticky()) {
+        aside.classList.remove('sticky');
+          // addTransition(header, 'slide-in', 300, '', 'sticky');
+      }
+    };
+    
+    isSticky() {
+
+      return this.aside.classList.contains('sticky');
+    };
+
   }

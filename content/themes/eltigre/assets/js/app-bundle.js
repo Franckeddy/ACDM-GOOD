@@ -433,20 +433,14 @@ var Form = /*#__PURE__*/function () {
   }, {
     key: "addFocusListeners",
     value: function addFocusListeners() {
-      console.log("Entrez dans la fonction");
+      var _this = this;
+
       this.fields.forEach(function (field) {
-        // document.addEventListener('DOMContentLoaded', function (e) {
-        //   console.log("fonction de merde")
-        //   if (this.value != ''){
-        //     console.log("Entrez")
-        //     this.classList.add('not-empty');
-        //   }
-        //   else{
-        //     console.log("Sortez")
-        //     this.classList.remove('not-empty');
-        //   }
-        // })
-        // Removes error class on focus
+        if (_this.value != '') {
+          _this.classList.add('not-empty');
+        } // Removes error class on focus
+
+
         field.addEventListener('focus', function (e) {
           this.classList.remove('error');
         }); // Checks if the field is empty on blur
@@ -1222,6 +1216,8 @@ var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
 var _functions = require("../utils/functions.js");
 
+var _functions2 = require("../utils/functions");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1235,6 +1231,9 @@ var SingleWatch = /*#__PURE__*/function () {
     _classCallCheck(this, SingleWatch);
 
     this.sections = document.querySelectorAll('.single__watches');
+    this.distanceBeforeSticky = window.innerHeight / 21;
+    this.aside = document.querySelector('.single__watches__text-part');
+    window.addEventListener('scroll', this.stickyMenu.bind(this));
     (0, _functions.initSwipers)(this.sections, {
       pagination: {
         el: '.swiper-pagination',
@@ -1248,6 +1247,7 @@ var SingleWatch = /*#__PURE__*/function () {
       effect: 'fade'
     });
     this.animate();
+    this.scrollToImage();
   }
 
   _createClass(SingleWatch, [{
@@ -1301,6 +1301,35 @@ var SingleWatch = /*#__PURE__*/function () {
           reverse: true
         }).setTween([imagesRightAnimation, imagesleftAnimation, textLeftAnimation, textRightAnimation]).addTo(_constants.SCROLLMAGIC_CONTROLLER);
       });
+    }
+  }, {
+    key: "scrollToImage",
+    value: function scrollToImage() {
+      this.sections.forEach(function (section) {
+        console.log(section);
+        var bullets = section.querySelectorAll('.pagination-bullet');
+        console.log(bullets);
+        bullets.forEach(function (bullet) {
+          console.log(bullet);
+          bullet.addEventListener('click', _functions2.scrollToElement);
+        });
+      });
+    }
+  }, {
+    key: "stickyMenu",
+    value: function stickyMenu() {
+      var aside = this.aside;
+
+      if (window.scrollY > this.distanceBeforeSticky && !this.isSticky()) {
+        aside.classList.add('sticky'); // addTransition(header, 'slide-in', 300, 'sticky');
+      } else if (window.scrollY < this.distanceBeforeSticky && this.isSticky()) {
+        aside.classList.remove('sticky'); // addTransition(header, 'slide-in', 300, '', 'sticky');
+      }
+    }
+  }, {
+    key: "isSticky",
+    value: function isSticky() {
+      return this.aside.classList.contains('sticky');
     }
   }]);
 
@@ -1600,6 +1629,7 @@ function scrollToElement(e) {
 
     var _element = document.querySelector(this.dataset.scrollto);
 
+    console.log(_element);
     var header = document.querySelector('.header__content');
     var headerOffset = header ? header.clientHeight : 0;
     var topOffset = _element.offsetTop - headerOffset;

@@ -141,6 +141,7 @@ export function scrollToElement(e) {
     try {
         e.preventDefault();
         const element = document.querySelector(this.dataset.scrollto);
+        console.log(element)
         const header = document.querySelector('.header__content');
         const headerOffset = header ? header.clientHeight : 0;
         const topOffset = element.offsetTop - headerOffset;
