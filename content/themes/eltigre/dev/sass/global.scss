@@ -141,6 +141,10 @@ html.is-animating .transition-container {
     transform: translateX(0);
     opacity: 1;
 }
+
+section{
+    overflow: hidden;
+}
 .susy-grid {
     display: none;
     background: susy-svg-grid() no-repeat scroll;

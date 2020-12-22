@@ -644,6 +644,10 @@ html.is-animating .transition-container {
   opacity: 1;
 }
 
+section {
+  overflow: hidden;
+}
+
 .susy-grid {
   display: none;
   background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="url(%23susy-svg-gradient)" width="100%" %3E%3Cdefs%3E%3ClinearGradient spreadMethod="pad" id="susy-svg-gradient" x1="0%" y1="0%" x2="100%" y2="0%"%3E%3Cstop offset="0%" style="stop-color:rgba(64, 191, 64, 0.5);" /%3E%3Cstop offset="100%" style="stop-color:rgba(159, 223, 159, 0.5);" /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x="0" width="5.9336823735%" height="100%"/%3E%3Crect x="8.5514834206%" width="5.9336823735%" height="100%"/%3E%3Crect x="17.1029668412%" width="5.9336823735%" height="100%"/%3E%3Crect x="25.6544502618%" width="5.9336823735%" height="100%"/%3E%3Crect x="34.2059336824%" width="5.9336823735%" height="100%"/%3E%3Crect x="42.757417103%" width="5.9336823735%" height="100%"/%3E%3Crect x="51.3089005236%" width="5.9336823735%" height="100%"/%3E%3Crect x="59.8603839442%" width="5.9336823735%" height="100%"/%3E%3Crect x="68.4118673647%" width="5.9336823735%" height="100%"/%3E%3Crect x="76.9633507853%" width="5.9336823735%" height="100%"/%3E%3Crect x="85.5148342059%" width="5.9336823735%" height="100%"/%3E%3Crect x="94.0663176265%" width="5.9336823735%" height="100%"/%3E%3C/svg%3E') no-repeat scroll;
@@ -1789,7 +1793,7 @@ a {
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  bottom: -14px;
+  bottom: 0;
 }
 
 .images {
