@@ -29,8 +29,7 @@
         background-color: $text;
         right: 0;
         top: 50%;
-        -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
+        transform: translateY(-50%);
     }
 }
 .banner__subtitle {
@@ -43,17 +42,31 @@
     margin: 54px 0 28px;
     text-align: right;
     position: relative;
+    display: flex;
+    justify-content: flex-end;
     &:before {
         content: "";
         position: absolute;
         height: 2px;
-        max-width: 40.7%;
+        max-width: 38%;
         width: 100%;
         background-color: $text;
         left: 0;
         top: 50%;
-        -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+}
+
+.banner__subtitle-text,
+.watches__subtitle-text {
+    max-width: 75%;
+    text-align: right;
+    @media screen and (max-width: 900px) {
+        max-width: 85%;
+    }
+    @media screen and (max-width: 780px) {
+        max-width: 100%;
+        text-align: center;
     }
 }
 .banner__description {
@@ -83,14 +96,6 @@
     }
 }
 
-@media screen and (max-width: 1019px) {
-    .banner__title {
-        margin: 25px 24px;
-        &:after {
-            right: 0;
-        }
-    }
-}
 @media screen and (max-width: 900px) {
     .banner__title {
         &:after {
@@ -110,11 +115,10 @@
         &:after {
             max-width: 15%;
             top: initial;
-            bottom: -15px;
+            bottom: -25px;
             left: 50%;
             right: initial;
-            -webkit-transform: translateX(-50%);
-                    transform: translateX(-50%);
+            transform: translateX(-50%);
         }
     }
     .banner__subtitle {
@@ -126,14 +130,13 @@
             bottom: -15px;
             right: 50%;
             left: initial;
-            -webkit-transform: translateX(50%);
-                    transform: translateX(50%);
+            transform: translateX(50%);
         }
     }
 }
 @media screen and (max-width: 500px) {
     .banner {
-       margin-bottom: 60px !important;
+        margin-bottom: 60px !important;
     }
 }
 @media screen and (max-width: 375px) {
