@@ -2,12 +2,14 @@
     {% if section.title is not empty %}
         <h2 class="banner__title main-wrapper">{{ section.title }}</h2>
     {% endif %}
-    {% if section.type_image == 'background' %}
-        <div class="banner__image" style="background-image: url( {{section.banner.url}} );background-position: {{section.horizontal_layout}} {{section.vertical_layout}}; height: {{section.banner_height}}vh; "></div>
-    {% else %}
-        <img class="banner__image" src="{{ section.banner.url }};">
-    {% endif %}
-   
+    
+    {% if section.banner.url is not empty %}
+        {% if section.type_image == 'background' %}
+            <div class="banner__image" style="background-image: url( {{ section.banner.url }} );background-position: {{ section.horizontal_layout }} {{ section.vertical_layout }}; height: {{ section.banner_height }}vh; "></div>
+        {% else %}
+            <img class="banner__image" src="{{ section.banner.url }};">
+        {% endif %}
+    {% endif %}   
     
     <div class="banner__content main-wrapper">
 

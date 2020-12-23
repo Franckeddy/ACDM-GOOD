@@ -59,6 +59,7 @@ img.images__image {
     .content__text-part-wrapper {
         display: flex;
         width: 100%;
+        align-items: center;
     }
 }
 .text-part__title {
@@ -68,7 +69,7 @@ img.images__image {
     font-size: 28px;
     letter-spacing: 0.3px;
     line-height: 26px;
-    margin: 54px 0 28px;
+    // margin: 54px 0 28px;
     text-align: center;
     position: relative;
     color: #4d4d4d;
@@ -150,6 +151,7 @@ img.images__image {
             display: flex;
             width: 100%;
             flex-flow: row-reverse wrap;
+            align-items: center;
             .swiper-pagination {
                 top: 0;
                 transform: translateX(-50%);
