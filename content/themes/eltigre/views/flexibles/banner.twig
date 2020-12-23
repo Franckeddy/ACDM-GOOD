@@ -1,6 +1,6 @@
 <section class="banner" id="{{ section.title|sanitize }}" style="{% if section.add_margin_top == true %}padding-top:137px; {% endif %} {% if section.add_margin_bottom == true %} margin-bottom:137px{% endif %}">
     {% if section.title is not empty %}
-        <h2 class="banner__title main-wrapper">{{ section.title }}</h2>
+        <h2 class="banner__title main-wrapper {{ section.add_subtitle_animated == true ? 'animated' : '' }}">{{ section.title }}</h2>
     {% endif %}
     
     {% if section.banner.url is not empty %}
@@ -14,12 +14,12 @@
     <div class="banner__content main-wrapper">
 
         {% if section.subtitle is not empty %}
-            <div class="banner__subtitle">
+            <div class="banner__subtitle {{ section.add_subtitle_animated == true ? 'animated' : '' }}">
                 <div class="banner__subtitle-text">{{ section.subtitle }}</div>
             </div>
         {% endif %}
         {% if section.description is not empty %}
-            <div class="banner__description">
+            <div class="banner__description {{ section.add_description_animated == true ? 'animated' : '' }}">
                 {{ section.description }}
             </div>
         {% endif %}

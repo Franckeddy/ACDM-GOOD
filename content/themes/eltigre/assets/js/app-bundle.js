@@ -727,8 +727,9 @@ var Banner = /*#__PURE__*/function () {
     key: "animate",
     value: function animate() {
       this.sections.forEach(function (section) {
+        // if(!section.classList.contains('animated')) return;
         var timeline = new _gsap.TimelineLite();
-        var title = section.querySelectorAll('.banner__title');
+        var title = section.querySelectorAll('.banner__title.animated');
 
         if (title.length > 0) {
           var titleAnimation = _gsap.TweenMax.staggerFromTo(title, .6, {
@@ -742,7 +743,7 @@ var Banner = /*#__PURE__*/function () {
           timeline.add(titleAnimation);
         }
 
-        var subtitle = section.querySelectorAll('.banner__subtitle');
+        var subtitle = section.querySelectorAll('.banner__subtitle.animated');
 
         if (subtitle.length > 0) {
           var subtitleAnimation = _gsap.TweenMax.staggerFromTo(subtitle, .6, {
@@ -756,7 +757,7 @@ var Banner = /*#__PURE__*/function () {
           timeline.add(subtitleAnimation);
         }
 
-        var text = section.querySelectorAll('.banner__description');
+        var text = section.querySelectorAll('.banner__description.animated');
 
         if (text.length > 0) {
           var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, {
