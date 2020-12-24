@@ -1,5 +1,15 @@
-require('jquery');
-const lightbox = require('lightbox2');
+const jQuery = require('jquery');
+
+(function($) {
+  const lightbox = require('lightbox2');
+  lightbox.option({
+    'alwaysShowNavOnTouchDevices' : true,
+    'resizeDuration': 1000,
+    'wrapAround': true, 
+    'disableScrolling':false 
+  }); 
+})(jQuery);
+
 import { TweenLite, TweenMax, TimelineLite } from "gsap";
 import { SCROLLMAGIC_CONTROLLER } from '../constants/constants';
 import ScrollMagic from 'scrollmagic';
@@ -26,12 +36,7 @@ export default class SingleWatch {
       effect: 'fade',
     });
 
-    lightbox.option({
-      'alwaysShowNavOnTouchDevices' : true,
-      'resizeDuration': 1000,
-      'wrapAround': true, 
-      'disableScrolling':false 
-    });
+    
 
     this.animate();
     this.scrollToImage();

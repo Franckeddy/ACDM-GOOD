@@ -133,16 +133,16 @@ if ( class_exists( 'Timber' ) ) {
 
 			// VENDOR SCRIPTS
 			wp_enqueue_script( 'vendor', get_template_directory_uri() . '/assets/js/vendor.js' );
-			wp_enqueue_script( 'lightbox', get_template_directory_uri() . '/assets/js/vendor/lightbox.min.js', array(), false, true );
 			wp_enqueue_script( 'swiper', get_template_directory_uri() . '/assets/js/vendor/swiper-bundle.min.js', array(), false, true );
+			wp_enqueue_script( 'lightbox', get_template_directory_uri() . '/assets/js/vendor/lightbox.js', array(), false, true );
 			// CUSTOM SCRIPTS
 			wp_enqueue_script( 'app', get_template_directory_uri() . '/assets/js/app-bundle.js' );
 			wp_localize_script('app', 'site', array(
 				'url' 		=> home_url(),
 				'ajaxurl' 	=> admin_url( 'admin-ajax.php' ),
 				'theme_url' => get_template_directory_uri(),
-			)  );
-		}
+				)  );
+			}
 		
 	
 		public function theme_supports() {
