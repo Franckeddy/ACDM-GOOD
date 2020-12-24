@@ -118,6 +118,8 @@ if ( class_exists( 'Timber' ) ) {
 			wp_enqueue_style( 'all', get_template_directory_uri() . '/assets/styles/vendor/all.min.css' );
 			wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/styles/vendor/fontawesome.min.css' );
 			wp_enqueue_style( 'fa-brands', get_template_directory_uri() . '/assets/styles/vendor/brands.min.css' );
+			//LIGHTBOX 
+			wp_enqueue_style( 'lightbox', get_template_directory_uri() . '/assets/styles/vendor/lightbox.min.css' );
 			//SWIPER
 			wp_enqueue_style( 'swiper', get_template_directory_uri() . '/assets/styles/vendor/swiper-bundle.min.css' );
 			// CUSTOM STYLES
@@ -131,6 +133,7 @@ if ( class_exists( 'Timber' ) ) {
 
 			// VENDOR SCRIPTS
 			wp_enqueue_script( 'vendor', get_template_directory_uri() . '/assets/js/vendor.js' );
+			wp_enqueue_script( 'lightbox', get_template_directory_uri() . '/assets/js/vendor/lightbox.min.js', array(), false, true );
 			wp_enqueue_script( 'swiper', get_template_directory_uri() . '/assets/js/vendor/swiper-bundle.min.js', array(), false, true );
 			// CUSTOM SCRIPTS
 			wp_enqueue_script( 'app', get_template_directory_uri() . '/assets/js/app-bundle.js' );

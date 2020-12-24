@@ -1,3 +1,4 @@
+require('jquery');
 import Navigation from './class/navigation';
 import ScrollMagic from 'scrollmagic';
 import gsap, { TweenLite } from 'gsap';

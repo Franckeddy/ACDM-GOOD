@@ -187,6 +187,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+require('jquery');
+
 (0, _scrollmagicPluginGsap.ScrollMagicPluginGsap)(_scrollmagic["default"], _gsap["default"]);
 
 if (window.NodeList && !NodeList.prototype.forEach) {
@@ -1153,6 +1155,10 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+require('jquery');
+
+var lightbox = require('lightbox2');
+
 var SingleWatch = /*#__PURE__*/function () {
   function SingleWatch() {
     _classCallCheck(this, SingleWatch);
@@ -1171,6 +1177,12 @@ var SingleWatch = /*#__PURE__*/function () {
       autoplay: false,
       autoHeight: true,
       effect: 'fade'
+    });
+    lightbox.option({
+      'alwaysShowNavOnTouchDevices': true,
+      'resizeDuration': 1000,
+      'wrapAround': true,
+      'disableScrolling': false
     });
     this.animate();
     this.scrollToImage();
