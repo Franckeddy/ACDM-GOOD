@@ -1,14 +1,14 @@
 const jQuery = require('jquery');
 
-(function($) {
+(function ($) {
   const lightbox = require('lightbox2');
   lightbox.option({
-    'alwaysShowNavOnTouchDevices' : true,
+    'alwaysShowNavOnTouchDevices': true,
     'resizeDuration': 450,
-    'wrapAround': true, 
-    'disableScrolling':true,
-    'fitImagesInViewport':true 
-  }); 
+    'wrapAround': true,
+    'disableScrolling': true,
+    'fitImagesInViewport': true
+  });
 })(jQuery);
 
 import { TweenLite, TweenMax, TimelineLite } from "gsap";
@@ -37,7 +37,7 @@ export default class SingleWatch {
       effect: 'fade',
     });
 
-    
+
     this.animate();
 
     setTimeout(() => this.scrollToImage(), 250);
@@ -65,12 +65,12 @@ export default class SingleWatch {
   }
 
   scrollToImage() {
-    
+
     this.sections.forEach(section => {
       const bullets = section.querySelectorAll('.pagination-bullet');
 
       const images = section.querySelectorAll('img');
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
       images.forEach((image, index) => {
         new ScrollMagic.Scene({
           triggerElement: image,
@@ -97,5 +97,5 @@ export default class SingleWatch {
       }
     })
   };
- 
+
 }
