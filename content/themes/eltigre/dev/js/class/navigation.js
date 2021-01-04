@@ -15,7 +15,7 @@ export default class Navigation {
         document.querySelector('body').classList.remove('no-scroll');
         this.header.classList.remove('active');
 
-        document.addEventListener('click', en => {
+        this.body.addEventListener('click', en => {
             this.header.classList.remove('active');
             this.body.classList.remove('no-scroll');
             this.toggleBtn.classList.remove('cross');

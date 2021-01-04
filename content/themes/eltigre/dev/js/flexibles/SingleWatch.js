@@ -20,10 +20,11 @@ import { getNavigator } from "../utils/functions";
 
 export default class SingleWatch {
   constructor() {
+    this.body = document.querySelector('body');
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
     this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
-
+    
     initSwipers(this.sectionsMobile, {
       pagination: {
         el: '.swiper-pagination',
@@ -32,14 +33,15 @@ export default class SingleWatch {
       },
       direction: 'vertical',
       loop: true,
-      autoplay: false,
+      autoplay: true,
       autoHeight: true,
       effect: 'fade',
     });
 
     
     this.animate();
-    this.scrollToImage();
+    setTimeout(()=>  this.scrollToImage(), 250);
+   
   }
 
   animate() {
@@ -75,10 +77,10 @@ export default class SingleWatch {
     
     this.sections.forEach(section => {
       const bullets = section.querySelectorAll('.pagination-bullet');
-
       const images = section.querySelectorAll('img');
-      window.scrollTo(0,0);
+    
       images.forEach((image, index) => {
+        
         new ScrollMagic.Scene({
           triggerElement: image,
           duration: image.clientHeight
@@ -91,6 +93,7 @@ export default class SingleWatch {
 
       bullets.forEach((bullet, index) => {
         bullet.addEventListener('click', function (event) {
+          
           const headerOffset = index === 0 ? 144 : 90;
           const scrollFn = scrollToElement.bind(this);
           scrollFn(event, headerOffset);

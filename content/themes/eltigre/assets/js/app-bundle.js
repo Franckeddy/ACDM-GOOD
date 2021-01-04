@@ -585,7 +585,7 @@ var Navigation = /*#__PURE__*/function () {
 
     document.querySelector('body').classList.remove('no-scroll');
     this.header.classList.remove('active');
-    document.addEventListener('click', function (en) {
+    this.body.addEventListener('click', function (en) {
       _this.header.classList.remove('active');
 
       _this.body.classList.remove('no-scroll');
@@ -1180,8 +1180,11 @@ var jQuery = require('jquery');
 
 var SingleWatch = /*#__PURE__*/function () {
   function SingleWatch() {
+    var _this = this;
+
     _classCallCheck(this, SingleWatch);
 
+    this.body = document.querySelector('body');
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
     this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
@@ -1193,12 +1196,14 @@ var SingleWatch = /*#__PURE__*/function () {
       },
       direction: 'vertical',
       loop: true,
-      autoplay: false,
+      autoplay: true,
       autoHeight: true,
       effect: 'fade'
     });
     this.animate();
-    this.scrollToImage();
+    setTimeout(function () {
+      return _this.scrollToImage();
+    }, 250);
   }
 
   _createClass(SingleWatch, [{
@@ -1253,7 +1258,6 @@ var SingleWatch = /*#__PURE__*/function () {
       this.sections.forEach(function (section) {
         var bullets = section.querySelectorAll('.pagination-bullet');
         var images = section.querySelectorAll('img');
-        window.scrollTo(0, 0);
         images.forEach(function (image, index) {
           new _scrollmagic["default"].Scene({
             triggerElement: image,
