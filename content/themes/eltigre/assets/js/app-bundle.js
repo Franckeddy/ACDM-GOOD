@@ -588,6 +588,8 @@ var Navigation = /*#__PURE__*/function () {
     document.addEventListener('click', function (en) {
       _this.header.classList.remove('active');
 
+      _this.body.classList.remove('no-scroll');
+
       _this.toggleBtn.classList.remove('cross');
     });
     var menuItems = document.querySelectorAll('.menu-item, .site-logo, .footer_phone-number, .footer-contact');

@@ -17,6 +17,7 @@ export default class Navigation {
 
         document.addEventListener('click', en => {
             this.header.classList.remove('active');
+            this.body.classList.remove('no-scroll');
             this.toggleBtn.classList.remove('cross');
         });
 

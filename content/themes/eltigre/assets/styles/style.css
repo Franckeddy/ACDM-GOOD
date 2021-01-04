@@ -697,6 +697,11 @@ a {
   transition: all 0.4s ease-in-out;
 }
 
+.home .active .header__content .main-logo {
+  opacity: 1;
+  transition: all 0.4s ease-in-out;
+}
+
 .header__content {
   margin: 0 auto;
   width: 100%;
