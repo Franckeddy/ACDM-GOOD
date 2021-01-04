@@ -1242,14 +1242,7 @@ var SingleWatch = /*#__PURE__*/function () {
         var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, textFromVars, textToVars, .2);
 
         var timeline = new _gsap.TimelineLite();
-        timeline.add(imagesAnimation); // new ScrollMagic.Scene({
-        //   triggerElement: section,
-        //   triggerHook: 0.95,
-        //   offset: 150,
-        //   reverse: true,
-        // })
-        //   .setTween(timeline)
-        //   .addTo(SCROLLMAGIC_CONTROLLER);
+        timeline.add(imagesAnimation);
       });
     }
   }, {
@@ -1262,7 +1255,7 @@ var SingleWatch = /*#__PURE__*/function () {
           new _scrollmagic["default"].Scene({
             triggerElement: image,
             duration: image.clientHeight
-          }).on('progress', function (e) {
+          }).on('enter', function (e) {
             setActiveBullet(bullets[index]);
           }).addTo(_constants.SCROLLMAGIC_CONTROLLER);
         });
