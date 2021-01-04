@@ -572,6 +572,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var Navigation = /*#__PURE__*/function () {
   function Navigation() {
+    var _this = this;
+
     _classCallCheck(this, Navigation);
 
     this.distanceBeforeSticky = window.innerHeight / 4;
@@ -583,6 +585,11 @@ var Navigation = /*#__PURE__*/function () {
 
     document.querySelector('body').classList.remove('no-scroll');
     this.header.classList.remove('active');
+    document.addEventListener('click', function (en) {
+      _this.header.classList.remove('active');
+
+      _this.toggleBtn.classList.remove('cross');
+    });
     var menuItems = document.querySelectorAll('.menu-item, .site-logo, .footer_phone-number, .footer-contact');
     menuItems.forEach(function (item) {
       item.addEventListener('click', function (ev) {
@@ -1162,9 +1169,10 @@ var jQuery = require('jquery');
 
   lightbox.option({
     'alwaysShowNavOnTouchDevices': true,
-    'resizeDuration': 1000,
+    'resizeDuration': 450,
     'wrapAround': true,
-    'disableScrolling': false
+    'disableScrolling': true,
+    'fitImagesInViewport': true
   });
 })(jQuery);
 
@@ -1243,6 +1251,7 @@ var SingleWatch = /*#__PURE__*/function () {
       this.sections.forEach(function (section) {
         var bullets = section.querySelectorAll('.pagination-bullet');
         var images = section.querySelectorAll('img');
+        window.scrollTo(0, 0);
         images.forEach(function (image, index) {
           new _scrollmagic["default"].Scene({
             triggerElement: image,

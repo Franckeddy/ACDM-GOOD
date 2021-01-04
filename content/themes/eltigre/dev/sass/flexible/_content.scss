@@ -49,6 +49,7 @@ img.images__image {
         display: flex;
         width: 100%;
         flex-flow: row-reverse wrap;
+        align-items: center;
     }
 }
 .content--layout-right {

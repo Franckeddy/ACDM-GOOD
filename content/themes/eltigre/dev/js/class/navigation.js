@@ -15,6 +15,11 @@ export default class Navigation {
         document.querySelector('body').classList.remove('no-scroll');
         this.header.classList.remove('active');
 
+        document.addEventListener('click', en => {
+            this.header.classList.remove('active');
+            this.toggleBtn.classList.remove('cross');
+        });
+
         const menuItems = document.querySelectorAll('.menu-item, .site-logo, .footer_phone-number, .footer-contact');
         menuItems.forEach(item => {
             item.addEventListener('click', ev => {
@@ -57,4 +62,6 @@ export default class Navigation {
         this.header.classList.toggle('active');
         this.toggleBtn.classList.toggle('cross');
     }
+
+
 }

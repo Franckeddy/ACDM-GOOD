@@ -4,9 +4,10 @@ const jQuery = require('jquery');
   const lightbox = require('lightbox2');
   lightbox.option({
     'alwaysShowNavOnTouchDevices' : true,
-    'resizeDuration': 1000,
+    'resizeDuration': 450,
     'wrapAround': true, 
-    'disableScrolling':false 
+    'disableScrolling':true,
+    'fitImagesInViewport':true 
   }); 
 })(jQuery);
 
@@ -37,7 +38,6 @@ export default class SingleWatch {
     });
 
     
-
     this.animate();
     this.scrollToImage();
   }
@@ -72,10 +72,12 @@ export default class SingleWatch {
   }
 
   scrollToImage() {
+    
     this.sections.forEach(section => {
       const bullets = section.querySelectorAll('.pagination-bullet');
 
       const images = section.querySelectorAll('img');
+      window.scrollTo(0,0);
       images.forEach((image, index) => {
         new ScrollMagic.Scene({
           triggerElement: image,
