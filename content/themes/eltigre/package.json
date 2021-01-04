@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "gsap": "^3.5.1",
+    "jquery": "^3.5.1",
+    "lightbox2": "^2.11.3",
     "object-fit-images": "^3.2.4",
     "scrollmagic": "^2.0.8",
     "scrollmagic-plugin-gsap": "^1.0.4",

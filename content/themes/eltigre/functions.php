@@ -118,6 +118,8 @@ if ( class_exists( 'Timber' ) ) {
 			wp_enqueue_style( 'all', get_template_directory_uri() . '/assets/styles/vendor/all.min.css' );
 			wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/styles/vendor/fontawesome.min.css' );
 			wp_enqueue_style( 'fa-brands', get_template_directory_uri() . '/assets/styles/vendor/brands.min.css' );
+			//LIGHTBOX 
+			wp_enqueue_style( 'lightbox', get_template_directory_uri() . '/assets/styles/vendor/lightbox.min.css' );
 			//SWIPER
 			wp_enqueue_style( 'swiper', get_template_directory_uri() . '/assets/styles/vendor/swiper-bundle.min.css' );
 			// CUSTOM STYLES
@@ -127,19 +129,20 @@ if ( class_exists( 'Timber' ) ) {
 	
 		public function register_scripts() {
 			// POOLYFILL FOR IE
-			wp_enqueue_script( 'barbaPolyfill', 'https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.remove%2CNumber.isNaN%2CDocument%2CString.prototype.repeat%2CPromise%2CObject.assign', array(), false, false );
+			wp_enqueue_script( 'barbaPolyfill', 'https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.remove%2CNumber.isNaN%2CDocument%2CString.prototype.repeat%2CPromise%2CObject.assign%2CElement.prototype.classList%2Cscroll%2CscrollY%2CscrollX%2Cwindow.scroll', array(), false, false );
 
 			// VENDOR SCRIPTS
 			wp_enqueue_script( 'vendor', get_template_directory_uri() . '/assets/js/vendor.js' );
 			wp_enqueue_script( 'swiper', get_template_directory_uri() . '/assets/js/vendor/swiper-bundle.min.js', array(), false, true );
+			wp_enqueue_script( 'lightbox', get_template_directory_uri() . '/assets/js/vendor/lightbox.js', array(), false, true );
 			// CUSTOM SCRIPTS
 			wp_enqueue_script( 'app', get_template_directory_uri() . '/assets/js/app-bundle.js' );
 			wp_localize_script('app', 'site', array(
 				'url' 		=> home_url(),
 				'ajaxurl' 	=> admin_url( 'admin-ajax.php' ),
 				'theme_url' => get_template_directory_uri(),
-			)  );
-		}
+				)  );
+			}
 		
 	
 		public function theme_supports() {

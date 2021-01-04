@@ -1,23 +1,25 @@
 <section class="banner" id="{{ section.title|sanitize }}" style="{% if section.add_margin_top == true %}padding-top:137px; {% endif %} {% if section.add_margin_bottom == true %} margin-bottom:137px{% endif %}">
     {% if section.title is not empty %}
-        <h2 class="banner__title main-wrapper">{{ section.title }}</h2>
+        <h2 class="banner__title main-wrapper {{ section.add_subtitle_animated == true ? 'animated' : '' }}">{{ section.title }}</h2>
     {% endif %}
-    {% if section.type_image == 'background' %}
-        <div class="banner__image" style="background-image: url( {{section.banner.url}} );background-position: {{section.horizontal_layout}} {{section.vertical_layout}}; height: {{section.banner_height}}vh; "></div>
-    {% else %}
-        <img class="banner__image" src="{{ section.banner.url }};">
-    {% endif %}
-   
+    
+    {% if section.banner.url is not empty %}
+        {% if section.type_image == 'background' %}
+            <div class="banner__image" style="background-image: url( {{ section.banner.url }} );background-position: {{ section.horizontal_layout }} {{ section.vertical_layout }}; height: {{ section.banner_height }}vh; "></div>
+        {% else %}
+            <img class="banner__image" src="{{ section.banner.url }};">
+        {% endif %}
+    {% endif %}   
     
     <div class="banner__content main-wrapper">
 
         {% if section.subtitle is not empty %}
-            <div class="banner__subtitle">
-                {{ section.subtitle }}
+            <div class="banner__subtitle {{ section.add_subtitle_animated == true ? 'animated' : '' }}">
+                <div class="banner__subtitle-text">{{ section.subtitle }}</div>
             </div>
         {% endif %}
         {% if section.description is not empty %}
-            <div class="banner__description">
+            <div class="banner__description {{ section.add_description_animated == true ? 'animated' : '' }}">
                 {{ section.description }}
             </div>
         {% endif %}

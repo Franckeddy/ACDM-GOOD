@@ -1,16 +1,30 @@
+const jQuery = require('jquery');
+
+(function($) {
+  const lightbox = require('lightbox2');
+  lightbox.option({
+    'alwaysShowNavOnTouchDevices' : true,
+    'resizeDuration': 450,
+    'wrapAround': true, 
+    'disableScrolling':true,
+    'fitImagesInViewport':true 
+  }); 
+})(jQuery);
+
 import { TweenLite, TweenMax, TimelineLite } from "gsap";
 import { SCROLLMAGIC_CONTROLLER } from '../constants/constants';
 import ScrollMagic from 'scrollmagic';
 import { initSwipers } from "../utils/functions.js";
 import { scrollToElement } from "../utils/functions";
+import { getNavigator } from "../utils/functions";
 
 export default class SingleWatch {
   constructor() {
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
+    this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
 
-
-    initSwipers(this.sections, {
+    initSwipers(this.sectionsMobile, {
       pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
@@ -23,7 +37,7 @@ export default class SingleWatch {
       effect: 'fade',
     });
 
-
+    
     this.animate();
 
     setTimeout(() => this.scrollToImage(), 250);
@@ -51,10 +65,12 @@ export default class SingleWatch {
   }
 
   scrollToImage() {
+    
     this.sections.forEach(section => {
       const bullets = section.querySelectorAll('.pagination-bullet');
 
       const images = section.querySelectorAll('img');
+      window.scrollTo(0,0);
       images.forEach((image, index) => {
         new ScrollMagic.Scene({
           triggerElement: image,
@@ -81,6 +97,5 @@ export default class SingleWatch {
       }
     })
   };
-
-
+ 
 }

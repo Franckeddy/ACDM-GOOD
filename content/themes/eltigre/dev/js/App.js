@@ -1,3 +1,4 @@
+require('jquery');
 import Navigation from './class/navigation';
 import ScrollMagic from 'scrollmagic';
 import gsap, { TweenLite } from 'gsap';
@@ -6,6 +7,7 @@ import initFlexibleSections from './flexibles/Init.js';
 import { SCROLLMAGIC_CONTROLLER } from './constants/constants.js';
 import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";
 ScrollMagicPluginGsap(ScrollMagic, gsap);
+import objectFitImages from 'object-fit-images';
 
 if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
@@ -21,6 +23,8 @@ export default class App {
         initFlexibleSections();
         //Navigation 
         this.menu = new Navigation();
+
+        objectFitImages( 'img' );
     }
 
     revealManager() {

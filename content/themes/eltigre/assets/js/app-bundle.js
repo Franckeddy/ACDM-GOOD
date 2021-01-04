@@ -173,6 +173,8 @@ var _constants = require("./constants/constants.js");
 
 var _scrollmagicPluginGsap = require("scrollmagic-plugin-gsap");
 
+var _objectFitImages = _interopRequireDefault(require("object-fit-images"));
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -184,6 +186,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+require('jquery');
 
 (0, _scrollmagicPluginGsap.ScrollMagicPluginGsap)(_scrollmagic["default"], _gsap["default"]);
 
@@ -204,6 +208,7 @@ var App = /*#__PURE__*/function () {
     (0, _Init["default"])(); //Navigation 
 
     this.menu = new _navigation["default"]();
+    (0, _objectFitImages["default"])('img');
   }
 
   _createClass(App, [{
@@ -567,6 +572,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var Navigation = /*#__PURE__*/function () {
   function Navigation() {
+    var _this = this;
+
     _classCallCheck(this, Navigation);
 
     this.distanceBeforeSticky = window.innerHeight / 4;
@@ -578,6 +585,13 @@ var Navigation = /*#__PURE__*/function () {
 
     document.querySelector('body').classList.remove('no-scroll');
     this.header.classList.remove('active');
+    document.addEventListener('click', function (en) {
+      _this.header.classList.remove('active');
+
+      _this.body.classList.remove('no-scroll');
+
+      _this.toggleBtn.classList.remove('cross');
+    });
     var menuItems = document.querySelectorAll('.menu-item, .site-logo, .footer_phone-number, .footer-contact');
     menuItems.forEach(function (item) {
       item.addEventListener('click', function (ev) {
@@ -604,9 +618,9 @@ var Navigation = /*#__PURE__*/function () {
     value: function stickyMenu() {
       var header = this.header;
 
-      if (window.scrollY > this.distanceBeforeSticky && !this.isSticky()) {
+      if (window.pageYOffset > this.distanceBeforeSticky && !this.isSticky()) {
         header.classList.add('sticky'); // addTransition(header, 'slide-in', 300, 'sticky');
-      } else if (window.scrollY < this.distanceBeforeSticky && this.isSticky()) {
+      } else if (window.pageYOffset < this.distanceBeforeSticky && this.isSticky()) {
         header.classList.remove('sticky'); // addTransition(header, 'slide-in', 300, '', 'sticky');
       }
     }
@@ -724,8 +738,9 @@ var Banner = /*#__PURE__*/function () {
     key: "animate",
     value: function animate() {
       this.sections.forEach(function (section) {
+        // if(!section.classList.contains('animated')) return;
         var timeline = new _gsap.TimelineLite();
-        var title = section.querySelectorAll('.banner__title');
+        var title = section.querySelectorAll('.banner__title.animated');
 
         if (title.length > 0) {
           var titleAnimation = _gsap.TweenMax.staggerFromTo(title, .6, {
@@ -739,7 +754,7 @@ var Banner = /*#__PURE__*/function () {
           timeline.add(titleAnimation);
         }
 
-        var subtitle = section.querySelectorAll('.banner__subtitle');
+        var subtitle = section.querySelectorAll('.banner__subtitle.animated');
 
         if (subtitle.length > 0) {
           var subtitleAnimation = _gsap.TweenMax.staggerFromTo(subtitle, .6, {
@@ -753,7 +768,7 @@ var Banner = /*#__PURE__*/function () {
           timeline.add(subtitleAnimation);
         }
 
-        var text = section.querySelectorAll('.banner__description');
+        var text = section.querySelectorAll('.banner__description.animated');
 
         if (text.length > 0) {
           var textAnimation = _gsap.TweenMax.staggerFromTo(text, .6, {
@@ -1149,6 +1164,20 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var jQuery = require('jquery');
+
+(function ($) {
+  var lightbox = require('lightbox2');
+
+  lightbox.option({
+    'alwaysShowNavOnTouchDevices': true,
+    'resizeDuration': 450,
+    'wrapAround': true,
+    'disableScrolling': true,
+    'fitImagesInViewport': true
+  });
+})(jQuery);
+
 var SingleWatch = /*#__PURE__*/function () {
   function SingleWatch() {
     var _this = this;
@@ -1157,7 +1186,8 @@ var SingleWatch = /*#__PURE__*/function () {
 
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
-    (0, _functions.initSwipers)(this.sections, {
+    this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
+    (0, _functions.initSwipers)(this.sectionsMobile, {
       pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
@@ -1223,6 +1253,7 @@ var SingleWatch = /*#__PURE__*/function () {
       this.sections.forEach(function (section) {
         var bullets = section.querySelectorAll('.pagination-bullet');
         var images = section.querySelectorAll('img');
+        window.scrollTo(0, 0);
         images.forEach(function (image, index) {
           new _scrollmagic["default"].Scene({
             triggerElement: image,
@@ -1274,6 +1305,8 @@ var _constants = require("../constants/constants");
 var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
 var _functions = require("../utils/functions.js");
+
+var _objectFitImages = _interopRequireDefault(require("object-fit-images"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

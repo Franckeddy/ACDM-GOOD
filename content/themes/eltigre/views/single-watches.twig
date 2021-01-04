@@ -10,19 +10,23 @@
 						{% if post.images is not empty %}
 
 							{% for key, galerie in post.images %}
+							<a href="{{ Image(galerie).src }}" data-lightbox="watches">
 								<img 
 									src="{{ Image(galerie).src }}" 	
 									srcset="{{ Image(galerie).src }}"
 									alt="{{ Image(galerie).alt }}"
 									id="watch-{{key}}"
 								/>
+							</a>
 							{% endfor %}
 						{% else %}
+						<a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch">
 							<img 
 							src="{{ Image(post.thumbnail).src }}" 
 							srcset="{{ Image(image).src }}"
 							alt="{{ Image(image).alt }}"
 							/>
+						</a>
 						{% endif %}
 					</div>
 				</div>
@@ -48,7 +52,6 @@
 			</article>
 		</div><!-- /content-wrapper -->
 
-		
 		<!-- Mobile Version  -->
 		<div class="content-wrapper content-wrapper-mobile">
 			<article class="post-type-{{ post.post_type }} single__watches mobile" id="post-{{ post.ID }}">
@@ -58,22 +61,26 @@
 							<div class="swiper-wrapper">
 								{% if post.images is not empty %}
 
-									{% for galerie in post.images %}
+									{% for key, galerie in post.images %}
 										<div class="swiper-slide">
-											<img 
-												src="{{ Image(galerie).src }}" 
-												srcset="{{ Image(galerie).src }}"
-												alt="{{ Image(galerie).alt }}"
-											/>
+											<a href="{{ Image(galerie).src }}" data-lightbox="watches-mobile">
+												<img 
+													src="{{ Image(galerie).src }}" 
+													srcset="{{ Image(galerie).src }}"
+													alt="{{ Image(galerie).alt }}"
+												/>
+											</a>
 										</div>
 									{% endfor %}
 								{% else %}
 										<div class="swiper-slide">
-											<img 
-											src="{{  Image(post.thumbnail).src  }}" 
-											srcset="{{ Image(image).src }}"
-											alt="{{ Image(image).alt }}" class="rororo"
-											/>
+											<a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch-mobile">
+												<img 
+												src="{{  Image(post.thumbnail).src  }}" 
+												srcset="{{ Image(image).src }}"
+												alt="{{ Image(image).alt }}" 
+												/>
+											</a>
 										</div>
 
 								{% endif %}
