@@ -25,7 +25,9 @@ export default class SingleWatch {
 
 
     this.animate();
-    this.scrollToImage();
+
+    setTimeout(() => this.scrollToImage(), 250);
+    window.addEventListener('load', () => this.scrollToImage());
   }
 
   animate() {
@@ -45,15 +47,6 @@ export default class SingleWatch {
 
       const timeline = new TimelineLite();
       timeline.add(imagesAnimation)
-
-      // new ScrollMagic.Scene({
-      //   triggerElement: section,
-      //   triggerHook: 0.95,
-      //   offset: 150,
-      //   reverse: true,
-      // })
-      //   .setTween(timeline)
-      //   .addTo(SCROLLMAGIC_CONTROLLER);
     });
   }
 
@@ -65,9 +58,9 @@ export default class SingleWatch {
       images.forEach((image, index) => {
         new ScrollMagic.Scene({
           triggerElement: image,
-          duration: image.clientHeight
+          duration: image.clientHeight,
         })
-          .on('progress', function (e) {
+          .on('enter', function (e) {
             setActiveBullet(bullets[index]);
           })
           .addTo(SCROLLMAGIC_CONTROLLER);
