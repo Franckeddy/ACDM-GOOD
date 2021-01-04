@@ -34,6 +34,7 @@ export default class SingleWatch {
       direction: 'vertical',
       loop: true,
       autoplay: true,
+      speed : 205,
       autoHeight: true,
       effect: 'fade',
     });
