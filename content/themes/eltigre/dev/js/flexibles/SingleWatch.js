@@ -39,9 +39,7 @@ export default class SingleWatch {
 
 
     this.animate();
-
     setTimeout(() => this.scrollToImage(), 250);
-    window.addEventListener('load', () => this.scrollToImage());
   }
 
   animate() {

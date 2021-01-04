@@ -1203,9 +1203,6 @@ var SingleWatch = /*#__PURE__*/function () {
     setTimeout(function () {
       return _this.scrollToImage();
     }, 250);
-    window.addEventListener('load', function () {
-      return _this.scrollToImage();
-    });
   }
 
   _createClass(SingleWatch, [{
