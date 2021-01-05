@@ -1929,6 +1929,11 @@ img.images__image {
   right: 0;
 }
 
+@media screen and (min-width: 0\0 ) {
+  .content__text-part {
+    margin-top: 100px;
+  }
+}
 .text-part__title {
   font-family: "Chaparral Pro";
   font-style: italic;
