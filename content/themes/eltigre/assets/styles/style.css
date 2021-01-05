@@ -1299,10 +1299,11 @@ a {
   height: 100vh !important;
 }
 
-.lb-image {
+.lightbox .lb-image {
   -o-object-fit: cover !important;
   object-fit: cover !important;
   font-family: "object-fit: cover;";
+  border: 0 solid;
 }
 
 .lb-dataContainer {
