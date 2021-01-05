@@ -154,7 +154,9 @@
     height: 100vh !important;
 }
 .lb-image{
+    -o-object-fit: cover !important;
     object-fit: cover !important;
+    font-family: "object-fit: cover;";
 }
 .lb-dataContainer{
     width: 100vw !important;

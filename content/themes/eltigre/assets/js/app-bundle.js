@@ -934,6 +934,8 @@ var _scrollmagic = _interopRequireDefault(require("scrollmagic"));
 
 var _functions = require("../utils/functions.js");
 
+var _objectFitImages = _interopRequireDefault(require("object-fit-images"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -960,6 +962,7 @@ var Content = /*#__PURE__*/function () {
       autoHeight: true,
       effect: 'fade'
     });
+    (0, _objectFitImages["default"])('img');
     this.animate();
   }
 

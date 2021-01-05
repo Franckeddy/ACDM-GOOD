@@ -22,6 +22,7 @@
     width: 100%;
     position: absolute;
     text-align: center;
+
 }
 .images__image {
     height: 500px;
@@ -36,6 +37,7 @@ img.images__image {
     width: 100%;
     -o-object-fit: contain;
     object-fit: contain;
+    font-family: "object-fit: contain;";
 }
 .content__text-part-wrapper {
     min-height: 500px;
@@ -51,6 +53,10 @@ img.images__image {
         flex-flow: row-reverse wrap;
         align-items: center;
     }
+    .images {
+        top: 0;
+        left: 0;
+    }
 }
 .content--layout-right {
     position: relative;
@@ -61,6 +67,10 @@ img.images__image {
         display: flex;
         width: 100%;
         align-items: center;
+    }
+    .images {
+        top: 0;
+        right: 0;
     }
 }
 .text-part__title {
