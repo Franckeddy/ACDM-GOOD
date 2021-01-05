@@ -18,7 +18,7 @@ export default class App {
         this.scenes = [];
 
         this.revealManager();
-        this.debugManager();
+        // this.debugManager();
         // Sections flexibles
         initFlexibleSections();
         //Navigation 

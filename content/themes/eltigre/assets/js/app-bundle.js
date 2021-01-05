@@ -202,8 +202,8 @@ var App = /*#__PURE__*/function () {
     _classCallCheck(this, App);
 
     this.scenes = [];
-    this.revealManager();
-    this.debugManager(); // Sections flexibles
+    this.revealManager(); // this.debugManager();
+    // Sections flexibles
 
     (0, _Init["default"])(); //Navigation 
 
