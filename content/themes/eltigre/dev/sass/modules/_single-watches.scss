@@ -143,8 +143,27 @@
         }
     }
 }
+
 .lightboxOverlay{
     opacity: 1;
+}
+
+.lb-outerContainer, 
+.lb-image{
+    width: 100vw !important;
+    height: 100vh !important;
+}
+.lb-image{
+    object-fit: cover !important;
+}
+.lb-dataContainer{
+    width: 100vw !important;
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    padding: 20px;
+    transform: translateX(-50%);
+    z-index: 3000000;
 }
 @media screen and (max-width: 1015px) {
     .single-watches .desktop {
@@ -169,6 +188,7 @@
 }
 
 @media screen and (max-width: 890px) {
+
     .single-watches {
         .content-wrapper-desktop {
             display: none;
@@ -234,6 +254,7 @@
             transform: translateX(0%);
         }
     }
+    
 }
 @media screen and (max-width: 535px) {
     .single__watches-images {
