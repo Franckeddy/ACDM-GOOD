@@ -37,7 +37,6 @@ class Contact {
             $message .= sprintf( __( 'Nom : %s', 'eltigre' ), $lastname ) . "\n";
             $message .= sprintf( __( 'E-Mail : %s', 'eltigre' ), $mail ) . "\n";
             $message .= sprintf( __( 'Sujet : %s', 'eltigre' ), $subject ) . "\n";
-            $message .= sprintf( __( 'Téléphone : %s', 'eltigre' ), $phone ) . "\n\n";
             $message .= $user_message;
 
             // Build email headers

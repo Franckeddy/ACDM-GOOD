@@ -106,6 +106,10 @@
         .cta {
             min-width: 230px;
         }
+
+        .disabled{
+            pointer-events: none;
+        }
     }
 
     .error {
@@ -119,6 +123,7 @@
         margin: 5px 0;
     }
 }
+
 
 @media screen and (max-width: 1060px) {
     .contact__image-block {
