@@ -7,7 +7,9 @@ const jQuery = require('jquery');
     'resizeDuration': 450,
     'wrapAround': true,
     'disableScrolling': true,
-    'fitImagesInViewport': true
+    'fitImagesInViewport': true,
+    'albumLabel': "Photo %1 sur %2",
+    'positionFromTop': 0
   });
 })(jQuery);
 
@@ -24,7 +26,7 @@ export default class SingleWatch {
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
     this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
-    
+
     initSwipers(this.sectionsMobile, {
       pagination: {
         el: '.swiper-pagination',
@@ -34,7 +36,7 @@ export default class SingleWatch {
       direction: 'vertical',
       loop: true,
       autoplay: true,
-      speed : 205,
+      speed: 205,
       autoHeight: true,
       effect: 'fade',
     });
@@ -69,9 +71,9 @@ export default class SingleWatch {
     this.sections.forEach(section => {
       const bullets = section.querySelectorAll('.pagination-bullet');
       const images = section.querySelectorAll('img');
-    
+
       images.forEach((image, index) => {
-        
+
         new ScrollMagic.Scene({
           triggerElement: image,
           duration: image.clientHeight,
@@ -84,7 +86,7 @@ export default class SingleWatch {
 
       bullets.forEach((bullet, index) => {
         bullet.addEventListener('click', function (event) {
-          
+
           const headerOffset = index === 0 ? 144 : 90;
           const scrollFn = scrollToElement.bind(this);
           scrollFn(event, headerOffset);
