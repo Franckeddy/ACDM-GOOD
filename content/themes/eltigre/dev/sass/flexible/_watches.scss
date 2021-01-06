@@ -47,7 +47,7 @@
 .watches__content {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .watch {
     max-width: 305px;
@@ -79,6 +79,7 @@
             transition: color 0.3s ease-in-out;
         }
     }
+    
 }
 .watch__image {
     max-width: 305px;
@@ -184,6 +185,7 @@
     margin-top: 50px;
 }
 @media screen and (max-width: 1300px) {
+
     .watches__title {
         &:after {
             max-width: 24.7%;
@@ -196,7 +198,7 @@
         }
     }
 }
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1098px) {
     .watch {
         width: 270px;
         &:hover {
@@ -302,7 +304,7 @@
         }
     }
 }
-@media screen and (max-width: 676px) {
+@media screen and (max-width: 749px) {
     .watch {
         width: 180px;
         &:hover {
@@ -325,6 +327,7 @@
         }
     }
 }
+
 @media screen and (max-width: 597px) {
     .watch {
         width: 250px;
