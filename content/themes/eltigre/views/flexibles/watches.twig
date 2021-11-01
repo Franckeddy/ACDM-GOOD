@@ -13,6 +13,7 @@
                     {% for watch in section.watches %}
                     <div class="swiper-slide">
                         <a href="{{ watches[watch].permalink }}" target="_blank">
+                            
                             <div class="slide--watch__image">           
                                 {{ watches[watch].thumbnail }}
                             </div>
@@ -57,19 +58,30 @@
         <!-- on boucle -->
         <div class="watches__content">
             {% for key, watch in section.watches %}
-            <div class="watch">
-                <a href="{{ watches[watch].permalink }}" target="_blank">
-                    <div class="watch__image">           
-                        {{ watches[watch].thumbnail }}
-                    </div>
-                    <div class="watch__title">
-                        {{ watches[watch].name }}
-                    </div>
-                    <div class="watch__price">
-                        {{ watches[watch].price }}€
-                    </div>
-                </a>
-            </div>
+                {% if watches[watch] %}
+                {{ dump(watches[watch].thumbnail) }}
+                {{ dump(watches[watch].name) }}
+                {{ dump(watches[watch].price) }}
+                <div class="watch">
+                    <a href="{{ watches[watch].permalink }}" target="_blank">
+                        <div class="watch__image">           
+                            {{ watches[watch].thumbnail }}
+                        </div>
+                        <div class="watch__title">
+                            {{ watches[watch].name }}
+                        </div>
+                        <div class="watch__price">
+                            {{ watches[watch].price }}€
+                        </div>
+                    </a>
+                </div>
+                {% else %}
+                {{ dump(watches[watch].thumbnail) }}
+                {{ dump(watches[watch].name) }}
+                {{ dump(watches[watch].price) }}
+                <div class="watch-carre" style="background-color: whitesmoke;max-width: 304px;width: 100%;margin-top: 40px;">
+                </div>
+                {% endif %}
             {%endfor%}
         </div>
     </div>
