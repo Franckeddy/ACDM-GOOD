@@ -10,17 +10,17 @@
             <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
                     <!-- Slides -->
-                    {% for watch in section.watches %}
+                    {% for watchID in section.watches %}
                         <div class="swiper-slide">
-                            <a href="{{ watch.permalink }}" target="_blank">                                
+                            <a href="{{ watches[watchID].permalink }}" target="_blank">                                
                                 <div class="slide--watch__image">           
-                                    {{ watch.thumbnail }}
+                                    {{ watches[watchID].thumbnail }}
                                 </div>
                                 <div class="watch__title">
-                                    {{ watch.name }}
+                                    {{ watches[watchID].name }}
                                 </div>
                                 <div class="watch__price">
-                                    {{ watch.price }} €
+                                    {{ watches[watchID].price }} €
                                 </div>
                             </a>
                         </div>
@@ -55,17 +55,17 @@
         <div class="main-wrapper">
             <!-- on boucle -->
             <div class="watches__content">
-                {% for key, watch in section.watches %}
+                {% for watchID in section.watches %}
                     <div class="watch">
-                        <a href="{{ watch.permalink }}" target="_blank">
+                        <a href="{{ watches[watchID].permalink }}" target="_blank">
                             <div class="watch__image">           
-                                {{ watch.thumbnail }}
+                                {{ watches[watchID].thumbnail }}
                             </div>
                             <div class="watch__title">
-                                {{ watch.name }}
+                                {{ watches[watchID].name }}
                             </div>
                             <div class="watch__price">
-                                {{ watch.price }}€
+                                {{ watches[watchID].price }}€
                             </div>
                         </a>
                     </div>

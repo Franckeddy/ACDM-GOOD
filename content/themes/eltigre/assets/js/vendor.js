@@ -117,6 +117,7 @@
 
 (function() {
 var global = typeof window === 'undefined' ? this : window;
+var process;
 var __makeRelativeRequire = function(require, mappings, pref) {
   var none = {};
   var tryReq = function(name, pref) {
@@ -262,10 +263,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return self;
   }
   /*!
-   * GSAP 3.5.1
+   * GSAP 3.8.0
    * https://greensock.com
    *
-   * @license Copyright 2008-2020, GreenSock. All rights reserved.
+   * @license Copyright 2008-2021, GreenSock. All rights reserved.
    * Subject to the terms at https://greensock.com/standard-license or for
    * Club GreenSock members, the agreement issued with that membership.
    * @author: Jack Doyle, jack@greensock.com
@@ -285,6 +286,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     overwrite: false,
     delay: 0
   },
+      _suppressOverwrites,
       _bigNum = 1e8,
       _tinyNum = 1 / _bigNum,
       _2PI = Math.PI * 2,
@@ -320,11 +322,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       _isTypedArray = typeof ArrayBuffer === "function" && ArrayBuffer.isView || function () {},
       _isArray = Array.isArray,
       _strictNumExp = /(?:-?\.?\d|\.)+/gi,
-      _numExp = /[-+=.]*\d+[.e\-+]*\d*[e\-\+]*\d*/g,
+      _numExp = /[-+=.]*\d+[.e\-+]*\d*[e\-+]*\d*/g,
       _numWithUnitExp = /[-+=.]*\d+[.e-]*\d*[a-z%]*/g,
-      _complexStringNumExp = /[-+=.]*\d+(?:\.|e-|e)*\d*/gi,
-      _relExp = /[+-]=-?[\.\d]+/,
-      _delimitedValueExp = /[#\-+.]*\b[a-z\d-=+%.]+/gi,
+      _complexStringNumExp = /[-+=.]*\d+\.?\d*(?:e-|e\+)?\d*/gi,
+      _relExp = /[+-]=-?[.\d]+/,
+      _delimitedValueExp = /[^,'"\[\]\s]+/gi,
+      _unitExp = /[\d.+\-=]+(?:e[-+]\d*)*/i,
       _globalTimeline,
       _win,
       _coreInitted,
@@ -390,6 +393,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       _round = function _round(value) {
     return Math.round(value * 100000) / 100000 || 0;
   },
+      _roundPrecise = function _roundPrecise(value) {
+    return Math.round(value * 10000000) / 10000000 || 0;
+  },
       _arrayContainsAny = function _arrayContainsAny(toSearch, toFind) {
     var l = toFind.length,
         i = 0;
@@ -397,29 +403,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     for (; toSearch.indexOf(toFind[i]) < 0 && ++i < l;) {}
 
     return i < l;
-  },
-      _parseVars = function _parseVars(params, type, parent) {
-    var isLegacy = _isNumber(params[1]),
-        varsIndex = (isLegacy ? 2 : 1) + (type < 2 ? 0 : 1),
-        vars = params[varsIndex],
-        irVars;
-
-    isLegacy && (vars.duration = params[1]);
-    vars.parent = parent;
-
-    if (type) {
-      irVars = vars;
-
-      while (parent && !("immediateRender" in irVars)) {
-        irVars = parent.vars.defaults || {};
-        parent = _isNotFalse(parent.vars.inherit) && parent.parent;
-      }
-
-      vars.immediateRender = _isNotFalse(irVars.immediateRender);
-      type < 2 ? vars.runBackwards = 1 : vars.startAt = params[varsIndex - 1];
-    }
-
-    return vars;
   },
       _lazyRender = function _lazyRender() {
     var l = _lazyTweens.length,
@@ -468,7 +451,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
       _mergeDeep = function _mergeDeep(base, toMerge) {
     for (var p in toMerge) {
-      base[p] = _isObject(toMerge[p]) ? _mergeDeep(base[p] || (base[p] = {}), toMerge[p]) : toMerge[p];
+      p !== "__proto__" && p !== "constructor" && p !== "prototype" && (base[p] = _isObject(toMerge[p]) ? _mergeDeep(base[p] || (base[p] = {}), toMerge[p]) : toMerge[p]);
     }
 
     return base;
@@ -602,19 +585,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return animation._repeat ? _animationCycle(animation._tTime, animation = animation.duration() + animation._rDelay) * animation : 0;
   },
       _animationCycle = function _animationCycle(tTime, cycleDuration) {
-    return (tTime /= cycleDuration) && ~~tTime === tTime ? ~~tTime - 1 : ~~tTime;
+    var whole = Math.floor(tTime /= cycleDuration);
+    return tTime && whole === tTime ? whole - 1 : whole;
   },
       _parentToChildTotalTime = function _parentToChildTotalTime(parentTime, child) {
     return (parentTime - child._start) * child._ts + (child._ts >= 0 ? 0 : child._dirty ? child.totalDuration() : child._tDur);
   },
       _setEnd = function _setEnd(animation) {
-    return animation._end = _round(animation._start + (animation._tDur / Math.abs(animation._ts || animation._rts || _tinyNum) || 0));
+    return animation._end = _roundPrecise(animation._start + (animation._tDur / Math.abs(animation._ts || animation._rts || _tinyNum) || 0));
   },
       _alignPlayhead = function _alignPlayhead(animation, totalTime) {
     var parent = animation._dp;
 
     if (parent && parent.smoothChildTiming && animation._ts) {
-      animation._start = _round(animation._dp._time - (animation._ts > 0 ? totalTime / animation._ts : ((animation._dirty ? animation.totalDuration() : animation._tDur) - totalTime) / -animation._ts));
+      animation._start = _roundPrecise(parent._time - (animation._ts > 0 ? totalTime / animation._ts : ((animation._dirty ? animation.totalDuration() : animation._tDur) - totalTime) / -animation._ts));
 
       _setEnd(animation);
 
@@ -649,12 +633,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
       _addToTimeline = function _addToTimeline(timeline, child, position, skipChecks) {
     child.parent && _removeFromParent(child);
-    child._start = _round(position + child._delay);
-    child._end = _round(child._start + (child.totalDuration() / Math.abs(child.timeScale()) || 0));
+    child._start = _roundPrecise((_isNumber(position) ? position : position || timeline !== _globalTimeline ? _parsePosition(timeline, position, child) : timeline._time) + child._delay);
+    child._end = _roundPrecise(child._start + (child.totalDuration() / Math.abs(child.timeScale()) || 0));
 
     _addLinkedListItem(timeline, child, "_first", "_last", timeline._sort ? "_start" : 0);
 
-    timeline._recent = child;
+    _isFromOrFromStart(child) || (timeline._recent = child);
     skipChecks || _postAddChecks(timeline, child);
     return timeline;
   },
@@ -675,9 +659,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return 1;
     }
   },
+      _parentPlayheadIsBeforeStart = function _parentPlayheadIsBeforeStart(_ref) {
+    var parent = _ref.parent;
+    return parent && parent._ts && parent._initted && !parent._lock && (parent.rawTime() < 0 || _parentPlayheadIsBeforeStart(parent));
+  },
+      _isFromOrFromStart = function _isFromOrFromStart(_ref2) {
+    var data = _ref2.data;
+    return data === "isFromStart" || data === "isStart";
+  },
       _renderZeroDurationTween = function _renderZeroDurationTween(tween, totalTime, suppressEvents, force) {
     var prevRatio = tween.ratio,
-        ratio = totalTime < 0 || !totalTime && prevRatio && !tween._start && tween._zTime > _tinyNum && !tween._dp._lock || (tween._ts < 0 || tween._dp._ts < 0) && tween.data !== "isFromStart" && tween.data !== "isStart" ? 0 : 1,
+        ratio = totalTime < 0 || !totalTime && (!tween._start && _parentPlayheadIsBeforeStart(tween) && !(!tween._initted && _isFromOrFromStart(tween)) || (tween._ts < 0 || tween._dp._ts < 0) && !_isFromOrFromStart(tween)) ? 0 : 1,
         repeatDelay = tween._rDelay,
         tTime = 0,
         pt,
@@ -688,6 +680,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       tTime = _clamp(0, tween._tDur, totalTime);
       iteration = _animationCycle(tTime, repeatDelay);
       prevIteration = _animationCycle(tween._tTime, repeatDelay);
+      tween._yoyo && iteration & 1 && (ratio = 1 - ratio);
 
       if (iteration !== prevIteration) {
         prevRatio = 1 - ratio;
@@ -707,7 +700,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       tween._from && (ratio = 1 - ratio);
       tween._time = 0;
       tween._tTime = tTime;
-      suppressEvents || _callback(tween, "onStart");
       pt = tween._pt;
 
       while (pt) {
@@ -759,11 +751,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
       _setDuration = function _setDuration(animation, duration, skipUncache, leavePlayhead) {
     var repeat = animation._repeat,
-        dur = _round(duration) || 0,
+        dur = _roundPrecise(duration) || 0,
         totalProgress = animation._tTime / animation._tDur;
     totalProgress && !leavePlayhead && (animation._time *= dur / animation._dur);
     animation._dur = dur;
-    animation._tDur = !repeat ? dur : repeat < 0 ? 1e10 : _round(dur * (repeat + 1) + animation._rDelay * repeat);
+    animation._tDur = !repeat ? dur : repeat < 0 ? 1e10 : _roundPrecise(dur * (repeat + 1) + animation._rDelay * repeat);
     totalProgress && !leavePlayhead ? _alignPlayhead(animation, animation._tTime = animation._tDur * totalProgress) : animation.parent && _setEnd(animation);
     skipUncache || _uncache(animation.parent, animation);
     return animation;
@@ -773,34 +765,67 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
       _zeroPosition = {
     _start: 0,
-    endTime: _emptyFunc
+    endTime: _emptyFunc,
+    totalDuration: _emptyFunc
   },
-      _parsePosition = function _parsePosition(animation, position) {
+      _parsePosition = function _parsePosition(animation, position, percentAnimation) {
     var labels = animation.labels,
         recent = animation._recent || _zeroPosition,
         clippedDuration = animation.duration() >= _bigNum ? recent.endTime(false) : animation._dur,
         i,
-        offset;
+        offset,
+        isPercent;
 
     if (_isString(position) && (isNaN(position) || position in labels)) {
-      i = position.charAt(0);
-
-      if (i === "<" || i === ">") {
-        return (i === "<" ? recent._start : recent.endTime(recent._repeat >= 0)) + (parseFloat(position.substr(1)) || 0);
-      }
-
+      offset = position.charAt(0);
+      isPercent = position.substr(-1) === "%";
       i = position.indexOf("=");
+
+      if (offset === "<" || offset === ">") {
+        i >= 0 && (position = position.replace(/=/, ""));
+        return (offset === "<" ? recent._start : recent.endTime(recent._repeat >= 0)) + (parseFloat(position.substr(1)) || 0) * (isPercent ? (i < 0 ? recent : percentAnimation).totalDuration() / 100 : 1);
+      }
 
       if (i < 0) {
         position in labels || (labels[position] = clippedDuration);
         return labels[position];
       }
 
-      offset = +(position.charAt(i - 1) + position.substr(i + 1));
-      return i > 1 ? _parsePosition(animation, position.substr(0, i - 1)) + offset : clippedDuration + offset;
+      offset = parseFloat(position.charAt(i - 1) + position.substr(i + 1));
+
+      if (isPercent && percentAnimation) {
+        offset = offset / 100 * (_isArray(percentAnimation) ? percentAnimation[0] : percentAnimation).totalDuration();
+      }
+
+      return i > 1 ? _parsePosition(animation, position.substr(0, i - 1), percentAnimation) + offset : clippedDuration + offset;
     }
 
     return position == null ? clippedDuration : +position;
+  },
+      _createTweenType = function _createTweenType(type, params, timeline) {
+    var isLegacy = _isNumber(params[1]),
+        varsIndex = (isLegacy ? 2 : 1) + (type < 2 ? 0 : 1),
+        vars = params[varsIndex],
+        irVars,
+        parent;
+
+    isLegacy && (vars.duration = params[1]);
+    vars.parent = timeline;
+
+    if (type) {
+      irVars = vars;
+      parent = timeline;
+
+      while (parent && !("immediateRender" in irVars)) {
+        irVars = parent.vars.defaults || {};
+        parent = _isNotFalse(parent.vars.inherit) && parent.parent;
+      }
+
+      vars.immediateRender = _isNotFalse(irVars.immediateRender);
+      type < 2 ? vars.runBackwards = 1 : vars.startAt = params[varsIndex - 1];
+    }
+
+    return new Tween(params[0], vars, params[varsIndex + 1]);
   },
       _conditionalReturn = function _conditionalReturn(value, func) {
     return value || value === 0 ? func(value) : func;
@@ -809,7 +834,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return value < min ? min : value > max ? max : value;
   },
       getUnit = function getUnit(value) {
-    return (value = (value + "").substr((parseFloat(value) + "").length)) && isNaN(value) ? value : "";
+    if (typeof value !== "string") {
+      return "";
+    }
+
+    var v = _unitExp.exec(value);
+
+    return v ? value.substr(v.index + v[0].length) : "";
   },
       clamp = function clamp(min, max, value) {
     return _conditionalReturn(value, function (v) {
@@ -831,8 +862,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return _isString(value) && !leaveStrings || _isArrayLike(value, 1) ? (_accumulator = accumulator).push.apply(_accumulator, toArray(value)) : accumulator.push(value);
     }) || accumulator;
   },
-      toArray = function toArray(value, leaveStrings) {
-    return _isString(value) && !leaveStrings && (_coreInitted || !_wake()) ? _slice.call(_doc.querySelectorAll(value), 0) : _isArray(value) ? _flatten(value, leaveStrings) : _isArrayLike(value) ? _slice.call(value, 0) : value ? [value] : [];
+      toArray = function toArray(value, scope, leaveStrings) {
+    return _isString(value) && !leaveStrings && (_coreInitted || !_wake()) ? _slice.call((scope || _doc).querySelectorAll(value), 0) : _isArray(value) ? _flatten(value, leaveStrings) : _isArrayLike(value) ? _slice.call(value, 0) : value ? [value] : [];
+  },
+      selector = function selector(value) {
+    value = toArray(value)[0] || _warn("Invalid scope") || {};
+    return function (v) {
+      var el = value.current || value.nativeElement || value;
+      return toArray(v, el.querySelectorAll ? el : el === value ? _warn("Invalid scope") || _doc.createElement("div") : value);
+    };
   },
       shuffle = function shuffle(a) {
     return a.sort(function () {
@@ -916,13 +954,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
 
       l = (distances[i] - distances.min) / distances.max || 0;
-      return _round(distances.b + (ease ? ease(l) : l) * distances.v) + distances.u;
+      return _roundPrecise(distances.b + (ease ? ease(l) : l) * distances.v) + distances.u;
     };
   },
       _roundModifier = function _roundModifier(v) {
-    var p = v < 1 ? Math.pow(10, (v + "").length - 2) : 1;
+    var p = Math.pow(10, ((v + "").split(".")[1] || "").length);
     return function (raw) {
-      return Math.floor(Math.round(parseFloat(raw) / v) * v * p) / p + (_isNumber(raw) ? 0 : getUnit(raw));
+      var n = Math.round(parseFloat(raw) / v) * v * p;
+      return (n - n % 1) / p + (_isNumber(raw) ? 0 : getUnit(raw));
     };
   },
       snap = function snap(snapTo, value) {
@@ -977,7 +1016,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
       random = function random(min, max, roundingIncrement, returnFunction) {
     return _conditionalReturn(_isArray(min) ? !max : roundingIncrement === true ? !!(roundingIncrement = 0) : !returnFunction, function () {
-      return _isArray(min) ? min[~~(Math.random() * min.length)] : (roundingIncrement = roundingIncrement || 1e-5) && (returnFunction = roundingIncrement < 1 ? Math.pow(10, (roundingIncrement + "").length - 2) : 1) && Math.floor(Math.round((min + Math.random() * (max - min)) / roundingIncrement) * roundingIncrement * returnFunction) / returnFunction;
+      return _isArray(min) ? min[~~(Math.random() * min.length)] : (roundingIncrement = roundingIncrement || 1e-5) && (returnFunction = roundingIncrement < 1 ? Math.pow(10, (roundingIncrement + "").length - 2) : 1) && Math.floor(Math.round((min - roundingIncrement / 2 + Math.random() * (max - min + roundingIncrement * .99)) / roundingIncrement) * roundingIncrement * returnFunction) / returnFunction;
     });
   },
       pipe = function pipe() {
@@ -1137,6 +1176,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       _interrupt = function _interrupt(animation) {
     _removeFromParent(animation);
 
+    animation.scrollTrigger && animation.scrollTrigger.kill(false);
     animation.progress() < 1 && _callback(animation, "onInterrupt");
     return animation;
   },
@@ -1238,11 +1278,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       if (_colorLookup[v]) {
         a = _colorLookup[v];
       } else if (v.charAt(0) === "#") {
-        if (v.length === 4) {
+        if (v.length < 6) {
           r = v.charAt(1);
           g = v.charAt(2);
           b = v.charAt(3);
-          v = "#" + r + r + g + g + b + b;
+          v = "#" + r + r + g + g + b + b + (v.length === 5 ? v.charAt(4) + v.charAt(4) : "");
+        }
+
+        if (v.length === 9) {
+          a = parseInt(v.substr(1, 6), 16);
+          return [a >> 16, a >> 8 & _255, a & _255, parseInt(v.substr(7), 16) / 255];
         }
 
         v = parseInt(v.substr(1), 16);
@@ -1353,7 +1398,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return result + shell[l];
   },
       _colorExp = function () {
-    var s = "(?:\\b(?:(?:rgb|rgba|hsl|hsla)\\(.+?\\))|\\B#(?:[0-9a-f]{3}){1,2}\\b",
+    var s = "(?:\\b(?:(?:rgb|rgba|hsl|hsla)\\(.+?\\))|\\B#(?:[0-9a-f]{3,4}){1,2}\\b",
         p;
 
     for (p in _colorLookup) {
@@ -1696,12 +1741,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   };
 
   var Animation = function () {
-    function Animation(vars, time) {
-      var parent = vars.parent || _globalTimeline;
+    function Animation(vars) {
       this.vars = vars;
       this._delay = +vars.delay || 0;
 
-      if (this._repeat = vars.repeat || 0) {
+      if (this._repeat = vars.repeat === Infinity ? -2 : vars.repeat || 0) {
         this._rDelay = vars.repeatDelay || 0;
         this._yoyo = !!vars.yoyo || !!vars.yoyoEase;
       }
@@ -1712,9 +1756,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       this.data = vars.data;
       _tickerActive || _ticker.wake();
-      parent && _addToTimeline(parent, this, time || time === 0 ? time : parent._time, 1);
-      vars.reversed && this.reverse();
-      vars.paused && this.paused(true);
     }
 
     var _proto = Animation.prototype;
@@ -1754,7 +1795,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       if (parent && parent.smoothChildTiming && this._ts) {
         _alignPlayhead(this, _totalTime);
 
-        while (parent.parent) {
+        !parent._dp || parent.parent || _postAddChecks(parent, this);
+
+        while (parent && parent.parent) {
           if (parent.parent._time !== parent._start + (parent._ts >= 0 ? parent._tTime / parent._ts : (parent.totalDuration() - parent._tTime) / -parent._ts)) {
             parent.totalTime(parent._tTime, true);
           }
@@ -1777,7 +1820,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     _proto.time = function time(value, suppressEvents) {
-      return arguments.length ? this.totalTime(Math.min(this.totalDuration(), value + _elapsedCycleDuration(this)) % this._dur || (value ? this._dur : 0), suppressEvents) : this._time;
+      return arguments.length ? this.totalTime(Math.min(this.totalDuration(), value + _elapsedCycleDuration(this)) % (this._dur + this._rDelay) || (value ? this._dur : 0), suppressEvents) : this._time;
     };
 
     _proto.totalProgress = function totalProgress(value, suppressEvents) {
@@ -1806,7 +1849,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var tTime = this.parent && this._ts ? _parentToChildTotalTime(this.parent._time, this) : this._tTime;
       this._rts = +value || 0;
       this._ts = this._ps || value === -_tinyNum ? 0 : this._rts;
-      return _recacheAncestors(this.totalTime(_clamp(-this._delay, this._tDur, tTime), true));
+
+      _recacheAncestors(this.totalTime(_clamp(-this._delay, this._tDur, tTime), true));
+
+      _setEnd(this);
+
+      return this;
     };
 
     _proto.paused = function paused(value) {
@@ -1824,7 +1872,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           _wake();
 
           this._ts = this._rts;
-          this.totalTime(this.parent && !this.parent.smoothChildTiming ? this.rawTime() : this._tTime || this._pTime, this.progress() === 1 && (this._tTime -= _tinyNum) && Math.abs(this._zTime) !== _tinyNum);
+          this.totalTime(this.parent && !this.parent.smoothChildTiming ? this.rawTime() : this._tTime || this._pTime, this.progress() === 1 && Math.abs(this._zTime) !== _tinyNum && (this._tTime -= _tinyNum));
         }
       }
 
@@ -1843,7 +1891,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     _proto.endTime = function endTime(includeRepeats) {
-      return this._start + (_isNotFalse(includeRepeats) ? this.totalDuration() : this.duration()) / Math.abs(this._ts);
+      return this._start + (_isNotFalse(includeRepeats) ? this.totalDuration() : this.duration()) / Math.abs(this._ts || 1);
     };
 
     _proto.rawTime = function rawTime(wrapRepeats) {
@@ -1865,17 +1913,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     _proto.repeat = function repeat(value) {
       if (arguments.length) {
-        this._repeat = value;
+        this._repeat = value === Infinity ? -2 : value;
         return _onUpdateTotalDuration(this);
       }
 
-      return this._repeat;
+      return this._repeat === -2 ? Infinity : this._repeat;
     };
 
     _proto.repeatDelay = function repeatDelay(value) {
       if (arguments.length) {
+        var time = this._time;
         this._rDelay = value;
-        return _onUpdateTotalDuration(this);
+
+        _onUpdateTotalDuration(this);
+
+        return time ? this.time(time) : this;
       }
 
       return this._rDelay;
@@ -1927,7 +1979,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     _proto.invalidate = function invalidate() {
-      this._initted = 0;
+      this._initted = this._act = 0;
       this._zTime = -_tinyNum;
       return this;
     };
@@ -2008,19 +2060,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   var Timeline = function (_Animation) {
     _inheritsLoose(Timeline, _Animation);
 
-    function Timeline(vars, time) {
+    function Timeline(vars, position) {
       var _this;
 
       if (vars === void 0) {
         vars = {};
       }
 
-      _this = _Animation.call(this, vars, time) || this;
+      _this = _Animation.call(this, vars) || this;
       _this.labels = {};
       _this.smoothChildTiming = !!vars.smoothChildTiming;
       _this.autoRemoveChildren = !!vars.autoRemoveChildren;
       _this._sort = _isNotFalse(vars.sortChildren);
-      _this.parent && _postAddChecks(_this.parent, _assertThisInitialized(_this));
+      _globalTimeline && _addToTimeline(vars.parent || _globalTimeline, _assertThisInitialized(_this), position);
+      vars.reversed && _this.reverse();
+      vars.paused && _this.paused(true);
       vars.scrollTrigger && _scrollTrigger(_assertThisInitialized(_this), vars.scrollTrigger);
       return _this;
     }
@@ -2028,17 +2082,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     var _proto2 = Timeline.prototype;
 
     _proto2.to = function to(targets, vars, position) {
-      new Tween(targets, _parseVars(arguments, 0, this), _parsePosition(this, _isNumber(vars) ? arguments[3] : position));
+      _createTweenType(0, arguments, this);
+
       return this;
     };
 
     _proto2.from = function from(targets, vars, position) {
-      new Tween(targets, _parseVars(arguments, 1, this), _parsePosition(this, _isNumber(vars) ? arguments[3] : position));
+      _createTweenType(1, arguments, this);
+
       return this;
     };
 
     _proto2.fromTo = function fromTo(targets, fromVars, toVars, position) {
-      new Tween(targets, _parseVars(arguments, 2, this), _parsePosition(this, _isNumber(fromVars) ? arguments[4] : position));
+      _createTweenType(2, arguments, this);
+
       return this;
     };
 
@@ -2052,7 +2109,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     _proto2.call = function call(callback, params, position) {
-      return _addToTimeline(this, Tween.delayedCall(0, callback, params), _parsePosition(this, position));
+      return _addToTimeline(this, Tween.delayedCall(0, callback, params), position);
     };
 
     _proto2.staggerTo = function staggerTo(targets, duration, vars, stagger, position, onCompleteAll, onCompleteAllParams) {
@@ -2081,7 +2138,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var prevTime = this._time,
           tDur = this._dirty ? this.totalDuration() : this._tDur,
           dur = this._dur,
-          tTime = this !== _globalTimeline && totalTime > tDur - _tinyNum && totalTime >= 0 ? tDur : totalTime < _tinyNum ? 0 : totalTime,
+          tTime = totalTime <= 0 ? 0 : _roundPrecise(totalTime),
           crossingStart = this._zTime < 0 !== totalTime < 0 && (this._initted || !dur),
           time,
           child,
@@ -2095,6 +2152,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           prevIteration,
           yoyo,
           isYoyo;
+      this !== _globalTimeline && tTime > tDur && totalTime >= 0 && (tTime = tDur);
 
       if (tTime !== this._tTime || force || crossingStart) {
         if (prevTime !== this._time && dur) {
@@ -2115,7 +2173,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         if (this._repeat) {
           yoyo = this._yoyo;
           cycleDuration = dur + this._rDelay;
-          time = _round(tTime % cycleDuration);
+
+          if (this._repeat < -1 && totalTime < 0) {
+            return this.totalTime(cycleDuration * 100 + totalTime, suppressEvents, force);
+          }
+
+          time = _roundPrecise(tTime % cycleDuration);
 
           if (tTime === tDur) {
             iteration = this._repeat;
@@ -2145,11 +2208,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             iteration < prevIteration && (rewinding = !rewinding);
             prevTime = rewinding ? 0 : dur;
             this._lock = 1;
-            this.render(prevTime || (isYoyo ? 0 : _round(iteration * cycleDuration)), suppressEvents, !dur)._lock = 0;
+            this.render(prevTime || (isYoyo ? 0 : _roundPrecise(iteration * cycleDuration)), suppressEvents, !dur)._lock = 0;
+            this._tTime = tTime;
             !suppressEvents && this.parent && _callback(this, "onRepeat");
             this.vars.repeatRefresh && !isYoyo && (this.invalidate()._lock = 1);
 
-            if (prevTime !== this._time || prevPaused !== !this._ts) {
+            if (prevTime && prevTime !== this._time || prevPaused !== !this._ts || this.vars.onRepeat && !this.parent && !this._act) {
               return this;
             }
 
@@ -2174,7 +2238,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         if (this._hasPause && !this._forcing && this._lock < 2) {
-          pauseTween = _findNextPauseTween(this, _round(prevTime), _round(time));
+          pauseTween = _findNextPauseTween(this, _roundPrecise(prevTime), _roundPrecise(time));
 
           if (pauseTween) {
             tTime -= time - (time = pauseTween._start);
@@ -2189,9 +2253,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           this._onUpdate = this.vars.onUpdate;
           this._initted = 1;
           this._zTime = totalTime;
+          prevTime = 0;
         }
 
-        !prevTime && time && !suppressEvents && _callback(this, "onStart");
+        if (!prevTime && time && !suppressEvents) {
+          _callback(this, "onStart");
+
+          if (this._tTime !== tTime) {
+            return this;
+          }
+        }
 
         if (time >= prevTime && totalTime >= 0) {
           child = this._first;
@@ -2257,8 +2328,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         if (tTime === tDur && tDur >= this.totalDuration() || !tTime && prevTime) if (prevStart === this._start || Math.abs(timeScale) !== Math.abs(this._ts)) if (!this._lock) {
           (totalTime || !dur) && (tTime === tDur && this._ts > 0 || !tTime && this._ts < 0) && _removeFromParent(this, 1);
 
-          if (!suppressEvents && !(totalTime < 0 && !prevTime) && (tTime || prevTime)) {
-            _callback(this, tTime === tDur ? "onComplete" : "onReverseComplete", true);
+          if (!suppressEvents && !(totalTime < 0 && !prevTime) && (tTime || prevTime || !tDur)) {
+            _callback(this, tTime === tDur && totalTime >= 0 ? "onComplete" : "onReverseComplete", true);
 
             this._prom && !(tTime < tDur && this.timeScale() > 0) && this._prom();
           }
@@ -2271,9 +2342,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     _proto2.add = function add(child, position) {
       var _this2 = this;
 
-      if (!_isNumber(position)) {
-        position = _parsePosition(this, position);
-      }
+      _isNumber(position) || (position = _parsePosition(this, position, child));
 
       if (!(child instanceof Animation)) {
         if (_isArray(child)) {
@@ -2370,7 +2439,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this._forcing = 1;
 
       if (!this._dp && this._ts) {
-        this._start = _round(_ticker.time - (this._ts > 0 ? _totalTime2 / this._ts : (this.totalDuration() - _totalTime2) / -this._ts));
+        this._start = _roundPrecise(_ticker.time - (this._ts > 0 ? _totalTime2 / this._ts : (this.totalDuration() - _totalTime2) / -this._ts));
       }
 
       _Animation.prototype.totalTime.call(this, _totalTime2, suppressEvents);
@@ -2451,21 +2520,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           startAt = _vars.startAt,
           _onStart = _vars.onStart,
           onStartParams = _vars.onStartParams,
-          tween = Tween.to(tl, _setDefaults(vars, {
-        ease: "none",
+          immediateRender = _vars.immediateRender,
+          initted,
+          tween = Tween.to(tl, _setDefaults({
+        ease: vars.ease || "none",
         lazy: false,
+        immediateRender: false,
         time: endTime,
         overwrite: "auto",
         duration: vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale()) || _tinyNum,
         onStart: function onStart() {
           tl.pause();
-          var duration = vars.duration || Math.abs((endTime - tl._time) / tl.timeScale());
-          tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
+
+          if (!initted) {
+            var duration = vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale());
+            tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
+            initted = 1;
+          }
+
           _onStart && _onStart.apply(tween, onStartParams || []);
         }
-      }));
+      }, vars));
 
-      return tween;
+      return immediateRender ? tween.render(0) : tween;
     };
 
     _proto2.tweenFromTo = function tweenFromTo(fromPosition, toPosition, vars) {
@@ -2555,7 +2632,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         child = next;
       }
 
-      this._time = this._tTime = this._pTime = 0;
+      this._dp && (this._time = this._tTime = this._pTime = 0);
       includeLabels && (this.labels = {});
       return _uncache(this);
     };
@@ -2718,12 +2795,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
 
       if (end.charAt(1) === "=") {
-        end = parseFloat(parsedStart) + parseFloat(end.substr(2)) * (end.charAt(0) === "-" ? -1 : 1) + (getUnit(parsedStart) || 0);
+        pt = parseFloat(parsedStart) + parseFloat(end.substr(2)) * (end.charAt(0) === "-" ? -1 : 1) + (getUnit(parsedStart) || 0);
+
+        if (pt || pt === 0) {
+          end = pt;
+        }
       }
     }
 
     if (parsedStart !== end) {
-      if (!isNaN(parsedStart * end)) {
+      if (!isNaN(parsedStart * end) && end !== "") {
         pt = new PropTween(this._pt, target, prop, +parsedStart || 0, end - (parsedStart || 0), typeof currentValue === "boolean" ? _renderBoolean : _renderPlain, 0, setter);
         funcParam && (pt.fp = funcParam);
         modifier && pt.modifier(modifier, this, target);
@@ -2787,7 +2868,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         targets = tween._targets,
         parent = tween.parent,
         fullTargets = parent && parent.data === "nested" ? parent.parent._targets : targets,
-        autoOverwrite = tween._overwrite === "auto",
+        autoOverwrite = tween._overwrite === "auto" && !_suppressOverwrites,
         tl = tween.timeline,
         cleanVars,
         i,
@@ -2812,6 +2893,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       tween._ease = yoyoEase;
     }
 
+    tween._from = !tl && !!vars.runBackwards;
+
     if (!tl) {
       harness = targets[0] ? _getCache(targets[0]).harness : 0;
       harnessVars = harness && vars[harness.prop];
@@ -2833,13 +2916,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           stagger: 0
         }, startAt)));
 
+        time < 0 && !immediateRender && !autoRevert && tween._startAt.render(-1, true);
+
         if (immediateRender) {
-          if (time > 0) {
-            autoRevert || (tween._startAt = 0);
-          } else if (dur && !(time < 0 && prevStartAt)) {
+          time > 0 && !autoRevert && (tween._startAt = 0);
+
+          if (dur && time <= 0) {
             time && (tween._zTime = time);
             return;
           }
+        } else if (autoRevert === false) {
+          tween._startAt = 0;
         }
       } else if (runBackwards && dur) {
         if (prevStartAt) {
@@ -2857,6 +2944,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           harnessVars && (p[harness.prop] = harnessVars);
 
           _removeFromParent(tween._startAt = Tween.set(targets, p));
+
+          time < 0 && tween._startAt.render(-1, true);
 
           if (!immediateRender) {
             _initTween(tween._startAt, _tinyNum);
@@ -2901,7 +2990,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         if (autoOverwrite && tween._pt) {
           _overwritingTween = tween;
 
-          _globalTimeline.killTweensOf(target, ptLookup, tween.globalTime(0));
+          _globalTimeline.killTweensOf(target, ptLookup, tween.globalTime(time));
 
           overwritten = !tween.parent;
           _overwritingTween = 0;
@@ -2914,7 +3003,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       tween._onInit && tween._onInit(tween);
     }
 
-    tween._from = !tl && !!vars.runBackwards;
     tween._onUpdate = onUpdate;
     tween._initted = (!tween._op || tween._pt) && !overwritten;
   },
@@ -2954,16 +3042,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   var Tween = function (_Animation2) {
     _inheritsLoose(Tween, _Animation2);
 
-    function Tween(targets, vars, time, skipInherit) {
+    function Tween(targets, vars, position, skipInherit) {
       var _this3;
 
       if (typeof vars === "number") {
-        time.duration = vars;
-        vars = time;
-        time = null;
+        position.duration = vars;
+        vars = position;
+        position = null;
       }
 
-      _this3 = _Animation2.call(this, skipInherit ? vars : _inheritDefaults(vars), time) || this;
+      _this3 = _Animation2.call(this, skipInherit ? vars : _inheritDefaults(vars)) || this;
       var _this3$vars = _this3.vars,
           duration = _this3$vars.duration,
           delay = _this3$vars.delay,
@@ -2974,7 +3062,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           defaults = _this3$vars.defaults,
           scrollTrigger = _this3$vars.scrollTrigger,
           yoyoEase = _this3$vars.yoyoEase,
-          parent = _this3.parent,
+          parent = vars.parent || _globalTimeline,
           parsedTargets = (_isArray(targets) || _isTypedArray(targets) ? _isNumber(targets[0]) : "length" in vars) ? [targets] : toArray(targets),
           tl,
           i,
@@ -2995,14 +3083,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           defaults: defaults || {}
         });
         tl.kill();
-        tl.parent = _assertThisInitialized(_this3);
+        tl.parent = tl._dp = _assertThisInitialized(_this3);
+        tl._start = 0;
 
         if (keyframes) {
-          _setDefaults(tl.vars.defaults, {
+          _inheritDefaults(_setDefaults(tl.vars.defaults, {
             ease: "none"
-          });
+          }));
 
-          keyframes.forEach(function (frame) {
+          stagger ? parsedTargets.forEach(function (t, i) {
+            return keyframes.forEach(function (frame, j) {
+              return tl.to(t, frame, j ? ">" : i * stagger);
+            });
+          }) : keyframes.forEach(function (frame) {
             return tl.to(parsedTargets, frame, ">");
           });
         } else {
@@ -3051,7 +3144,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         _this3.timeline = 0;
       }
 
-      if (overwrite === true) {
+      if (overwrite === true && !_suppressOverwrites) {
         _overwritingTween = _assertThisInitialized(_this3);
 
         _globalTimeline.killTweensOf(parsedTargets);
@@ -3059,9 +3152,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         _overwritingTween = 0;
       }
 
-      parent && _postAddChecks(parent, _assertThisInitialized(_this3));
+      _addToTimeline(parent, _assertThisInitialized(_this3), position);
 
-      if (immediateRender || !duration && !keyframes && _this3._start === _round(parent._time) && _isNotFalse(immediateRender) && _hasNoPausedAncestors(_assertThisInitialized(_this3)) && parent.data !== "nested") {
+      vars.reversed && _this3.reverse();
+      vars.paused && _this3.paused(true);
+
+      if (immediateRender || !duration && !keyframes && _this3._start === _roundPrecise(parent._time) && _isNotFalse(immediateRender) && _hasNoPausedAncestors(_assertThisInitialized(_this3)) && parent.data !== "nested") {
         _this3._tTime = -_tinyNum;
 
         _this3.render(Math.max(0, -delay));
@@ -3090,13 +3186,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       if (!dur) {
         _renderZeroDurationTween(this, totalTime, suppressEvents, force);
-      } else if (tTime !== this._tTime || !totalTime || force || this._startAt && this._zTime < 0 !== totalTime < 0) {
+      } else if (tTime !== this._tTime || !totalTime || force || !this._initted && this._tTime || this._startAt && this._zTime < 0 !== totalTime < 0) {
         time = tTime;
         timeline = this.timeline;
 
         if (this._repeat) {
           cycleDuration = dur + this._rDelay;
-          time = _round(tTime % cycleDuration);
+
+          if (this._repeat < -1 && totalTime < 0) {
+            return this.totalTime(cycleDuration * 100 + totalTime, suppressEvents, force);
+          }
+
+          time = _roundPrecise(tTime % cycleDuration);
 
           if (tTime === tDur) {
             iteration = this._repeat;
@@ -3130,7 +3231,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
             if (this.vars.repeatRefresh && !isYoyo && !this._lock) {
               this._lock = force = 1;
-              this.render(_round(cycleDuration * iteration), true).invalidate()._lock = 0;
+              this.render(_roundPrecise(cycleDuration * iteration), true).invalidate()._lock = 0;
             }
           }
         }
@@ -3160,7 +3261,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           this.ratio = ratio = 1 - ratio;
         }
 
-        time && !prevTime && !suppressEvents && _callback(this, "onStart");
+        if (time && !prevTime && !suppressEvents) {
+          _callback(this, "onStart");
+
+          if (this._tTime !== tTime) {
+            return this;
+          }
+        }
+
         pt = this._pt;
 
         while (pt) {
@@ -3198,7 +3306,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     _proto3.invalidate = function invalidate() {
-      this._pt = this._op = this._startAt = this._onUpdate = this._act = this._lazy = 0;
+      this._pt = this._op = this._startAt = this._onUpdate = this._lazy = this.ratio = 0;
       this._ptLookup = [];
       this.timeline && this.timeline.invalidate();
       return _Animation2.prototype.invalidate.call(this);
@@ -3210,11 +3318,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
 
       if (!targets && (!vars || vars === "all")) {
-        this._lazy = 0;
-
-        if (this.parent) {
-          return _interrupt(this);
-        }
+        this._lazy = this._pt = 0;
+        return this.parent ? _interrupt(this) : this;
       }
 
       if (this.timeline) {
@@ -3299,7 +3404,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     Tween.from = function from(targets, vars) {
-      return new Tween(targets, _parseVars(arguments, 1));
+      return _createTweenType(1, arguments);
     };
 
     Tween.delayedCall = function delayedCall(delay, callback, params, scope) {
@@ -3317,7 +3422,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     Tween.fromTo = function fromTo(targets, fromVars, toVars) {
-      return new Tween(targets, _parseVars(arguments, 2));
+      return _createTweenType(2, arguments);
     };
 
     Tween.set = function set(targets, vars) {
@@ -3367,7 +3472,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return _isFunction(target[property]) ? _setterFunc : _isUndefined(target[property]) && target.setAttribute ? _setterAttribute : _setterPlain;
   },
       _renderPlain = function _renderPlain(ratio, data) {
-    return data.set(data.t, data.p, Math.round((data.s + data.c * ratio) * 10000) / 10000, data);
+    return data.set(data.t, data.p, Math.round((data.s + data.c * ratio) * 1000000) / 1000000, data);
   },
       _renderBoolean = function _renderBoolean(ratio, data) {
     return data.set(data.t, data.p, !!(data.s + data.c * ratio), data);
@@ -3579,12 +3684,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     config: function config(value) {
       return _mergeDeep(_config, value || {});
     },
-    registerEffect: function registerEffect(_ref) {
-      var name = _ref.name,
-          effect = _ref.effect,
-          plugins = _ref.plugins,
-          defaults = _ref.defaults,
-          extendTimeline = _ref.extendTimeline;
+    registerEffect: function registerEffect(_ref3) {
+      var name = _ref3.name,
+          effect = _ref3.effect,
+          plugins = _ref3.plugins,
+          defaults = _ref3.defaults,
+          extendTimeline = _ref3.extendTimeline;
       (plugins || "").split(",").forEach(function (pluginName) {
         return pluginName && !_plugins[pluginName] && !_globals[pluginName] && _warn(name + " effect requires " + pluginName + " plugin.");
       });
@@ -3649,6 +3754,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       clamp: clamp,
       splitColor: splitColor,
       toArray: toArray,
+      selector: selector,
       mapRange: mapRange,
       pipe: pipe,
       unitize: unitize,
@@ -3668,7 +3774,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       Timeline: Timeline,
       Animation: Animation,
       getCache: _getCache,
-      _removeLinkedListItem: _removeLinkedListItem
+      _removeLinkedListItem: _removeLinkedListItem,
+      suppressOverwrites: function suppressOverwrites(value) {
+        return _suppressOverwrites = value;
+      }
     }
   };
 
@@ -3770,13 +3879,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     }
   }, _buildModifierPlugin("roundProps", _roundModifier), _buildModifierPlugin("modifiers"), _buildModifierPlugin("snap", snap)) || _gsap;
 
-  Tween.version = Timeline.version = gsap.version = "3.5.1";
+  Tween.version = Timeline.version = gsap.version = "3.8.0";
   _coreReady = 1;
-
-  if (_windowExists()) {
-    _wake();
-  }
-
+  _windowExists() && _wake();
   var Power0 = _easeMap.Power0,
       Power1 = _easeMap.Power1,
       Power2 = _easeMap.Power2,
@@ -4023,8 +4128,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     curUnit !== "px" && !toPixels && (curValue = _convertToUnit(target, property, value, "px"));
     isSVG = target.getCTM && _isSVG(target);
 
-    if (toPercent && (_transformProps[property] || ~property.indexOf("adius"))) {
-      return _round(curValue / (isSVG ? target.getBBox()[horizontal ? "width" : "height"] : target[measureProperty]) * amount);
+    if ((toPercent || curUnit === "%") && (_transformProps[property] || ~property.indexOf("adius"))) {
+      px = isSVG ? target.getBBox()[horizontal ? "width" : "height"] : target[measureProperty];
+      return _round(toPercent ? curValue / px * amount : curValue / 100 * px);
     }
 
     style[horizontal ? "width" : "height"] = amount + (toPixels ? curUnit : unit);
@@ -4073,7 +4179,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     if (_transformProps[property] && property !== "transform") {
       value = _parseTransform(target, uncache);
-      value = property !== "transformOrigin" ? value[property] : _firstTwoOnly(_getComputedProperty(target, _transformOriginProp)) + " " + value.zOrigin + "px";
+      value = property !== "transformOrigin" ? value[property] : value.svg ? value.origin : _firstTwoOnly(_getComputedProperty(target, _transformOriginProp)) + " " + value.zOrigin + "px";
     } else {
       value = target.style[property];
 
@@ -4082,7 +4188,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
     }
 
-    return unit && !~(value + "").indexOf(" ") ? _convertToUnit(target, property, value, unit) + unit : value;
+    return unit && !~(value + "").trim().indexOf(" ") ? _convertToUnit(target, property, value, unit) + unit : value;
   },
       _tweenComplexCSSString = function _tweenComplexCSSString(target, prop, start, end) {
     if (!start || start === "none") {
@@ -4175,7 +4281,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             p: chunk || matchIndex === 1 ? chunk : ",",
             s: startNum,
             c: relative ? relative * endNum : endNum - startNum,
-            m: color && color < 4 ? Math.round : 0
+            m: color && color < 4 || prop === "zIndex" ? Math.round : 0
           };
         }
       }
@@ -4185,10 +4291,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       pt.r = prop === "display" && end === "none" ? _renderNonTweeningValueOnlyAtEnd : _renderNonTweeningValue;
     }
 
-    if (_relExp.test(end)) {
-      pt.e = 0;
-    }
-
+    _relExp.test(end) && (pt.e = 0);
     this._pt = pt;
     return pt;
   },
@@ -4425,7 +4528,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     matrix = _getMatrix(target, cache.svg);
 
     if (cache.svg) {
-      t1 = !cache.uncache && target.getAttribute("data-svg-origin");
+      t1 = (!cache.uncache || origin === "0px 0px") && !uncache && target.getAttribute("data-svg-origin");
 
       _applySVGOrigin(target, t1 || origin, !!t1 || cache.originIsAbsolute, cache.smooth !== false, matrix);
     }
@@ -4446,7 +4549,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         scaleY = Math.sqrt(d * d + c * c);
         rotation = a || b ? _atan2(b, a) * _RAD2DEG : 0;
         skewX = c || d ? _atan2(c, d) * _RAD2DEG + rotation : 0;
-        skewX && (scaleY *= Math.cos(skewX * _DEG2RAD));
+        skewX && (scaleY *= Math.abs(Math.cos(skewX * _DEG2RAD)));
 
         if (cache.svg) {
           x -= xOrigin - (xOrigin * a + yOrigin * c);
@@ -4539,8 +4642,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
     }
 
-    cache.x = ((cache.xPercent = x && Math.round(target.offsetWidth / 2) === Math.round(-x) ? -50 : 0) ? 0 : x) + px;
-    cache.y = ((cache.yPercent = y && Math.round(target.offsetHeight / 2) === Math.round(-y) ? -50 : 0) ? 0 : y) + px;
+    cache.x = x - ((cache.xPercent = x && (cache.xPercent || (Math.round(target.offsetWidth / 2) === Math.round(-x) ? -50 : 0))) ? target.offsetWidth * cache.xPercent / 100 : 0) + px;
+    cache.y = y - ((cache.yPercent = y && (cache.yPercent || (Math.round(target.offsetHeight / 2) === Math.round(-y) ? -50 : 0))) ? target.offsetHeight * cache.yPercent / 100 : 0) + px;
     cache.z = z + px;
     cache.scaleX = _round(scaleX);
     cache.scaleY = _round(scaleY);
@@ -4732,10 +4835,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     temp = "matrix(" + a11 + "," + a21 + "," + a12 + "," + a22 + "," + tx + "," + ty + ")";
     target.setAttribute("transform", temp);
-
-    if (forceCSS) {
-      target.style[_transformProp] = temp;
-    }
+    forceCSS && (target.style[_transformProp] = temp);
   },
       _addRotationalPropTween = function _addRotationalPropTween(plugin, target, property, startNum, endValue, relative) {
     var cap = 360,
@@ -4772,10 +4872,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     return pt;
   },
+      _assign = function _assign(target, source) {
+    for (var p in source) {
+      target[p] = source[p];
+    }
+
+    return target;
+  },
       _addRawTransformPTs = function _addRawTransformPTs(plugin, transforms, target) {
-    var style = _tempDivStyler.style,
-        startCache = target._gsap,
+    var startCache = _assign({}, target._gsap),
         exclude = "perspective,force3D,transformOrigin,svgOrigin",
+        style = target.style,
         endCache,
         p,
         startValue,
@@ -4784,12 +4891,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         endNum,
         startUnit,
         endUnit;
-    style.cssText = getComputedStyle(target).cssText + ";position:absolute;display:block;";
-    style[_transformProp] = transforms;
 
-    _doc$1.body.appendChild(_tempDivStyler);
+    if (startCache.svg) {
+      startValue = target.getAttribute("transform");
+      target.setAttribute("transform", "");
+      style[_transformProp] = transforms;
+      endCache = _parseTransform(target, 1);
 
-    endCache = _parseTransform(_tempDivStyler, 1);
+      _removeProperty(target, _transformProp);
+
+      target.setAttribute("transform", startValue);
+    } else {
+      startValue = getComputedStyle(target)[_transformProp];
+      style[_transformProp] = transforms;
+      endCache = _parseTransform(target, 1);
+      style[_transformProp] = startValue;
+    }
 
     for (p in _transformProps) {
       startValue = startCache[p];
@@ -4800,14 +4917,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         endUnit = getUnit(endValue);
         startNum = startUnit !== endUnit ? _convertToUnit(target, p, startValue, endUnit) : parseFloat(startValue);
         endNum = parseFloat(endValue);
-        plugin._pt = new PropTween(plugin._pt, startCache, p, startNum, endNum - startNum, _renderCSSProp);
+        plugin._pt = new PropTween(plugin._pt, endCache, p, startNum, endNum - startNum, _renderCSSProp);
         plugin._pt.u = endUnit || 0;
 
         plugin._props.push(p);
       }
     }
 
-    _doc$1.body.removeChild(_tempDivStyler);
+    _assign(endCache, startCache);
   };
 
   _forEachName("padding,margin,Width,Radius", function (name, index) {
@@ -4848,6 +4965,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     init: function init(target, vars, tween, index, targets) {
       var props = this._props,
           style = target.style,
+          startAt = tween.vars.startAt,
           startValue,
           endValue,
           endNum,
@@ -4889,20 +5007,33 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         if (specialProp) {
-          if (specialProp(this, target, p, endValue, tween)) {
-            hasPriority = 1;
-          }
+          specialProp(this, target, p, endValue, tween) && (hasPriority = 1);
         } else if (p.substr(0, 2) === "--") {
-          this.add(style, "setProperty", getComputedStyle(target).getPropertyValue(p) + "", endValue + "", index, targets, 0, 0, p);
+          startValue = (getComputedStyle(target).getPropertyValue(p) + "").trim();
+          endValue += "";
+          _colorExp.lastIndex = 0;
+
+          if (!_colorExp.test(startValue)) {
+            startUnit = getUnit(startValue);
+            endUnit = getUnit(endValue);
+          }
+
+          endUnit ? startUnit !== endUnit && (startValue = _convertToUnit(target, p, startValue, endUnit) + endUnit) : startUnit && (endValue += startUnit);
+          this.add(style, "setProperty", startValue, endValue, index, targets, 0, 0, p);
+          props.push(p);
         } else if (type !== "undefined") {
-          startValue = _get(target, p);
+          if (startAt && p in startAt) {
+            startValue = typeof startAt[p] === "function" ? startAt[p].call(tween, index, target, targets) : startAt[p];
+            p in _config.units && !getUnit(startValue) && (startValue += _config.units[p]);
+            _isString(startValue) && ~startValue.indexOf("random(") && (startValue = _replaceRandom(startValue));
+            (startValue + "").charAt(1) === "=" && (startValue = _get(target, p));
+          } else {
+            startValue = _get(target, p);
+          }
+
           startNum = parseFloat(startValue);
           relative = type === "string" && endValue.charAt(1) === "=" ? +(endValue.charAt(0) + "1") : 0;
-
-          if (relative) {
-            endValue = endValue.substr(2);
-          }
-
+          relative && (endValue = endValue.substr(2));
           endNum = parseFloat(endValue);
 
           if (p in _propertyAliases) {
@@ -4925,14 +5056,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           if (isTransformRelated) {
             if (!transformPropTween) {
               cache = target._gsap;
-              cache.renderTransform || _parseTransform(target);
+              cache.renderTransform && !vars.parseTransform || _parseTransform(target, vars.parseTransform);
               smooth = vars.smoothOrigin !== false && cache.smooth;
               transformPropTween = this._pt = new PropTween(this._pt, style, _transformProp, 0, 1, cache.renderTransform, cache, 0, -1);
               transformPropTween.dep = 1;
             }
 
             if (p === "scale") {
-              this._pt = new PropTween(this._pt, cache, "scaleY", cache.scaleY, relative ? relative * endNum : endNum - cache.scaleY);
+              this._pt = new PropTween(this._pt, cache, "scaleY", cache.scaleY, (relative ? relative * endNum : endNum - cache.scaleY) || 0);
               props.push("scaleY", p);
               p += "X";
             } else if (p === "transformOrigin") {
@@ -4977,16 +5108,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             endNum || (endNum = 0);
             endUnit = getUnit(endValue) || (p in _config.units ? _config.units[p] : startUnit);
             startUnit !== endUnit && (startNum = _convertToUnit(target, p, startValue, endUnit));
-            this._pt = new PropTween(this._pt, isTransformRelated ? cache : style, p, startNum, relative ? relative * endNum : endNum - startNum, endUnit === "px" && vars.autoRound !== false && !isTransformRelated ? _renderRoundedCSSProp : _renderCSSProp);
+            this._pt = new PropTween(this._pt, isTransformRelated ? cache : style, p, startNum, relative ? relative * endNum : endNum - startNum, !isTransformRelated && (endUnit === "px" || p === "zIndex") && vars.autoRound !== false ? _renderRoundedCSSProp : _renderCSSProp);
             this._pt.u = endUnit || 0;
 
-            if (startUnit !== endUnit) {
+            if (startUnit !== endUnit && endUnit !== "%") {
               this._pt.b = startValue;
               this._pt.r = _renderCSSPropWithBeginning;
             }
           } else if (!(p in style)) {
             if (p in target) {
-              this.add(target, p, target[p], endValue, index, targets);
+              this.add(target, p, startValue || target[p], endValue, index, targets);
             } else {
               _missingPlugin(p, endValue);
 
@@ -5085,17 +5216,17 @@ require.register("jquery/dist/jquery.js", function(exports, require, module) {
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /*!
- * jQuery JavaScript Library v3.5.1
+ * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
  *
  * Includes Sizzle.js
  * https://sizzlejs.com/
  *
- * Copyright JS Foundation and other contributors
+ * Copyright OpenJS Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2020-05-04T22:49Z
+ * Date: 2021-03-02T17:08Z
  */
 (function (global, factory) {
   "use strict";
@@ -5148,7 +5279,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     // In some browsers, typeof returns "function" for HTML <object> elements
     // (i.e., `typeof document.createElement( "object" ) === "function"`).
     // We don't want to classify *any* DOM node as a function.
-    return typeof obj === "function" && typeof obj.nodeType !== "number";
+    // Support: QtWeb <=3.8.5, WebKit <=534.34, wkhtmltopdf tool <=0.12.5
+    // Plus for old WebKit, typeof returns "function" for HTML collections
+    // (e.g., `typeof document.getElementsByTagName("div") === "function"`). (gh-4756)
+    return typeof obj === "function" && typeof obj.nodeType !== "number" && typeof obj.item !== "function";
   };
 
   var isWindow = function isWindow(obj) {
@@ -5206,7 +5340,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   // unguarded in another place, it seems safer to define global only for this module
 
 
-  var version = "3.5.1",
+  var version = "3.6.0",
       // Define a local copy of jQuery
   jQuery = function jQuery(selector, context) {
     // The jQuery object is actually just the init constructor 'enhanced'
@@ -5533,14 +5667,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   var Sizzle =
   /*!
-   * Sizzle CSS Selector Engine v2.3.5
+   * Sizzle CSS Selector Engine v2.3.6
    * https://sizzlejs.com/
    *
    * Copyright JS Foundation and other contributors
    * Released under the MIT license
    * https://js.foundation/
    *
-   * Date: 2020-03-14
+   * Date: 2021-02-16
    */
   function (window) {
     var i,
@@ -6040,8 +6174,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
      */
 
     isXML = Sizzle.isXML = function (elem) {
-      var namespace = elem.namespaceURI,
-          docElem = (elem.ownerDocument || elem).documentElement; // Support: IE <=8
+      var namespace = elem && elem.namespaceURI,
+          docElem = elem && (elem.ownerDocument || elem).documentElement; // Support: IE <=8
       // Assume HTML when documentElement doesn't yet exist, such as inside loading iframes
       // https://bugs.jquery.com/ticket/4833
 
@@ -7705,7 +7839,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
   }
 
-  ;
   var rsingleTag = /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i; // Implement the identical functionality for filter and not
 
   function winnow(elements, qualifier, not) {
@@ -8474,8 +8607,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           // subordinate fulfillment data
       resolveContexts = Array(i),
           resolveValues = _slice.call(arguments),
-          // the master Deferred
-      master = jQuery.Deferred(),
+          // the primary Deferred
+      primary = jQuery.Deferred(),
           // subordinate callback factory
       updateFunc = function updateFunc(i) {
         return function (value) {
@@ -8483,26 +8616,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           resolveValues[i] = arguments.length > 1 ? _slice.call(arguments) : value;
 
           if (! --remaining) {
-            master.resolveWith(resolveContexts, resolveValues);
+            primary.resolveWith(resolveContexts, resolveValues);
           }
         };
       }; // Single- and empty arguments are adopted like Promise.resolve
 
 
       if (remaining <= 1) {
-        adoptValue(singleValue, master.done(updateFunc(i)).resolve, master.reject, !remaining); // Use .then() to unwrap secondary thenables (cf. gh-3000)
+        adoptValue(singleValue, primary.done(updateFunc(i)).resolve, primary.reject, !remaining); // Use .then() to unwrap secondary thenables (cf. gh-3000)
 
-        if (master.state() === "pending" || isFunction(resolveValues[i] && resolveValues[i].then)) {
-          return master.then();
+        if (primary.state() === "pending" || isFunction(resolveValues[i] && resolveValues[i].then)) {
+          return primary.then();
         }
       } // Multiple arguments are aggregated like Promise.all array elements
 
 
       while (i--) {
-        adoptValue(resolveValues[i], updateFunc(i), master.reject);
+        adoptValue(resolveValues[i], updateFunc(i), primary.reject);
       }
 
-      return master.promise();
+      return primary.promise();
     }
   }); // These usually indicate a programmer mistake during development,
   // warn about them ASAP rather than swallowing them by default.
@@ -9429,9 +9562,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return fragment;
   }
 
-  var rkeyEvent = /^key/,
-      rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/,
-      rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
+  var rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
 
   function returnTrue() {
     return true;
@@ -9956,8 +10087,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             if (saved !== result) {
               // Cancel the outer synthetic event
               event.stopImmediatePropagation();
-              event.preventDefault();
-              return result.value;
+              event.preventDefault(); // Support: Chrome 86+
+              // In Chrome, if an element having a focusout handler is blurred by
+              // clicking outside of it, it invokes the handler synchronously. If
+              // that handler calls `.remove()` on the element, the data is cleared,
+              // leaving `result` undefined. We need to guard against this.
+
+              return result && result.value;
             } // If this is an inner synthetic event for an event with a bubbling surrogate
             // (focus or blur), assume that the surrogate already propagated from triggering the
             // native event and prevent that from happening again here.
@@ -10093,32 +10229,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     targetTouches: true,
     toElement: true,
     touches: true,
-    which: function which(event) {
-      var button = event.button; // Add which for key events
-
-      if (event.which == null && rkeyEvent.test(event.type)) {
-        return event.charCode != null ? event.charCode : event.keyCode;
-      } // Add which for click: 1 === left; 2 === middle; 3 === right
-
-
-      if (!event.which && button !== undefined && rmouseEvent.test(event.type)) {
-        if (button & 1) {
-          return 1;
-        }
-
-        if (button & 2) {
-          return 3;
-        }
-
-        if (button & 4) {
-          return 2;
-        }
-
-        return 0;
-      }
-
-      return event.which;
-    }
+    which: true
   }, jQuery.event.addProp);
   jQuery.each({
     focus: "focusin",
@@ -10138,6 +10249,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         // Force setup before trigger
         leverageNative(this, type); // Return non-false to allow normal event-path propagation
 
+        return true;
+      },
+      // Suppress native focus or blur as it's already being fired
+      // in leverageNative.
+      _default: function _default() {
         return true;
       },
       delegateType: delegateType
@@ -10742,6 +10858,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       // set in CSS while `offset*` properties report correct values.
       // Behavior in IE 9 is more subtle than in newer versions & it passes
       // some versions of this test; make sure not to make it pass there!
+      //
+      // Support: Firefox 70+
+      // Only Firefox includes border widths
+      // in computed dimensions. (gh-4529)
       reliableTrDimensions: function reliableTrDimensions() {
         var table, tr, trChild, trStyle;
 
@@ -10749,12 +10869,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           table = document.createElement("table");
           tr = document.createElement("tr");
           trChild = document.createElement("div");
-          table.style.cssText = "position:absolute;left:-11111px";
+          table.style.cssText = "position:absolute;left:-11111px;border-collapse:separate";
+          tr.style.cssText = "border:1px solid"; // Support: Chrome 86+
+          // Height set through cssText does not get applied.
+          // Computed height then comes back as 0.
+
           tr.style.height = "1px";
-          trChild.style.height = "9px";
+          trChild.style.height = "9px"; // Support: Android 8 Chrome 86+
+          // In our bodyBackground.html iframe,
+          // display for all div elements is set to "inline",
+          // which causes a problem only in Android 8 Chrome 86.
+          // Ensuring the div is display: block
+          // gets around this issue.
+
+          trChild.style.display = "block";
           documentElement.appendChild(table).appendChild(tr).appendChild(trChild);
           trStyle = window.getComputedStyle(tr);
-          reliableTrDimensionsVal = parseInt(trStyle.height) > 3;
+          reliableTrDimensionsVal = parseInt(trStyle.height, 10) + parseInt(trStyle.borderTopWidth, 10) + parseInt(trStyle.borderBottomWidth, 10) === tr.offsetHeight;
           documentElement.removeChild(table);
         }
 
@@ -12819,7 +12950,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   var rquery = /\?/; // Cross-browser xml parsing
 
   jQuery.parseXML = function (data) {
-    var xml;
+    var xml, parserErrorElem;
 
     if (!data || typeof data !== "string") {
       return null;
@@ -12829,12 +12960,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     try {
       xml = new window.DOMParser().parseFromString(data, "text/xml");
-    } catch (e) {
-      xml = undefined;
-    }
+    } catch (e) {}
 
-    if (!xml || xml.getElementsByTagName("parsererror").length) {
-      jQuery.error("Invalid XML: " + data);
+    parserErrorElem = xml && xml.getElementsByTagName("parsererror")[0];
+
+    if (!xml || parserErrorElem) {
+      jQuery.error("Invalid XML: " + (parserErrorElem ? jQuery.map(parserErrorElem.childNodes, function (el) {
+        return el.textContent;
+      }).join("\n") : data));
     }
 
     return xml;
@@ -13576,10 +13709,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
         if (responses) {
           response = ajaxHandleResponses(s, jqXHR, responses);
-        } // Use a noop converter for missing script
+        } // Use a noop converter for missing script but not if jsonp
 
 
-        if (!isSuccess && jQuery.inArray("script", s.dataTypes) > -1) {
+        if (!isSuccess && jQuery.inArray("script", s.dataTypes) > -1 && jQuery.inArray("json", s.dataTypes) < 0) {
           s.converters["text script"] = function () {};
         } // Convert no matter what (that way responseXXX fields are always set)
 
@@ -14216,14 +14349,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       if ("using" in options) {
         options.using.call(elem, props);
       } else {
-        if (typeof props.top === "number") {
-          props.top += "px";
-        }
-
-        if (typeof props.left === "number") {
-          props.left += "px";
-        }
-
         curElem.css(props);
       }
     }
@@ -20283,7 +20408,7 @@ require.alias("lightbox2/dist/js/lightbox.js", "lightbox2");
 require.alias("object-fit-images/dist/ofi.common-js.js", "object-fit-images");
 require.alias("process/browser.js", "process");
 require.alias("scrollmagic/scrollmagic/uncompressed/ScrollMagic.js", "scrollmagic");
-require.alias("swup/lib/index.js", "swup");require.register("___globals___", function(exports, require, module) {
+require.alias("swup/lib/index.js", "swup");process = require('process');require.register("___globals___", function(exports, require, module) {
   
 });})();require('___globals___');
 

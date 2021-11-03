@@ -14,7 +14,7 @@ if( !class_exists( 'Eltigre\Controllers\Watches' ) ) {
                 'post_type'         => "watches",
                 'orderby'           => "menu_order",
                 'order'             => "ASC",
-                'post_per_page'     => -1
+                'posts_per_page'     => -1
             );
 
             $query = new \WP_Query( $query_args );
@@ -35,7 +35,6 @@ if( !class_exists( 'Eltigre\Controllers\Watches' ) ) {
 
                 $watches[ $post_ID ] = $watch;
             }
-            
             return $watches;
         }
     }
