@@ -176,9 +176,9 @@ var _scrollmagicPluginGsap = require("scrollmagic-plugin-gsap");
 
 var _objectFitImages = _interopRequireDefault(require("object-fit-images"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -731,8 +731,7 @@ var Banner = /*#__PURE__*/function () {
   function Banner() {
     _classCallCheck(this, Banner);
 
-    this.sections = document.querySelectorAll('.banner');
-    this.animate();
+    this.sections = document.querySelectorAll('.banner'); // this.animate();
   }
 
   _createClass(Banner, [{
@@ -1428,21 +1427,21 @@ exports["default"] = Watches;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.initSwipers = initSwipers;
-exports.scrollTopOnLinksCurrentUrl = scrollTopOnLinksCurrentUrl;
-exports.post = post;
-exports.containsSection = containsSection;
-exports.addTransition = addTransition;
 exports.addEvents = addEvents;
-exports.scrollToTop = scrollToTop;
-exports.scrollToElement = scrollToElement;
-exports.getNavigator = getNavigator;
-exports.toggleScroll = toggleScroll;
-exports.getParameterByName = getParameterByName;
-exports.pageEnabled = pageEnabled;
+exports.addTransition = addTransition;
+exports.checkDate = checkDate;
 exports.checkMail = checkMail;
 exports.checkPhoneNumber = checkPhoneNumber;
-exports.checkDate = checkDate;
+exports.containsSection = containsSection;
+exports.getNavigator = getNavigator;
+exports.getParameterByName = getParameterByName;
+exports.initSwipers = initSwipers;
+exports.pageEnabled = pageEnabled;
+exports.post = post;
+exports.scrollToElement = scrollToElement;
+exports.scrollToTop = scrollToTop;
+exports.scrollTopOnLinksCurrentUrl = scrollTopOnLinksCurrentUrl;
+exports.toggleScroll = toggleScroll;
 
 function initSwipers(swipersContainer, properties) {
   var className, hasNavigation, hasPagination, navigation, pagination, slidesCount;

@@ -8409,9 +8409,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           return _promise.then(null, fn);
         },
         // Keep pipe for back-compat
-        pipe: function pipe()
-        /* fnDone, fnFail, fnProgress */
-        {
+        pipe: function
+          /* fnDone, fnFail, fnProgress */
+        pipe() {
           var fns = arguments;
           return jQuery.Deferred(function (newDefer) {
             jQuery.each(tuples, function (_i, tuple) {
@@ -15317,8 +15317,8 @@ function fixOne(el) {
     supportsObjectFit && // if browser already supports object-fit
     !style['object-position'] // unless object-position is used
     ) {
-        return;
-      }
+      return;
+    }
   } // keep a clone in memory while resetting the original to a blank
 
 
