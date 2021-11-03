@@ -7,7 +7,7 @@ export default class Banner {
   constructor() {
     this.sections = document.querySelectorAll('.banner');
     
-    this.animate();
+    // this.animate();
   }
 
   animate() {
