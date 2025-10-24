@@ -1,39 +1,57 @@
-<section id="{{ section.title|sanitize }}" class="contact">   
-    <div class="main-wrapper contact-container">
-        <div class="contact__image-block">
-            <a href="{{section.link.url}}" target="{{ section.link.target }}">
-                <div class="contact__image" style="background-image: url({{section.google_map.url}});" ></div>
-            </a>
+<section id="{{ section.title|sanitize }}" class="contact">
+  <div class="main-wrapper contact-container">
+    <div class="contact__map-block">
+      {% if section.google_map %}
+        <div class="map-embed">
+          {{ section.google_map|raw }}
         </div>
-        <div class="contact-form">
-            <form class="contact-form__form acdm-form">
-                <div class="contact-form__fields">
-                    <div class="form-input__wrapper">
-                        <input type="text" id="contact-lastname" name="lastname" class="form-input required">
-                        <label for="contact-lastname" class="form-input__label">Nom</label>     
-                    </div>
-        
-                    <div class="form-input__wrapper">
-                        <input type="email" id="contact-mail" name="mail" class="form-input required">
-                        <label for="contact-mail" class="form-input__label">Email</label>
-                    </div>
-        
-                    <div class="form-input__wrapper">
-                        <input type="subject" id="contact-subject" name="subject" class="form-input required {{ contact_form.value.subject != '' ? 'not-empty' : '' }}" value="{{ contact_form.value.subject }}">
-                        <label for="contact-subject" class="form-input__label">Sujet</label>
-                    </div>
-        
-                    <div class="form-textarea__wrapper">
-                        <textarea name="message" class="form-textarea required" id="contact-message"></textarea>
-                        <label for="contact-message" class="form-input__label">Message</label>
-                    </div>
-                </div>
-                <div class="contact-form__cta-wrapper cta-wrapper">
-                    <button class="contact-form__cta-submit cta cta__form submit-button" >
-                        {{ contact_form.btn_send }}
-                    </button>
-                </div>
-            </form>
+      {% elseif section.google_map_url %}
+        <div class="map-embed">
+          <iframe
+            src="{{ section.google_map_url }}"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            title="Google Map"></iframe>
         </div>
+      {% elseif section.google_map.url %}
+        {# ancien fallback image #}
+        <a href="{{ section.link.url|default('#') }}" target="{{ section.link.target|default('_self') }}">
+          <div class="contact__image" style="background-image:url({{ section.google_map.url }});"></div>
+        </a>
+      {% endif %}
     </div>
+    <div class="contact-form">
+      <form class="contact-form__form acdm-form">
+        <div class="contact-form__fields">
+          <div class="form-input__wrapper">
+            <input type="text" id="contact-lastname" name="lastname" class="form-input required">
+            <label for="contact-lastname" class="form-input__label">Nom</label>
+          </div>
+          <div class="form-input__wrapper">
+            <input type="email" id="contact-mail" name="mail" class="form-input required">
+            <label for="contact-mail" class="form-input__label">Email</label>
+          </div>
+          <div class="form-input__wrapper">
+            <input
+              type="text"
+              id="contact-subject"
+              name="subject"
+              class="form-input required {{ (contact_form.value.subject|default('')) != '' ? 'not-empty' : '' }}"
+              value="{{ contact_form.value.subject|default('') }}">
+            <label for="contact-subject" class="form-input__label">Sujet</label>
+          </div>
+          <div class="form-textarea__wrapper">
+            <textarea name="message" class="form-textarea required" id="contact-message"></textarea>
+            <label for="contact-message" class="form-input__label">Message</label>
+          </div>
+        </div>
+        <div class="contact-form__cta-wrapper cta-wrapper">
+          <button class="contact-form__cta-submit cta cta__form submit-button">
+            {{ contact_form.btn_send }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </section>

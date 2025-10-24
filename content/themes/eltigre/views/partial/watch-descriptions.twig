@@ -1,0 +1,20 @@
+{% set long_title  = post.meta('long__title')|default('')|trim %}
+{% set long_text   = post.meta('long_description')|default('')|trim %}
+{% set short_title = post.meta('short_description_title')|default('')|trim %}
+{% set short_text  = post.meta('short_description')|default('')|trim %}
+
+{# Bloc "Description longue" si un des deux est rempli #}
+{% if long_title or long_text %}
+  <section class="watch-desc watch-desc--long">
+    {% if long_title %}<h2 class="title_h2_acf">{{ long_title }}</h2>{% endif %}
+    {% if long_text %}<div class="rte">{{ function('wpautop', long_text) }}</div>{% endif %}
+  </section>
+{% endif %}
+
+{# Bloc "Description courte" si un des deux est rempli #}
+{% if short_title or short_text %}
+  <section class="watch-desc watch-desc--short">
+    {% if short_title %}<h2 class="title_h2_acf">{{ short_title }}</h2>{% endif %}
+    {% if short_text %}<div class="rte">{{ function('wpautop', short_text) }}</div>{% endif %}
+  </section>
+{% endif %}

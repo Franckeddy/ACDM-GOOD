@@ -9,3 +9,7 @@ if ( !function_exists( 'debug' ) ) {
 		if ( $die ) wp_die();
 	}
 }
+
+require_once __DIR__ . '/rocket-purge.php';
+require_once __DIR__ . '/rankmath-auto.php';
+require_once __DIR__ . '/acf-filter-published.php';

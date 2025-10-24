@@ -13,25 +13,36 @@
             {% endif %}
         </div>
         {% else %}
-        <div class="images">
+          <!-- PLUSIEURS IMAGES : carousel avec boutons -->
+          <div class="images">
             <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    {% for galerie in section.images %}
-                    <div class="swiper-slide">
-                        {% if section.type_image == 'background' %}
-                            <div class="images__image" style="background-image: url({{ galerie.url }});">
-                            </div>
-                        {% else %}
-                            <img class="images__image" src="{{ galerie.url }};">
-                            </img>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
+              <div class="swiper-wrapper">
+                {% for galerie in section.images %}
+                  <div class="swiper-slide">
+                    {% if section.type_image == 'background' %}
+                      <div class="images__image" style="background-image: url({{ galerie.url }});"></div>
+                    {% else %}
+                      <img class="images__image" src="{{ galerie.url }}">
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
             </div>
-        </div>
+            <!-- ✅ BOUTONS DE NAVIGATION -->
+            <div class="content-nav-buttons">
+              <button class="content-nav-button prev" aria-label="Image précédente">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button class="content-nav-button next" aria-label="Image suivante">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
         {% endif %}
-        
         <div class="content__text-part-wrapper main-wrapper">
             <div class="content__text-part">
                 {% if section.title is not empty %}
@@ -42,12 +53,12 @@
                 <div class="text-part__container">
                     {% if section.description is not empty %}
                         <div class="text-part__description">
-                            {{ section.description }}              
+                            {{ section.description }}
                         </div>
                     {% endif %}
                     {% if section.more_text is not empty %}
                         <div class="text-part__more-text">
-                            {{ section.more_text }}           
+                            {{ section.more_text }}
                         </div>
                     {% endif %}
                     <div class="swiper-pagination"></div>

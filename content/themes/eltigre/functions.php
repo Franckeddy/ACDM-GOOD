@@ -125,8 +125,6 @@ if ( class_exists( 'Timber' ) ) {
 			// CUSTOM STYLES
 			wp_enqueue_style( 'style', get_template_directory_uri() . '/assets/styles/style.css' );
 		}
-		
-	
 		public function register_scripts() {
 			// POOLYFILL FOR IE
 			wp_enqueue_script( 'barbaPolyfill', 'https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.remove%2CNumber.isNaN%2CDocument%2CString.prototype.repeat%2CPromise%2CObject.assign%2CElement.prototype.classList%2Cscroll%2CscrollY%2CscrollX%2Cwindow.scroll', array(), false, false );
@@ -135,6 +133,10 @@ if ( class_exists( 'Timber' ) ) {
 			wp_enqueue_script( 'vendor', get_template_directory_uri() . '/assets/js/vendor.js' );
 			wp_enqueue_script( 'swiper', get_template_directory_uri() . '/assets/js/vendor/swiper-bundle.min.js', array(), false, true );
 			wp_enqueue_script( 'lightbox', get_template_directory_uri() . '/assets/js/vendor/lightbox.js', array(), false, true );
+
+			// ✅ NAVIGATION WATCHES (autonome)
+    		wp_enqueue_script( 'watches-nav', get_template_directory_uri() . '/assets/js/custom/watches-navigation.js', array(), '1.0.0', true );
+
 			// CUSTOM SCRIPTS
 			wp_enqueue_script( 'app', get_template_directory_uri() . '/assets/js/app-bundle.js' );
 			wp_localize_script('app', 'site', array(

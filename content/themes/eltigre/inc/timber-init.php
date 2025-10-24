@@ -15,7 +15,6 @@ if ( ! class_exists( 'Timber' ) ) {
 			return get_stylesheet_directory() . '/static/no-timber.html';
 		}
 	);
-	
 	return;
 }
 /**

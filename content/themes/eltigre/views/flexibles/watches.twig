@@ -1,76 +1,101 @@
 <section id="{{ section.title|sanitize }}" class="watches">
 
-    {% if section.title is not empty %}
-        <h2 class="watches__title main-wrapper">{{ section.title }}</h2>
-    {% endif %}
-    
-    {% if section.layout == "slider" %}
-        <div class="main-wrapper">
-            <div class="swiper-container">
-            <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    {% for watchID in section.watches %}
-                        <div class="swiper-slide">
-                            <a href="{{ watches[watchID].permalink }}" target="_blank">                                
-                                <div class="slide--watch__image">           
-                                    {{ watches[watchID].thumbnail }}
-                                </div>
-                                <div class="watch__title">
-                                    {{ watches[watchID].name }}
-                                </div>
-                                <div class="watch__price">
-                                    {{ watches[watchID].price }} €
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
-                </div>
-            
-            </div>
-            <div class="button--container">
-                <div class="swiper-button-prev">
-                    <img src="{{ site.theme.link }}/assets/images/slider-left.png">
-                </div>
-                <div class="swiper-button-next">
-                    <img src="{{ site.theme.link }}/assets/images/slider-left.png">
-                </div>
-            </div>
-            {% if section.subtitle is not empty %}
-                <div class="watches__subtitle">
-                    <div class="watches__subtitle-text">{{ section.subtitle }}</div>
-                </div>
-            {% endif %}
-            {% if section.add_button == true %}
-                <div class="watches__cta-wrapper">
-                    <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta cta--watches">
-                        {{ section.link.title }}
-                    </a>
-                </div>
-            {% endif %}
-        </div>    
+  {% if section.title is not empty %}
+    <h2 class="watches__title main-wrapper">{{ section.title }}</h2>
+  {% endif %}
 
-    {% elseif section.layout == "listing" %}
-        <!-- si c'est en liste -->
-        <div class="main-wrapper">
-            <!-- on boucle -->
-            <div class="watches__content">
-                {% for watchID in section.watches %}
-                    <div class="watch">
-                        <a href="{{ watches[watchID].permalink }}" target="_blank">
-                            <div class="watch__image">           
-                                {{ watches[watchID].thumbnail }}
-                            </div>
-                            <div class="watch__title">
-                                {{ watches[watchID].name }}
-                            </div>
-                            <div class="watch__price">
-                                {{ watches[watchID].price }}€
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
+  {# — Prépare la liste d’IDs publiés (objet ou ID) — #}
+  {% set raw_ids = section.watches ?? [] %}
+  {% set ids = [] %}
+  {% for it in raw_ids %}
+    {% set id = it.ID ?? it %}
+    {% if id and function('get_post_status', id) == 'publish' %}
+      {% set ids = ids|merge([id]) %}
     {% endif %}
+  {% endfor %}
+
+  {% if section.layout == "slider" %}
+    <div class="main-wrapper">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          {# Slides (aucune slide si l’ID n’est pas publiable / pas d’image) #}
+          {% for id in ids %}
+            {% set link  = function('get_permalink', id) %}
+            {% set title = function('get_the_title', id) %}
+            {% set price = function('get_field', 'price', id) %}
+            {% set thumb = function('get_the_post_thumbnail', id, 'large') %} {# HTML <img> #}
+
+            {% if link and thumb %}
+              <div class="swiper-slide">
+                <a href="{{ link }}" target="_blank">
+                  <div class="slide--watch__image">
+                    {{ thumb|raw }}
+                  </div>
+                  <div class="watch__title">{{ title }}</div>
+                  {% if price %}
+                    <div class="watch__price">{{ price }}&nbsp;€</div>
+                  {% endif %}
+                </a>  
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="button--container">
+        <div class="swiper-button-prev">
+          <img src="{{ site.theme.link }}/assets/images/slider-left.png" alt="">
+        </div>
+        <div class="swiper-button-next">
+          <img src="{{ site.theme.link }}/assets/images/slider-left.png" alt="">
+        </div>
+      </div>
+
+      {% if section.subtitle is not empty %}
+        <div class="watches__subtitle">
+          <div class="watches__subtitle-text">{{ section.subtitle }}</div>
+        </div>
+      {% endif %}
+
+      {% if section.description is not empty %}
+        <div class="banner__description">
+          {{ section.description }}
+        </div>
+      {% endif %}
+
+      {% if section.add_button == true %}
+        <div class="watches__cta-wrapper">
+          <a href="{{ section.link.url }}" target="{{ section.link.target }}" class="cta cta--watches">
+            {{ section.link.title }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+  {% elseif section.layout == "listing" %}
+    <div class="main-wrapper">
+      <div class="watches__content">
+        {% for id in ids %}
+          {% set link  = function('get_permalink', id) %}
+          {% set title = function('get_the_title', id) %}
+          {% set price = function('get_field', 'price', id) %}
+          {% set thumb = function('get_the_post_thumbnail', id, 'large') %}
+
+          {% if link and thumb %}
+            <div class="watch">
+              <a href="{{ link }}" target="_blank">
+                <div class="watch__image">
+                  {{ thumb|raw }}
+                </div>
+                <div class="watch__title">{{ title }}</div>
+                {% if price %}
+                  <div class="watch__price">{{ price }}&nbsp;€</div>
+                {% endif %}
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
 </section>

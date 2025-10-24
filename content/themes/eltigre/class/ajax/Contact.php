@@ -32,6 +32,10 @@ class Contact {
                 }
             }
 
+            if (empty($recipient)) {
+                $recipient = 'contact@aucoeurdesmontres.com';
+            }
+
             // Format message
             $message = '';
             $message .= sprintf( __( 'Nom : %s', 'eltigre' ), $lastname ) . "\n";
@@ -44,14 +48,14 @@ class Contact {
             $headers[] = 'Content-Type: text/html; charset=UTF-8';
             $headers[] = 'From: ' . get_bloginfo( 'name' ) . ' <'. $mail .'>';
             $headers[] = "Reply-To: $firstname $lastname <$mail>";
-        
+
             // Send email
             if ( wp_mail( $recipient, $subject, $message, $headers ) ) {
                 wp_send_json_success( __( $success_message , 'eltigre' ) );
             } else {
                 wp_send_json_error( __( 'Erreur: Impossible d\'envoyer votre message', 'eltigre' ) );
             }
-            
+
             wp_die();
         }
     }

@@ -33,5 +33,11 @@
 			"rm -rf .git",
 			"git init"
 		]
+	},
+	"config": {
+		"allow-plugins": {
+			"johnpbloch/wordpress-core-installer": true,
+			"composer/installers": true
+		}
 	}
 }

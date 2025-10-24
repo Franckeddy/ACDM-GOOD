@@ -1,0 +1,191 @@
+{% set rows = post.get_field('dans_le_meme_esprit') ?? [] %}
+{% if rows %}
+  {% for row in rows %}
+    {% set raw_ids = row.montres ?? [] %}
+    {% set ids = [] %}
+    {% for id in raw_ids %}
+      {% if id and function('get_post_status', id) == 'publish' %}
+        {% set ids = ids|merge([id]) %}
+      {% endif %}
+    {% endfor %}
+
+    {% if ids|length %}
+      <section id="same-spirit" class="same-spirit">
+        <div class="main-wrapper">
+          <h3 class="same-spirit__title">
+            {{ row.title ?? 'Dans le même esprit' }}
+          </h3>
+
+          <div class="same-spirit__carousel">
+            <div class="same-spirit__track">
+              <!-- PREMIER SET -->
+              {% for id in ids %}
+                {% set link  = function('get_permalink', id) %}
+                {% set title = function('get_the_title', id) %}
+                {% set thumb = function('get_the_post_thumbnail_url', id, 'large') %}
+                {% set price = function('get_field', 'price', id) %}
+
+                {% if link and thumb %}
+                  <div class="same-spirit__card">
+                    <a class="same-spirit__link" href="{{ link }}">
+                      <div class="same-spirit__img-wrapper">
+                        <img class="same-spirit__img" src="{{ thumb }}" alt="{{ title|e }}" loading="lazy">
+                      </div>
+                      <span class="same-spirit__name">{{ title }}</span>
+                      {% if price %}
+                        <span class="same-spirit__price">{{ price }}&nbsp;€</span>
+                      {% endif %}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              <!-- DUPLICATION -->
+              {% for id in ids %}
+                {% set link  = function('get_permalink', id) %}
+                {% set title = function('get_the_title', id) %}
+                {% set thumb = function('get_the_post_thumbnail_url', id, 'large') %}
+                {% set price = function('get_field', 'price', id) %}
+
+                {% if link and thumb %}
+                  <div class="same-spirit__card">
+                    <a class="same-spirit__link" href="{{ link }}">
+                      <div class="same-spirit__img-wrapper">
+                        <img class="same-spirit__img" src="{{ thumb }}" alt="{{ title|e }}" loading="lazy">
+                      </div>
+                      <span class="same-spirit__name">{{ title }}</span>
+                      {% if price %}
+                        <span class="same-spirit__price">{{ price }}&nbsp;€</span>
+                      {% endif %}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<style>
+  /* Section */
+  #same-spirit {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInSection 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeInSection { to { opacity: 1; } }
+
+  /* Wrapper */
+  #same-spirit .main-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Titre */
+  #same-spirit .same-spirit__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: #1a1a1a;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideInTitle 0.6s ease-out 0.2s forwards;
+  }
+
+  @keyframes slideInTitle { to { opacity: 1; transform: translateY(0); } }
+
+  /* Carousel + track */
+  #same-spirit .same-spirit__carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem 0;
+  }
+
+  #same-spirit .same-spirit__track {
+    display: flex;
+    gap: 20px;
+    width: fit-content;
+    will-change: transform;
+    animation: scrollInfinite 20s linear infinite;
+  }
+  #same-spirit .same-spirit__track:hover { animation-play-state: paused; }
+
+  @keyframes scrollInfinite {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Cartes */
+  #same-spirit .same-spirit__card {
+    flex: 0 0 auto;
+    opacity: 0;
+    animation: fadeInCard 0.6s ease-out forwards;
+  }
+  #same-spirit .same-spirit__card:nth-child(1) { animation-delay: 0.3s; }
+  #same-spirit .same-spirit__card:nth-child(2) { animation-delay: 0.35s; }
+  #same-spirit .same-spirit__card:nth-child(3) { animation-delay: 0.4s; }
+  #same-spirit .same-spirit__card:nth-child(4) { animation-delay: 0.45s; }
+  #same-spirit .same-spirit__card:nth-child(5) { animation-delay: 0.5s; }
+  #same-spirit .same-spirit__card:nth-child(n+6){ animation-delay: 0.55s; }
+
+  @keyframes fadeInCard { to { opacity: 1; } }
+
+  /* Liens + effets */
+  #same-spirit .same-spirit__link { display:flex; flex-direction:column; text-decoration:none; color:inherit; transition:all .4s cubic-bezier(.4,0,.2,1); }
+  #same-spirit .same-spirit__link:hover { transform: translateY(-8px); }
+
+  #same-spirit .same-spirit__img-wrapper {
+    width: 280px; height: 280px; overflow: hidden; border-radius: 8px; margin-bottom: .75rem;
+    flex-shrink: 0; background: linear-gradient(135deg,#f5f5f5 0%,#e0e0e0 100%);
+    position: relative; box-shadow: 0 4px 12px rgba(0,0,0,.1); transition: box-shadow .3s ease;
+  }
+  #same-spirit .same-spirit__link:hover .same-spirit__img-wrapper { box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+
+  #same-spirit .same-spirit__img-wrapper::before {
+    content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform .8s ease; z-index:1;
+  }
+  #same-spirit .same-spirit__link:hover .same-spirit__img-wrapper::before { transform: translateX(100%) translateY(100%) rotate(45deg); }
+
+  #same-spirit .same-spirit__img { width:100%; height:100%; object-fit:cover; display:block; transition: transform .6s cubic-bezier(.4,0,.2,1); }
+  #same-spirit .same-spirit__link:hover .same-spirit__img { transform: scale(1.1); }
+
+  #same-spirit .same-spirit__name { display:block; margin-bottom:.5rem; max-width:280px; -webkit-line-clamp:2; -webkit-box-orient:vertical; display:-webkit-box; overflow:hidden; transition: color .3s ease; }
+  #same-spirit .same-spirit__link:hover .same-spirit__name { color:#d4af37; }
+
+  /* Responsive (exemple) */
+  @media (max-width:1024px){
+    #same-spirit .same-spirit__track { gap:18px; animation-duration:35s; }
+    #same-spirit .same-spirit__img-wrapper { width:240px; height:240px; }
+    #same-spirit .same-spirit__name { max-width:240px; }
+  }
+  @media (max-width:768px){
+    #same-spirit { margin-top:2rem; margin-bottom:2rem; }
+    #same-spirit .main-wrapper { max-width:380px; padding:0 1rem; }
+    #same-spirit .same-spirit__track { gap:15px; animation-duration:30s; }
+    #same-spirit .same-spirit__img-wrapper { width:200px; height:200px; }
+    #same-spirit .same-spirit__name { max-width:200px; font-size:.9rem; }
+    #same-spirit .same-spirit__price { font-size:.95rem; }
+  }
+  @media (max-width:480px){
+    #same-spirit .same-spirit__track { gap:12px; animation-duration:25s; }
+    #same-spirit .same-spirit__img-wrapper { width:160px; height:160px; }
+    #same-spirit .same-spirit__name { max-width:160px; font-size:.85rem; }
+  }
+
+  /* Accessibilité */
+  @media (prefers-reduced-motion: reduce){
+    #same-spirit, #same-spirit .same-spirit__title, #same-spirit .same-spirit__card { animation:none; opacity:1; transform:none; }
+    #same-spirit .same-spirit__track { animation-duration:60s; }
+  }
+
+</style>

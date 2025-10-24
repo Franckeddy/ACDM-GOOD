@@ -1,3 +1,5 @@
+import Swiper from "swiper";
+
 export function initSwipers(swipersContainer, properties) {
     let className, hasNavigation, hasPagination, navigation, pagination, slidesCount;
     let swipers = [];

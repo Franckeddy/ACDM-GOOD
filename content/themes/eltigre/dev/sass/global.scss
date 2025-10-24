@@ -32,7 +32,6 @@ $susy-mobile: (
 // Global style
 html {
     box-sizing: border-box;
-    // scroll-behavior: smooth;
 }
 
 *,
@@ -183,14 +182,6 @@ a {
     }
 }
 
-//TITRE
-// .title{
-//     font-size: 40px;
-//     letter-spacing: 6px;
-//     color: $gold;
-//     font-weight: 600;
-// }
-
 // Modules
 @import "modules/_header";
 @import "modules/_footer";
@@ -205,3 +196,5 @@ a {
 @import "flexible/simple";
 @import "flexible/watches";
 @import "flexible/contact-form";
+
+@import "custom/filtres-montres";
