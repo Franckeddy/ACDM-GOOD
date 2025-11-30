@@ -1,0 +1,8 @@
+.header__content::after {
+	height: unset!important;
+	background-color: unset!important;
+}
+
+.menu__list li:nth-child(2) {
+	margin-right: 50px;
+}

@@ -1,0 +1,16 @@
+@media (max-width: 768px) {
+	.single__watches__text-part {
+		margin: 0 1em;
+	}
+	.single__watches__button-container {
+		flex-flow: unset !important;
+	}
+	.cta__return, .cta__interest {
+		padding: 5px !important;
+		align-content: center !important;
+	}
+	.mobile .single__watches__button-container {
+		padding-bottom: unset!important;
+		padding-right: unset !important;
+	}
+}

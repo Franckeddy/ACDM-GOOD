@@ -27,22 +27,22 @@
 
             {% if link and thumb %}
               <div class="swiper-slide">
-                <a href="{{ link }}" target="_blank">
+                <a class="slide--watch__a" href="{{ link }}" target="_blank">
                   <div class="slide--watch__image">
                     {{ thumb|raw }}
                   </div>
                   <div class="watch__title">{{ title }}</div>
                   {% if price %}
-                    <div class="watch__price">{{ price }}&nbsp;€</div>
+                    <div class="watch__price" style="margin-top: auto;">{{ price }}&nbsp;€</div>
                   {% endif %}
-                </a>  
+                </a>
               </div>
             {% endif %}
           {% endfor %}
         </div>
       </div>
 
-      <div class="button--container">
+      <div class="button--container" style="top: 20% !important;">
         <div class="swiper-button-prev">
           <img src="{{ site.theme.link }}/assets/images/slider-left.png" alt="">
         </div>
@@ -99,3 +99,94 @@
     </div>
   {% endif %}
 </section>
+
+<style>
+.swiper-wrapper {
+  align-items: stretch; /* Force toutes les slides à avoir la même hauteur */
+}
+
+.swiper-slide {
+  height: auto; /* Important pour Swiper */
+  display: flex;
+}
+
+.swiper-slide a {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1; /* Prend toute la hauteur de la slide */
+}
+
+.slide--watch__a {
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+<style>
+.swiper-wrapper {
+  align-items: stretch;
+}
+
+.swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+.swiper-slide a {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+}
+
+.slide--watch__a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const swiper = new Swiper('.swiper-container', {
+    // Boucle infinie
+    loop: true,
+
+    // Défilement automatique de droite à gauche
+    autoplay: {
+      delay: 2000, // 3 secondes entre chaque slide
+      disableOnInteraction: false, // Continue après interaction
+      reverseDirection: false, // false = droite à gauche
+    },
+    
+    // Vitesse de transition
+    speed: 800,
+    
+    // Navigation avec les boutons
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    
+    // Nombre de slides visibles
+    slidesPerView: 1,
+    
+    // Responsive
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 40,
+      },
+    },
+  });
+});
+</script>

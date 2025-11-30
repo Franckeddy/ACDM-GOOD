@@ -1,0 +1,17 @@
+.contact-container{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: flex-start;
+}
+
+.contact__map-block,
+.contact-form{
+	flex: 1 1 calc(50% - 1rem);
+	min-width: 320px;
+}
+
+@media (max-width: 900px){
+	.contact__map-block,
+	.contact-form{ flex-basis: 100%; }
+}

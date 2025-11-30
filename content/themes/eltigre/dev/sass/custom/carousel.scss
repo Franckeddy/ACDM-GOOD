@@ -1,0 +1,79 @@
+/* ========== CAROUSEL MOBILE IMAGES PRINCIPALES ========== */
+.mobile-carousel {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.mobile-carousel__track {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.mobile-carousel__track::-webkit-scrollbar {
+	display: none;
+}
+
+.mobile-carousel__slide {
+	flex: 0 0 100%;
+	scroll-snap-align: center;
+	scroll-snap-stop: always;
+	position: relative;
+}
+
+.mobile-carousel__slide a {
+	display: block;
+	width: 100%;
+	position: relative;
+}
+
+.mobile-carousel__slide img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+	aspect-ratio: 1 / 1;
+	border-radius: 8px;
+}
+
+/* ========== PAGINATION (POINTS) ========== */
+.mobile-carousel__dots {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	padding: 1rem 0;
+	position: absolute;
+	bottom: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 10;
+}
+
+.mobile-carousel__dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.5);
+	border: 2px solid rgba(255, 255, 255, 0.8);
+	transition: all 0.3s ease;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-carousel__dot.active {
+	background: #d4af37;
+	border-color: #d4af37;
+	transform: scale(1.2);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+	.mobile-carousel__slide img {
+		border-radius: 0;
+	}
+}
