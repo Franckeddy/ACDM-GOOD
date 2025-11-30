@@ -26,7 +26,7 @@ export default class SingleWatch {
     this.sections = document.querySelectorAll('.single__watches.desktop');
     this.aside = document.querySelector('.single__watches__text-part-wrapper');
     this.sectionsMobile = document.querySelectorAll('.single__watches.mobile');
-
+    
     initSwipers(this.sectionsMobile, {
       pagination: {
         el: '.swiper-pagination',
@@ -40,10 +40,10 @@ export default class SingleWatch {
       autoHeight: true,
       effect: 'fade',
     });
-
-
+    
     this.animate();
     setTimeout(() => this.scrollToImage(), 250);
+    this.initToggles(); // ⭐ LIGNE AJOUTÉE
   }
 
   animate() {
@@ -99,6 +99,30 @@ export default class SingleWatch {
         bullet.classList.add('active');
       }
     })
-  };
+  }
+
+  // ⭐ MÉTHODE AJOUTÉE - Gestion des accordéons
+  initToggles() {
+    const toggleHeaders = document.querySelectorAll('.js-toggle');
+    
+    toggleHeaders.forEach(header => {
+      header.addEventListener('click', function() {
+        const toggle = this.closest('.toggle');
+        const content = toggle.querySelector('.toggle__content');
+        
+        const isActive = content.classList.contains('active');
+        
+        if (isActive) {
+          content.classList.remove('active');
+          this.classList.remove('active');
+          content.style.maxHeight = null;
+        } else {
+          content.classList.add('active');
+          this.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+  }
 
 }

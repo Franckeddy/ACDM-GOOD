@@ -3,116 +3,1090 @@
 {% block content %}
 	{% for post in posts %}
 		<!-- ===== DESKTOP ===== -->
-		<div class="content-wrapper content-wrapper-desktop">
-			<article class="post-type-{{ post.post_type }} single__watches desktop" id="post-{{ post.ID }}">
-				<div class="single__watches--container" >
-					<div class="single__watches-images">
+		<section class="product desktop-only pt-2.5 md:pt-8 pb-10 md:pb-0">
+			<div class="container">
+				<div class="grid grid-cols-24 gap-2 md:gap-5">
+					
+					<!-- HEADER MOBILE ONLY -->
+					<div class="product__header col-span-24 flex flex-col items-center md:hidden">
+						<h2 class="product__title break-words text-70 flex flex-col mb-5">
+							{% if post.custom_fields.brand %}
+								<a href="{{ post.custom_fields.brand_url }}" class="text-10 text-grey mb-2.5">
+									{{ post.custom_fields.brand }}
+								</a>
+							{% endif %}
+							{{ post.title }}
+						</h2>
+					</div>
+
+					<!-- IMAGES GALLERY - LEFT COLUMN -->
+					<div class="product__images col-span-24 md:col-span-15">
+						<div class="md:sticky js-sticky md:pb-36">
+							<div class="gallery-container">
+								<div class="gallery-wrapper md:grid md:grid-cols-24 md:gap-3.5">
+									
+									{% if post.images is not empty %}
+										<!-- IMAGE PRINCIPALE -->
+										<div class="gallery-item col-span-24 js-gallery-item" 
+											data-src="{{ Image(post.images[0]).src }}"
+											data-width="2560" 
+											data-height="2560">
+											<figure class="figure bg-black">
+												<div class="figure__holder relative" style="padding: 0 0 100%">
+													<a href="{{ Image(post.images[0]).src }}" data-lightbox="watches">
+														<img 
+															class="absolute inset-0 object-cover h-full w-full"
+															src="{{ Image(post.images[0]).src }}"
+															alt="{{ Image(post.images[0]).alt }}"
+															width="1600" 
+															height="1600"
+														/>
+													</a>
+												</div>
+											</figure>
+										</div>
+
+										<!-- IMAGES SECONDAIRES (GRILLE) -->
+										{% if post.images|length > 1 %}
+											{% for key, galerie in post.images %}
+												{% if key > 0 %}
+													<div class="gallery-item md:col-span-12 js-gallery-item" 
+														data-src="{{ Image(galerie).src }}"
+														data-width="2560" 
+														data-height="2560">
+														<figure class="figure bg-black">
+															<div class="figure__holder relative" style="padding: 0 0 100%">
+																<a href="{{ Image(galerie).src }}" data-lightbox="watches">
+																	<img 
+																		class="absolute inset-0 object-cover h-full w-full"
+																		src="{{ Image(galerie).src }}"
+																		alt="{{ Image(galerie).alt }}"
+																		width="1600" 
+																		height="1600"
+																	/>
+																</a>
+															</div>
+														</figure>
+													</div>
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+
+									{% else %}
+										<!-- FALLBACK SI PAS D'IMAGES -->
+										<div class="gallery-item col-span-24">
+											<figure class="figure bg-black">
+												<div class="figure__holder relative" style="padding: 0 0 100%">
+													<a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch">
+														<img 
+															class="absolute inset-0 object-cover h-full w-full"
+															src="{{ Image(post.thumbnail).src }}"
+															alt="{{ Image(post.thumbnail).alt }}"
+															width="1600" 
+															height="1600"
+														/>
+													</a>
+												</div>
+											</figure>
+										</div>
+									{% endif %}
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- PRODUCT DETAILS - RIGHT COLUMN -->
+					<div class="product__details col-span-24 md:col-span-7 md:col-start-17 md:pt-10">
+						<div class="md:sticky js-sticky md:pb-36">
+							
+							<!-- HEADER DESKTOP ONLY -->
+							<div class="hidden md:flex flex-col">
+								<h2 class="product__title break-words text-70 flex flex-col mb-5">
+									{% if post.custom_fields.brand %}
+										<a href="{{ post.custom_fields.brand_url }}" class="text-10 text-grey mb-2.5">
+											{{ post.custom_fields.brand }}
+										</a>
+									{% endif %}
+									{{ post.title }}
+								</h2>
+							</div>
+
+							<!-- DESCRIPTION -->
+							<div class="product__details__description text-14 mb-12 md:mb-16">
+								{{ post.content }}
+
+								<!-- ACF CONTENT -->
+								{% if post.custom_fields.long_title or post.custom_fields.long %}
+									<div class="acf-section mt-6">
+										{% if post.custom_fields.long_title %}
+											<h3 class="text-16 font-semibold mb-3">{{ post.custom_fields.long_title }}</h3>
+										{% endif %}
+										{% if post.custom_fields.long %}
+											{{ post.custom_fields.long|raw }}
+										{% endif %}
+									</div>
+								{% endif %}
+
+								{% if post.custom_fields.short_title or post.custom_fields.short %}
+									<div class="acf-section mt-6">
+										{% if post.custom_fields.short_title %}
+											<h3 class="text-16 font-semibold mb-3">{{ post.custom_fields.short_title }}</h3>
+										{% endif %}
+										{% if post.custom_fields.short %}
+											{{ post.custom_fields.short|raw }}
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+
+							<!-- TOGGLES ACCORDIONS -->
+								<!-- WARRANTY TOGGLE (si besoin) -->
+								<div class="flex flex-col pb-5 border-t border-grey-light">
+									<h3 class="pt-5 text-10 relative cursor-pointer">
+										Garantie & Services
+									</h3>
+										<div class="mt-3">
+											<ul>
+												<li>Montre révisée et garantie 3 ans par notre atelier.</li>
+											</ul>
+									</div>
+							</div>
+
+              <!-- Same Spirit Section -->
+		          {% include 'partial/same-spirit.twig' with { post: post } only %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ===== MOBILE VERSION ===== -->
+		<section class="product mobile-only">
+			<div class="container px-4 py-6">
+				
+				<!-- MOBILE CAROUSEL -->
+				<div class="mobile-carousel mb-6">
+					<div class="mobile-carousel__track">
 						{% if post.images is not empty %}
-							{% for key, galerie in post.images %}
-							<a href="{{ Image(galerie).src }}" data-lightbox="watches">
-								<img 
-									src="{{ Image(galerie).src }}"
-									srcset="{{ Image(galerie).src }}"
-									alt="{{ Image(galerie).alt }}"
-									id="watch-{{key}}"
-								/>
-							</a>
+							{% for galerie in post.images %}
+								<div class="mobile-carousel__slide">
+									<a href="{{ Image(galerie).src }}" data-lightbox="watches-mobile">
+										<img
+											src="{{ Image(galerie).src }}"
+											alt="{{ Image(galerie).alt }}"
+											loading="lazy"
+											class="w-full h-auto"
+										/>
+									</a>
+								</div>
 							{% endfor %}
 						{% else %}
-						<a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch">
-							<img
-							src="{{ Image(post.thumbnail).src }}"
-							srcset="{{ Image(image).src }}"
-							alt="{{ Image(image).alt }}"
-							/>
-						</a>
+							<div class="mobile-carousel__slide">
+								<a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch-mobile">
+									<img
+										src="{{ Image(post.thumbnail).src }}"
+										alt="{{ Image(post.thumbnail).alt }}"
+										loading="lazy"
+										class="w-full h-auto"
+									/>
+								</a>
+							</div>
 						{% endif %}
 					</div>
 				</div>
-				<div class="single__watches__text-part-wrapper">
-					<div class="single__watches__text-part">
-						<h1 class="single__watches__title" style="margin: unset!important;">
-							{{ post.title }}
-						</h1>
-						<div class="single__watches__content">
-							{{ post.content }}
-              <?php if (get_field('long_title') || get_field('long')): ?>
-                <h2 class="title_h2_acf"><?= esc_html(get_field('long_title')); ?></h2>
-                <p><?= wp_kses_post(get_field('long')); ?></p>
-              <?php endif; ?>
-              <?php if (get_field('short_title') || get_field('short')): ?>
-                <h2 class="title_h2_acf"><?= esc_html(get_field('short_title')); ?></h2>
-                <p><?= wp_kses_post(get_field('short')); ?></p>
-              <?php endif; ?>
-              <h2 class="title_h2_acf">Garantie & Services</h2>
-							<ul>
-								<li>Montre révisée et garantie 3 ans par notre atelier.</li>
-							</ul>
-						</div>
-						<div class="single__watches__button-container">
-							<a class="cta cta__interest" href="{{ interest.url }}">{{ interest.label }}</a> 
-							<a class="cta cta__return" href="{{ watches.url }}">{{ watches.label }}</a> 
-						</div>
-            {% include 'partial/same-spirit.twig' with { post: post } only %}
-					</div>
+
+				<!-- MOBILE CONTENT -->
+				<h1 class="text-24 font-bold mb-4">{{ post.title }}</h1>
+				<div class="content text-14 mb-6">
+					{{ post.content }}
 				</div>
-			</article>
-		</div>
 
-    <!-- ===== MOBILE ===== -->
-    <div class="content-wrapper content-wrapper-mobile">
-      <article class="post-type-{{ post.post_type }} single__watches mobile" id="post-{{ post.ID }}">
-        <div class="single__watches--container">
-          <!-- ✅ MOBILE CAROUSEL CSS PUR -->
-          <div class="single__watches-images">
-            <div class="mobile-carousel">
-              <div class="mobile-carousel__track">
-                {% if post.images is not empty %}
-                  {% for key, galerie in post.images %}
-                    <div class="mobile-carousel__slide">
-                      <a href="{{ Image(galerie).src }}" data-lightbox="watches-mobile">
-                        <img
-                          src="{{ Image(galerie).src }}"
-                          alt="{{ Image(galerie).alt }}"
-                          loading="lazy"
-                        />
-                      </a>
-                    </div>
-                  {% endfor %}
-                {% else %}
-                  <div class="mobile-carousel__slide">
-                    <a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch-mobile">
-                      <img
-                        src="{{ Image(post.thumbnail).src }}"
-                        alt="{{ Image(post.thumbnail).alt }}"
-                        loading="lazy"
-                      />
-                    </a>
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-          </div>
+				{% if not post.custom_fields.sold %}
+					<div class="flex gap-3 mb-6">
+						<a class="button is-primary flex-1 text-center" href="{{ interest.url }}">{{ interest.label }}</a>
+						<a class="button is-secondary flex-1 text-center" href="{{ watches.url }}">{{ watches.label }}</a>
+					</div>
+				{% endif %}
 
-          <!-- TEXTE ET BOUTONS -->
-          <div class="single__watches__text-part-wrapper">
-            <div class="single__watches__text-part">
-              <h1 class="single__watches__title">
-                {{ post.title }}
-              </h1>
-              <div class="single__watches__content">
-                {{ post.content }}
-              </div>
-              <div class="single__watches__button-container">
-                <a class="cta cta__interest" href="{{ interest.url }}">{{ interest.label }}</a>
-                <a class="cta cta__return" href="{{ watches.url }}">{{ watches.label }}</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- ✅ SAME-SPIRIT EN MOBILE -->
-        {% include 'partial/same-spirit.twig' with { post: post } only %}
-      </article>
-    </div>
-  {% endfor %}
+			</div>
+		</section>
+	{% endfor %}
+
+<style>
+/**
+ * SINGLE WATCH - LAYOUT TÉMOIN
+ * Adaptation du rendu amsterdamvintagewatches.com
+ * Version: 2.0.0
+ */
+
+/* ========================================
+   VARIABLES & RESET
+   ======================================== */
+:root {
+  --color-primary: #000;
+  --color-grey: #666;
+  --color-grey-light: #e5e5e5;
+  --color-beige: #f5f5f0;
+  --color-navy: #1a1a2e;
+  --color-white: #fff;
+  --color-black: #000;
+}
+
+/* ========================================
+   CONTAINER & GRID SYSTEM
+   ======================================== */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-24 {
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+}
+
+.col-span-24 {
+  grid-column: span 24 / span 24;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
+}
+
+.gap-3\.5 {
+  gap: 0.875rem;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+@media (min-width: 768px) {
+  .md\:grid {
+    display: grid;
+  }
+  
+  .md\:grid-cols-24 {
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+  }
+  
+  .md\:col-span-15 {
+    grid-column: span 15 / span 15;
+  }
+  
+  .md\:col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+  
+  .md\:col-start-17 {
+    grid-column-start: 17;
+  }
+  
+  .md\:col-span-12 {
+    grid-column: span 12 / span 12;
+  }
+  
+  .md\:gap-3\.5 {
+    gap: 0.875rem;
+  }
+  
+  .md\:gap-5 {
+    gap: 1.25rem;
+  }
+  
+  .md\:pt-8 {
+    padding-top: 2rem;
+  }
+  
+  .md\:pb-36 {
+    padding-bottom: 9rem;
+  }
+  
+  .md\:sticky {
+    position: sticky;
+  }
+  
+  .md\:hidden {
+    display: none;
+  }
+  
+  .md\:flex {
+    display: flex;
+  }
+  
+  .md\:mt-5 {
+    margin-top: 1.25rem;
+  }
+  
+  .md\:mb-16 {
+    margin-bottom: 4rem;
+  }
+}
+
+/* ========================================
+   PRODUCT SECTION
+   ======================================== */
+.product {
+  padding-top: 0.625rem;
+  padding-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .product {
+    padding-top: 2rem;
+    padding-bottom: 0;
+  }
+}
+
+/* ========================================
+   PRODUCT HEADER
+   ======================================== */
+.product__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .product__header {
+    display: none!important;
+  }
+}
+
+.product__title {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  font-weight: 400;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .product__title {
+    text-align: left;
+  }
+}
+
+.product__title a {
+  font-size: 0.625rem;
+  color: var(--color-grey);
+  margin-bottom: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+/* ========================================
+   IMAGES GALLERY
+   ======================================== */
+.product__images {
+  width: 100%;
+}
+
+.gallery-container {
+  width: 100%;
+}
+
+.gallery-wrapper {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .gallery-wrapper {
+    display: grid;
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+}
+
+.gallery-item {
+  width: 100%;
+  margin-bottom: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .gallery-item {
+    margin-bottom: 0;
+  }
+  
+  .gallery-item:first-child {
+    grid-column: span 24 / span 24;
+  }
+  
+  .gallery-item:not(:first-child) {
+    grid-column: span 12 / span 12;
+  }
+}
+
+.figure {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.figure.bg-black {
+  background-color: var(--color-black);
+}
+
+.figure__holder {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.figure__holder img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.figure__holder a {
+  display: block;
+  cursor: zoom-in;
+}
+
+.figure__holder:hover img {
+  transform: scale(1.05);
+}
+
+/* ========================================
+   PRODUCT DETAILS
+   ======================================== */
+.product__details {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .product__details .js-sticky {
+    position: sticky;
+  }
+}
+
+.product__details .hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .product__details .hidden.md\:flex {
+    display: flex;
+  }
+}
+
+/* ========================================
+   ADD TO CART / PRICE
+   ======================================== */
+.add-to-cart {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.625rem;
+}
+
+.product__price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--color-black);
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.button.is-grey {
+  background-color: #d5d5d5;
+  color: var(--color-grey);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.button.is-primary {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.button.is-primary:hover {
+  background-color: #333;
+}
+
+.button.is-secondary {
+  background-color: #f0f0f0;
+  color: var(--color-black);
+  border: 1px solid #ddd;
+}
+
+.button.is-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* ========================================
+   USPS BANNER
+   ======================================== */
+.product__details__usps {
+  list-style: none;
+  padding: 0.625rem;
+  margin: 0 0 2rem 0;
+  background-color: var(--color-beige);
+  color: var(--color-navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .product__details__usps {
+    margin-bottom: 4rem;
+  }
+}
+
+.product__details__usps li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product__details__usps svg {
+  margin-right: 0.625rem;
+}
+
+/* ========================================
+   DESCRIPTION
+   ======================================== */
+.product__details__description {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  color: var(--color-grey);
+}
+
+@media (min-width: 768px) {
+  .product__details__description {
+    margin-bottom: 4rem;
+  }
+}
+
+.product__details__description p {
+  margin-bottom: 1rem;
+}
+
+.product__details__description a {
+  color: var(--color-black);
+  text-decoration: underline;
+}
+
+.product__details__description a:hover {
+  color: var(--color-grey);
+}
+
+.acf-section {
+  margin-top: 1.5rem;
+}
+
+.acf-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-black);
+}
+
+/* ========================================
+   TOGGLES / ACCORDIONS
+   ======================================== */
+.product__details__toggles {
+  width: 100%;
+}
+
+.toggle {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.25rem;
+  border-top: 1px solid var(--color-grey-light);
+}
+
+.toggle__header {
+  padding-top: 1.25rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  color: var(--color-black);
+}
+
+.toggle__header__icon {
+  position: absolute;
+  right: 0;
+  top: 1.25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.toggle__header__icon span {
+  display: block;
+  width: 0.75rem;
+  height: 1px;
+  background-color: currentColor;
+  position: absolute;
+  transition: transform 0.3s ease;
+}
+
+.toggle__header__icon span:last-child {
+  transform: rotate(90deg);
+}
+
+.toggle__header.active .toggle__header__icon span:last-child {
+  transform: rotate(0deg);
+}
+
+.toggle__content {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--color-grey);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.toggle__content.active {
+  max-height: 1000px;
+  padding-top: 0.75rem;
+}
+
+.toggle__content ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toggle__content li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.toggle__content li span:first-child {
+  width: 41.666667%;
+  font-size: 0.625rem;
+  color: var(--color-grey);
+}
+
+.toggle__content li span:last-child {
+  width: 58.333333%;
+  font-size: 0.75rem;
+}
+
+/* ========================================
+   MOBILE CAROUSEL
+   ======================================== */
+.mobile-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-carousel__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.mobile-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-carousel__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+.mobile-carousel__slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ========================================
+   VISIBILITY UTILITIES
+   ======================================== */
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+.mobile-only {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  inset: 0;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-5\/12 {
+  width: 41.666667%;
+}
+
+.w-7\/12 {
+  width: 58.333333%;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
+.h-px {
+  height: 1px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.break-words {
+  word-wrap: break-word;
+}
+
+.transform {
+  transform: translateZ(0);
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+.-mt-px {
+  margin-top: -1px;
+}
+
+/* Typography */
+.text-10 {
+  font-size: 0.625rem;
+}
+
+.text-12 {
+  font-size: 0.75rem;
+}
+
+.text-14 {
+  font-size: 0.875rem;
+}
+
+.text-16 {
+  font-size: 1rem;
+}
+
+.text-20 {
+  font-size: 1.25rem;
+}
+
+.text-24 {
+  font-size: 1.5rem;
+}
+
+.text-70 {
+  font-size: 1.75rem;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+/* Colors */
+.text-grey {
+  color: var(--color-grey);
+}
+
+.text-navy {
+  color: var(--color-navy);
+}
+
+.text-white {
+  color: var(--color-white);
+}
+
+.bg-black {
+  background-color: var(--color-black);
+}
+
+.bg-beige {
+  background-color: var(--color-beige);
+}
+
+.bg-grey {
+  background-color: #d5d5d5;
+}
+
+.bg-current {
+  background-color: currentColor;
+}
+
+.border-grey-light {
+  border-color: var(--color-grey-light);
+}
+
+.border-t {
+  border-top-width: 1px;
+  border-style: solid;
+}
+
+/* Spacing */
+.p-2\.5 {
+  padding: 0.625rem;
+}
+
+.pt-2\.5 {
+  padding-top: 0.625rem;
+}
+
+.pt-5 {
+  padding-top: 1.25rem;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-2\.5 {
+  margin-bottom: 0.625rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mr-2\.5 {
+  margin-right: 0.625rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+/* Misc */
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  .product__details__toggles,
+  .add-to-cart,
+  .product__details__usps {
+    display: none;
+  }
+}
+
+/**
+ * ACCORDEONS CSS-ONLY (sans JavaScript)
+ * Alternative si vous ne voulez pas modifier votre JS
+ * Utilisez des checkbox pour gérer l'état ouvert/fermé
+ */
+
+/* Ajoutez ce CSS à votre single-watch-styles.css */
+
+/* ========================================
+   TOGGLES CSS-ONLY VERSION
+   ======================================== */
+
+/* Cacher les checkbox */
+.toggle__checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Header cliquable */
+.toggle__header {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Contenu caché par défaut */
+.toggle__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+/* Rotation de l'icône */
+.toggle__header__icon span:last-child {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+/* État ouvert (quand checkbox est checked) */
+.toggle__checkbox:checked ~ .toggle__content {
+  max-height: 1000px;
+  padding-top: 0.75rem;
+}
+
+.toggle__checkbox:checked ~ .toggle__header .toggle__header__icon span:last-child {
+  transform: rotate(0deg);
+}
+
+</style>
+
 {% endblock %}
