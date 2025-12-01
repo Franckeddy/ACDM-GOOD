@@ -1,217 +1,201 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% for post in posts %}
-		<!-- ===== DESKTOP ===== -->
-		<section class="product desktop-only pt-2.5 md:pt-8 pb-10 md:pb-0">
-			<div class="container">
-				<div class="grid grid-cols-24 gap-2 md:gap-5">
-					
-					<!-- HEADER MOBILE ONLY -->
-					<div class="product__header col-span-24 flex flex-col items-center md:hidden">
-						<h2 class="product__title break-words text-70 flex flex-col mb-5">
-							{% if post.custom_fields.brand %}
-								<a href="{{ post.custom_fields.brand_url }}" class="text-10 text-grey mb-2.5">
-									{{ post.custom_fields.brand }}
-								</a>
-							{% endif %}
-							{{ post.title }}
-						</h2>
-					</div>
+    {% for post in posts %}
 
-					<!-- IMAGES GALLERY - LEFT COLUMN -->
-					<div class="product__images col-span-24 md:col-span-15">
-						<div class="md:sticky js-sticky md:pb-36">
-							<div class="gallery-container">
-								<div class="gallery-wrapper md:grid md:grid-cols-24 md:gap-3.5">
-									
-									{% if post.images is not empty %}
-										<!-- IMAGE PRINCIPALE -->
-										<div class="gallery-item col-span-24 js-gallery-item" 
-											data-src="{{ Image(post.images[0]).src }}"
-											data-width="2560" 
-											data-height="2560">
-											<figure class="figure bg-black">
-												<div class="figure__holder relative" style="padding: 0 0 100%">
-													<a href="{{ Image(post.images[0]).src }}" data-lightbox="watches">
-														<img 
-															class="absolute inset-0 object-cover h-full w-full"
-															src="{{ Image(post.images[0]).src }}"
-															alt="{{ Image(post.images[0]).alt }}"
-															width="1600" 
-															height="1600"
-														/>
-													</a>
-												</div>
-											</figure>
-										</div>
+        {% set total = post.images|length %}
+        {% set is_even = (total % 2 == 0) %}
 
-										<!-- IMAGES SECONDAIRES (GRILLE) -->
-										{% if post.images|length > 1 %}
-											{% for key, galerie in post.images %}
-												{% if key > 0 %}
-													<div class="gallery-item md:col-span-12 js-gallery-item" 
-														data-src="{{ Image(galerie).src }}"
-														data-width="2560" 
-														data-height="2560">
-														<figure class="figure bg-black">
-															<div class="figure__holder relative" style="padding: 0 0 100%">
-																<a href="{{ Image(galerie).src }}" data-lightbox="watches">
-																	<img 
-																		class="absolute inset-0 object-cover h-full w-full"
-																		src="{{ Image(galerie).src }}"
-																		alt="{{ Image(galerie).alt }}"
-																		width="1600" 
-																		height="1600"
-																	/>
-																</a>
-															</div>
-														</figure>
-													</div>
-												{% endif %}
-											{% endfor %}
-										{% endif %}
+        <section class="product desktop-only pt-2.5 md:pt-8 pb-10 md:pb-0">
+            <div class="container">
+                <div class="grid grid-cols-24 gap-2 md:gap-5">
 
-									{% else %}
-										<!-- FALLBACK SI PAS D'IMAGES -->
-										<div class="gallery-item col-span-24">
-											<figure class="figure bg-black">
-												<div class="figure__holder relative" style="padding: 0 0 100%">
-													<a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch">
-														<img 
-															class="absolute inset-0 object-cover h-full w-full"
-															src="{{ Image(post.thumbnail).src }}"
-															alt="{{ Image(post.thumbnail).alt }}"
-															width="1600" 
-															height="1600"
-														/>
-													</a>
-												</div>
-											</figure>
-										</div>
-									{% endif %}
+                    <!-- HEADER MOBILE ONLY -->
+                    <div class="product__header col-span-24 flex flex-col items-center md:hidden">
+                        <h2 class="product__title break-words text-70 flex flex-col mb-5">
+                            {% if post.custom_fields.brand %}
+                                <a href="{{ post.custom_fields.brand_url }}" class="text-10 text-grey mb-2.5">
+                                    {{ post.custom_fields.brand }}
+                                </a>
+                            {% endif %}
+                            {{ post.title }}
+                        </h2>
+                    </div>
 
-								</div>
-							</div>
-						</div>
-					</div>
+                    <!-- IMAGES GALLERY -->
+                    <div class="product__images col-span-24 md:col-span-15">
+                        <div class="md:sticky js-sticky md:pb-36">
+                            <div class="gallery-container">
+                                <div class="gallery-wrapper md:grid md:grid-cols-24 md:gap-3.5">
 
-					<!-- PRODUCT DETAILS - RIGHT COLUMN -->
-					<div class="product__details col-span-24 md:col-span-7 md:col-start-17 md:pt-10">
-						<div class="md:sticky js-sticky md:pb-36">
-							
-							<!-- HEADER DESKTOP ONLY -->
-							<div class="hidden md:flex flex-col">
-								<h2 class="product__title break-words text-70 flex flex-col mb-5">
-									{% if post.custom_fields.brand %}
-										<a href="{{ post.custom_fields.brand_url }}" class="text-10 text-grey mb-2.5">
-											{{ post.custom_fields.brand }}
-										</a>
-									{% endif %}
-									{{ post.title }}
-								</h2>
-							</div>
+                                    {% if post.images is not empty %}
+                                        <!-- IMAGE PRINCIPALE -->
+                                        <div class="gallery-item col-span-24 js-gallery-item"
+                                            data-src="{{ Image(post.images[0]).src }}"
+                                            data-width="2560"
+                                            data-height="2560">
+                                            <figure class="figure bg-black">
+                                                <div class="figure__holder relative" style="padding: 0 0 100%">
+                                                    <a href="{{ Image(post.images[0]).src }}" data-lightbox="watches">
+                                                        <img class="absolute inset-0 object-cover h-full w-full"
+                                                            src="{{ Image(post.images[0]).src }}"
+                                                            alt="{{ Image(post.images[0]).alt }}"
+                                                            width="1600" height="1600" />
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                        </div>
 
-							<!-- DESCRIPTION -->
-							<div class="product__details__description text-14 mb-12 md:mb-16">
-								{{ post.content }}
+                                        <!-- IMAGES SECONDAIRES -->
+                                        {% for key, galerie in post.images %}
+                                            {% if key > 0 %}
 
-								<!-- ACF CONTENT -->
-								{% if post.custom_fields.long_title or post.custom_fields.long %}
-									<div class="acf-section mt-6">
-										{% if post.custom_fields.long_title %}
-											<h3 class="text-16 font-semibold mb-3">{{ post.custom_fields.long_title }}</h3>
-										{% endif %}
-										{% if post.custom_fields.long %}
-											{{ post.custom_fields.long|raw }}
-										{% endif %}
-									</div>
-								{% endif %}
+                                                {% set is_last = (key + 1 == total) %}
 
-								{% if post.custom_fields.short_title or post.custom_fields.short %}
-									<div class="acf-section mt-6">
-										{% if post.custom_fields.short_title %}
-											<h3 class="text-16 font-semibold mb-3">{{ post.custom_fields.short_title }}</h3>
-										{% endif %}
-										{% if post.custom_fields.short %}
-											{{ post.custom_fields.short|raw }}
-										{% endif %}
-									</div>
-								{% endif %}
-							</div>
+                                                <div class="gallery-item
+                                                    {% if is_last and is_even %}
+                                                        gallery-item--even-last
+                                                    {% else %}
+                                                        md:col-span-12
+                                                    {% endif %}
+                                                    js-gallery-item"
+                                                    data-src="{{ Image(galerie).src }}"
+                                                    data-width="2560"
+                                                    data-height="2560">
+                                                    <figure class="figure bg-black">
+                                                        <div class="figure__holder relative" style="padding: 0 0 100%">
+                                                            <a href="{{ Image(galerie).src }}" data-lightbox="watches">
+                                                                <img class="absolute inset-0 object-cover h-full w-full"
+                                                                    src="{{ Image(galerie).src }}"
+                                                                    alt="{{ Image(galerie).alt }}"
+                                                                    width="1600" height="1600" />
+                                                            </a>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
 
-							<!-- TOGGLES ACCORDIONS -->
-								<!-- WARRANTY TOGGLE (si besoin) -->
-								<div class="flex flex-col pb-5 border-t border-grey-light">
-									<h3 class="pt-5 text-10 relative cursor-pointer">
-										Garantie & Services
-									</h3>
-										<div class="mt-3">
-											<ul>
-												<li>Montre révisée et garantie 3 ans par notre atelier.</li>
-											</ul>
-									</div>
-							</div>
+                                    {% else %}
+                                        <!-- FALLBACK SI PAS D'IMAGES -->
+                                        <div class="gallery-item col-span-24">
+                                            <figure class="figure bg-black">
+                                                <div class="figure__holder relative" style="padding: 0 0 100%">
+                                                    <a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch">
+                                                        <img class="absolute inset-0 object-cover h-full w-full"
+                                                            src="{{ Image(post.thumbnail).src }}"
+                                                            alt="{{ Image(post.thumbnail).alt }}"
+                                                            width="1600" height="1600" />
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    {% endif %}
 
-              <!-- Same Spirit Section -->
-		          {% include 'partial/same-spirit.twig' with { post: post } only %}
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-		<!-- ===== MOBILE VERSION ===== -->
-		<section class="product mobile-only">
-			<div class="container px-4 py-6">
-				
-				<!-- MOBILE CAROUSEL -->
-				<div class="mobile-carousel mb-6">
-					<div class="mobile-carousel__track">
-						{% if post.images is not empty %}
-							{% for galerie in post.images %}
-								<div class="mobile-carousel__slide">
-									<a href="{{ Image(galerie).src }}" data-lightbox="watches-mobile">
-										<img
-											src="{{ Image(galerie).src }}"
-											alt="{{ Image(galerie).alt }}"
-											loading="lazy"
-											class="w-full h-auto"
-										/>
-									</a>
-								</div>
-							{% endfor %}
-						{% else %}
-							<div class="mobile-carousel__slide">
-								<a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch-mobile">
-									<img
-										src="{{ Image(post.thumbnail).src }}"
-										alt="{{ Image(post.thumbnail).alt }}"
-										loading="lazy"
-										class="w-full h-auto"
-									/>
-								</a>
-							</div>
-						{% endif %}
-					</div>
-				</div>
+                    <!-- PRODUCT DETAILS -->
+                    <div class="product__details col-span-24 md:col-span-7 md:col-start-17 md:pt-10">
+                        <div class="md:sticky js-sticky md:pb-36">
 
-				<!-- MOBILE CONTENT -->
-				<h1 class="text-24 font-bold mb-4">{{ post.title }}</h1>
-				<div class="content text-14 mb-6">
-					{{ post.content }}
-				</div>
+                            <div class="hidden md:flex flex-col">
+                                <h2 class="product__title break-words text-70 flex flex-col mb-5">
+                                    {% if post.custom_fields.brand %}
+                                        <a href="{{ post.custom_fields.brand_url }}" class="text-10 text-grey mb-2.5">
+                                            {{ post.custom_fields.brand }}
+                                        </a>
+                                    {% endif %}
+                                    {{ post.title }}
+                                </h2>
+                            </div>
 
-				{% if not post.custom_fields.sold %}
-					<div class="flex gap-3 mb-6">
-						<a class="button is-primary flex-1 text-center" href="{{ interest.url }}">{{ interest.label }}</a>
-						<a class="button is-secondary flex-1 text-center" href="{{ watches.url }}">{{ watches.label }}</a>
-					</div>
-				{% endif %}
+                            <div class="product__details__description text-14 mb-12 md:mb-16">
+                                {{ post.content }}
 
-			</div>
-		</section>
-	{% endfor %}
+                                {% if post.custom_fields.long_title or post.custom_fields.long %}
+                                    <div class="acf-section mt-6">
+                                        {% if post.custom_fields.long_title %}
+                                            <h3 class="text-16 font-semibold mb-3">{{ post.custom_fields.long_title }}</h3>
+                                        {% endif %}
+                                        {% if post.custom_fields.long %}
+                                            {{ post.custom_fields.long|raw }}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% if post.custom_fields.short_title or post.custom_fields.short %}
+                                    <div class="acf-section mt-6">
+                                        {% if post.custom_fields.short_title %}
+                                            <h3 class="text-16 font-semibold mb-3">{{ post.custom_fields.short_title }}</h3>
+                                        {% endif %}
+                                        {% if post.custom_fields.short %}
+                                            {{ post.custom_fields.short|raw }}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="flex flex-col pb-5">
+                                <h3 class="pt-5 relative" style="
+                                                                font-size: 1rem;
+                                                                font-weight: 700;
+                                                                margin: 0 0 1rem 0;
+                                                                color: #1a1a1a;
+                                                                ">
+                                  Garantie & Services
+                                </h3>
+                                <div class="mt-3">
+                                    <ul><li>Montre révisée et garantie 3 ans par notre atelier.</li></ul>
+                                </div>
+                            </div>
+
+                            {% include 'partial/same-spirit.twig' with { post: post } only %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MOBILE -->
+        <section class="product mobile-only">
+            <div class="container px-4 py-6">
+                <div class="mobile-carousel mb-6">
+                    <div class="mobile-carousel__track">
+                        {% if post.images is not empty %}
+                            {% for galerie in post.images %}
+                                <div class="mobile-carousel__slide">
+                                    <a href="{{ Image(galerie).src }}" data-lightbox="watches-mobile">
+                                        <img src="{{ Image(galerie).src }}" alt="{{ Image(galerie).alt }}" loading="lazy" class="w-full h-auto" />
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="mobile-carousel__slide">
+                                <a href="{{ Image(post.thumbnail).src }}" data-lightbox="watch-mobile">
+                                    <img src="{{ Image(post.thumbnail).src }}" alt="{{ Image(post.thumbnail).alt }}" loading="lazy" class="w-full h-auto" />
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <h1 class="text-24 font-bold mb-4">{{ post.title }}</h1>
+                <div class="content text-14 mb-6">{{ post.content }}</div>
+
+                {% if not post.custom_fields.sold %}
+                    <div class="flex gap-3 mb-6">
+                        <a class="button is-primary flex-1 text-center" href="{{ interest.url }}">{{ interest.label }}</a>
+                        <a class="button is-secondary flex-1 text-center" href="{{ watches.url }}">{{ watches.label }}</a>
+                    </div>
+                {% endif %}
+
+            </div>
+        </section>
+
+    {% endfor %}
 
 <style>
 /**
@@ -1086,6 +1070,31 @@
 .toggle__checkbox:checked ~ .toggle__header .toggle__header__icon span:last-child {
   transform: rotate(0deg);
 }
+
+.gallery-item--even-last {
+    grid-column: span 24 / span 24 !important;
+}
+
+/* Lightbox — plein écran réel */
+.lb-outerContainer,
+.lb-image {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+}
+
+.lb-image {
+    object-fit: contain !important; /* ou cover si tu préfères */
+}
+
+/* Empêche les marges internes de Lightbox */
+.lb-container,
+.lb-data {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 
 </style>
 
