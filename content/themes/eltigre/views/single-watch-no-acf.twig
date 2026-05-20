@@ -108,6 +108,9 @@
 							{% if post.meta('diameter') %}
 								<p><strong>Diamètre :</strong> {{ post.meta('diameter') }}</p>
 							{% endif %}
+              {% if post.meta('dimensions') %}
+								<p><strong>Dimensions :</strong> {{ post.meta('dimensions') }}</p>
+							{% endif %}
 							{% if post.meta('case_material') %}
 								<p><strong>Matériau :</strong> {{ post.meta('case_material') }}</p>
 							{% endif %}

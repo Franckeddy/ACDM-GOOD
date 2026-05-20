@@ -28,6 +28,7 @@ if (function_exists('get_field')) {
         'price'              => get_field('price'),
         'reference'          => get_field('reference'),
         'diameter'           => get_field('diameter'),
+        'dimensions'         => get_field('dimensions'),
         'movement'           => get_field('movement'),
         'caliber'            => get_field('caliber'),
         'year'               => get_field('year'),
@@ -89,92 +90,6 @@ $context['breadcrumbs'] = array(
 // Affichage du template
 Timber::render('single-watch-new-layout.twig', $context);
 
-/**
- * ALTERNATIVE: Si vous préférez une classe controller
- */
-
-/*
-class SingleWatchController extends Timber\Post {
-    
-    public function __construct() {
-        parent::__construct();
-    }
-    
-    public function custom_fields() {
-        if (!function_exists('get_field')) {
-            return array();
-        }
-        
-        return array(
-            'price'              => get_field('price', $this->ID),
-            'reference'          => get_field('reference', $this->ID),
-            'diameter'           => get_field('diameter', $this->ID),
-            'movement'           => get_field('movement', $this->ID),
-            'caliber'            => get_field('caliber', $this->ID),
-            'year'               => get_field('year', $this->ID),
-            'case_material'      => get_field('case_material', $this->ID),
-            'availability'       => get_field('availability', $this->ID),
-            'availability_link'  => get_field('availability_link', $this->ID),
-        );
-    }
-    
-    public function images() {
-        if (!function_exists('get_field')) {
-            return array();
-        }
-        
-        $images = get_field('images', $this->ID);
-        return $images ?: array();
-    }
-    
-    public function formatted_price() {
-        $price = get_field('price', $this->ID);
-        if ($price) {
-            return number_format($price, 0, ',', ' ');
-        }
-        return null;
-    }
-    
-    public function similar_watches($limit = 4) {
-        $brands = wp_get_post_terms($this->ID, 'watch_brand', array('fields' => 'ids'));
-        
-        if (empty($brands)) {
-            return array();
-        }
-        
-        return Timber::get_posts(array(
-            'post_type'      => 'watch',
-            'posts_per_page' => $limit,
-            'post__not_in'   => array($this->ID),
-            'tax_query'      => array(
-                array(
-                    'taxonomy' => 'watch_brand',
-                    'field'    => 'term_id',
-                    'terms'    => $brands,
-                ),
-            ),
-        ));
-    }
-}
-
-// Utilisation de la classe
-$context = Timber::context();
-$context['post'] = new SingleWatchController();
-$context['interest'] = array(
-    'url'   => home_url('/contact'),
-    'label' => 'Je suis intéressé',
-);
-$context['watches'] = array(
-    'url'   => get_post_type_archive_link('watch'),
-    'label' => 'Retour aux montres',
-);
-Timber::render('single-watch-new-layout.twig', $context);
-*/
-
-/**
- * HOOKS SUPPLÉMENTAIRES
- */
-
 // Modifier le contexte global Timber
 add_filter('timber/context', function($context) {
     // Ajouter des données globales ici
@@ -201,39 +116,3 @@ add_filter('timber/twig', function($twig) {
     
     return $twig;
 });
-
-/**
- * EXEMPLE DE DONNÉES FICTIVES POUR TESTER
- * (À utiliser uniquement en développement)
- */
-
-/*
-function get_fake_watch_data() {
-    return array(
-        'ID' => 123,
-        'title' => 'ROLEX DATEJUST - 71\'',
-        'content' => 'La Rolex Datejust 1601, apparue en 1959, est l\'une des montres haut de gamme les plus connues et répandues...',
-        'custom_fields' => array(
-            'price' => 6200,
-            'reference' => 'Rolex Datejust 1601',
-            'diameter' => '36 mm',
-            'movement' => 'Automatique',
-            'caliber' => 'Rolex 1570',
-            'year' => 1971,
-            'case_material' => 'Acier',
-            'availability' => '28 rue Madame',
-            'availability_link' => '/contact',
-        ),
-        'images' => array(
-            array(
-                'url' => 'https://via.placeholder.com/800x800',
-                'alt' => 'Rolex Datejust vue 1',
-            ),
-            array(
-                'url' => 'https://via.placeholder.com/800x800',
-                'alt' => 'Rolex Datejust vue 2',
-            ),
-        ),
-    );
-}
-*/
