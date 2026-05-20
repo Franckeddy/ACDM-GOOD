@@ -122,8 +122,8 @@ if ( class_exists( 'Timber' ) ) {
 			wp_enqueue_style( 'lightbox', get_template_directory_uri() . '/assets/styles/vendor/lightbox.min.css' );
 			//SWIPER
 			wp_enqueue_style( 'swiper', get_template_directory_uri() . '/assets/styles/vendor/swiper-bundle.min.css' );
-			// CUSTOM STYLES
-			wp_enqueue_style( 'style', get_template_directory_uri() . '/assets/styles/style.css' );
+			// CUSTOM STYLES (filemtime pour cache-busting auto a chaque modification)
+			wp_enqueue_style( 'style', get_template_directory_uri() . '/assets/styles/style.css', array(), filemtime( get_template_directory() . '/assets/styles/style.css' ) );
 		}
 		public function register_scripts() {
 			// POOLYFILL FOR IE
@@ -133,6 +133,7 @@ if ( class_exists( 'Timber' ) ) {
 			wp_enqueue_script( 'vendor', get_template_directory_uri() . '/assets/js/vendor.js' );
 			wp_enqueue_script( 'swiper', get_template_directory_uri() . '/assets/js/vendor/swiper-bundle.min.js', array(), false, true );
 			wp_enqueue_script( 'lightbox', get_template_directory_uri() . '/assets/js/vendor/lightbox.js', array(), false, true );
+			wp_enqueue_script( 'lightbox-close-position', get_template_directory_uri() . '/assets/js/custom/lightbox-close-position.js', array('lightbox'), filemtime( get_template_directory() . '/assets/js/custom/lightbox-close-position.js' ), true );
 
 			// ✅ NAVIGATION WATCHES (autonome)
     		wp_enqueue_script( 'watches-nav', get_template_directory_uri() . '/assets/js/custom/watches-navigation.js', array(), '1.0.0', true );

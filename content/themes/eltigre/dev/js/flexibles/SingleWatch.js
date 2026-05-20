@@ -1,17 +1,8 @@
 const jQuery = require('jquery');
 
-(function ($) {
-  const lightbox = require('lightbox2');
-  lightbox.option({
-    'alwaysShowNavOnTouchDevices': true,
-    'resizeDuration': 450,
-    'wrapAround': true,
-    'disableScrolling': true,
-    'fitImagesInViewport': true,
-    'albumLabel': "Photo %1 sur %2",
-    'positionFromTop': 0
-  });
-})(jQuery);
+// NOTE: lightbox2 est deja charge en standalone via wp_enqueue_script('lightbox', ...)
+// dans functions.php. On le retire ici pour eviter le doublon d'instance qui crashait
+// (`$lightbox is undefined`). Les options par defaut de la lib sont utilisees.
 
 import { TweenLite, TweenMax, TimelineLite } from "gsap";
 import { SCROLLMAGIC_CONTROLLER } from '../constants/constants';
